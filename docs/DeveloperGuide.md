@@ -344,7 +344,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   - 1a1. GreyBook shows an error message.
 - 1b. The arguments do not follow the correct format.
   - 1b1. GreyBook shows an error message.
-- 1c. Another member in the list shares a unique field, such as name or studentID
+- 1c. Another member in the list shares the same studentID
   - 1c1. GreyBook shows an error message.
     Use case resumes at step 2.
 
