@@ -13,13 +13,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### John Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/mug1wara26.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](https://aloysius.dev)]
+[[github](https://github.com/mug1wara26)]
 
-* Role: Project Advisor
+* Role: Developer
+* Responsibilites: Features
+
 
 ### Jane Doe
 
@@ -31,24 +32,17 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Chua Che Khai
 
-<img src="images/johndoe.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+<img src="images/ckhai01.png" width="200px">
 
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/ckhai01)]
+[[portfolio](team/chekhai.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Features
+
 
 ### Wu Yuewei
 
@@ -59,3 +53,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Features + UI
+
+
+### Lyris Ng
+
+<img src="images/sirylcereal.png" width="200px">
+
+[[github](http://github.com/sirylcereal)]
+[[portfolio](team/lyrisng.md)]
+
+* Role: Developer
+* Responsibilities: Features
