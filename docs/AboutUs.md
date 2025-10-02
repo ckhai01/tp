@@ -11,15 +11,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Aloysius Goo
 
 <img src="images/mug1wara26.png" width="200px">
 
 [[homepage](https://aloysius.dev)]
 [[github](https://github.com/mug1wara26)]
 
-* Role: Developer
-* Responsibilites: Features
+- Role: Developer
+- Responsibilites: Features
 
 
 ### Jane Doe
@@ -29,8 +29,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/johndoe)]
 [[portfolio](team/johndoe.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+- Role: Team Lead
+- Responsibilities: UI
 
 ### Chua Che Khai
 
@@ -40,8 +40,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/ckhai01)]
 [[portfolio](team/chekhai.md)]
 
-* Role: Developer
-* Responsibilities: Features
+- Role: Developer
+- Responsibilities: Features
 
 
 ### Wu Yuewei
@@ -62,5 +62,5 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/sirylcereal)]
 [[portfolio](team/lyrisng.md)]
 
-* Role: Developer
-* Responsibilities: Features
+- Role: Developer
+- Responsibilities: Features
