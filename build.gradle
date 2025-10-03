@@ -4,6 +4,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'application'
     id 'jacoco'
+    id("com.diffplug.spotless") version "7.2.1"
 }
 
 mainClassName = 'seedu.address.Main'
@@ -63,6 +64,17 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+}
+
+spotless {
+  java {
+    cleanthat()
+    eclipse().configFile("./config/eclipse-formatter.xml")
+    importOrder("java.", "javax.", "org.", "com.", "")
+    removeUnusedImports()
+    formatAnnotations()
+    trimTrailingWhitespace()
+  }
 }
 
 shadowJar {

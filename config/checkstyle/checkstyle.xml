@@ -335,11 +335,6 @@
       <property name="tokens" value="DOT, AT"/>
       <property name="option" value="nl"/>
     </module>
-    <module name="SeparatorWrap">
-      <!-- Checks that the ",", "]", "[", "...", ";", "(" is at the previous end of line in a line wrap. -->
-      <property name="tokens" value="COMMA, RBRACK, ARRAY_DECLARATOR, ELLIPSIS, SEMI, LPAREN"/>
-      <property name="option" value="eol"/>
-    </module>
 
     <module name="Indentation">
       <property name="caseIndent" value="0" />

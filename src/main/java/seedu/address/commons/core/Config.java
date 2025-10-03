@@ -57,9 +57,7 @@ public class Config {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("logLevel", logLevel)
-                .add("userPrefsFilePath", userPrefsFilePath)
+        return new ToStringBuilder(this).add("logLevel", logLevel).add("userPrefsFilePath", userPrefsFilePath)
                 .toString();
     }
 
