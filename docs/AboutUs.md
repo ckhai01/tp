@@ -67,7 +67,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Lee Kai Xuan
 
-<img src="images/TheMythologist.png" width="200px">
+<img src="images/themythologist.png" width="200px">
 
 [[github](https://github.com/TheMythologist)]
 [[portfolio](team/leekaixuan.md)]
