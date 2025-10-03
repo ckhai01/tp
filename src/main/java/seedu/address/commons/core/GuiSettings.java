@@ -7,8 +7,7 @@ import java.util.Objects;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * A Serializable class that contains the GUI settings.
- * Guarantees: immutable.
+ * A Serializable class that contains the GUI settings. Guarantees: immutable.
  */
 public class GuiSettings implements Serializable {
 
@@ -29,7 +28,8 @@ public class GuiSettings implements Serializable {
     }
 
     /**
-     * Constructs a {@code GuiSettings} with the specified height, width and position.
+     * Constructs a {@code GuiSettings} with the specified height, width and
+     * position.
      */
     public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
         this.windowWidth = windowWidth;
@@ -61,9 +61,8 @@ public class GuiSettings implements Serializable {
         }
 
         GuiSettings otherGuiSettings = (GuiSettings) other;
-        return windowWidth == otherGuiSettings.windowWidth
-                && windowHeight == otherGuiSettings.windowHeight
-                && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates);
+        return windowWidth == otherGuiSettings.windowWidth && windowHeight == otherGuiSettings.windowHeight
+            && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates);
     }
 
     @Override
@@ -73,10 +72,7 @@ public class GuiSettings implements Serializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("windowWidth", windowWidth)
-                .add("windowHeight", windowHeight)
-                .add("windowCoordinates", windowCoordinates)
-                .toString();
+        return new ToStringBuilder(this).add("windowWidth", windowWidth).add("windowHeight", windowHeight)
+            .add("windowCoordinates", windowCoordinates).toString();
     }
 }
