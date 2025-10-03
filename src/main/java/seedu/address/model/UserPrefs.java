@@ -70,7 +70,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         UserPrefs otherUserPrefs = (UserPrefs) other;
         return guiSettings.equals(otherUserPrefs.guiSettings)
-            && addressBookFilePath.equals(otherUserPrefs.addressBookFilePath);
+                && addressBookFilePath.equals(otherUserPrefs.addressBookFilePath);
     }
 
     @Override

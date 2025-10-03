@@ -95,7 +95,7 @@ public class JsonAddressBookStorageTest {
     private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
         try {
             new JsonAddressBookStorage(Paths.get(filePath)).saveAddressBook(addressBook,
-                addToTestDataPathIfNotNull(filePath));
+                    addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

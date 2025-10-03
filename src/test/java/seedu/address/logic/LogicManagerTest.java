@@ -45,8 +45,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(
-            temporaryFolder.resolve("addressBook.json"));
+        JsonAddressBookStorage addressBookStorage =
+                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -73,13 +73,13 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         assertCommandFailureForExceptionFromStorage(DUMMY_IO_EXCEPTION,
-            String.format(LogicManager.FILE_OPS_ERROR_FORMAT, DUMMY_IO_EXCEPTION.getMessage()));
+                String.format(LogicManager.FILE_OPS_ERROR_FORMAT, DUMMY_IO_EXCEPTION.getMessage()));
     }
 
     @Test
     public void execute_storageThrowsAdException_throwsCommandException() {
         assertCommandFailureForExceptionFromStorage(DUMMY_AD_EXCEPTION,
-            String.format(LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
+                String.format(LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
     }
 
     @Test
@@ -92,11 +92,11 @@ public class LogicManagerTest {
      * - the feedback message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in
      * {@code expectedModel} <br>
-     * 
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage, Model expectedModel)
-        throws CommandException, ParseException {
+            throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -105,7 +105,7 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that a ParseException is thrown and that the
      * result message is correct.
-     * 
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
@@ -115,7 +115,7 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that a CommandException is thrown and that the
      * result message is correct.
-     * 
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
@@ -125,11 +125,11 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that the exception is thrown and that the
      * result message is correct.
-     * 
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-        String expectedMessage) {
+            String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
@@ -140,11 +140,11 @@ public class LogicManagerTest {
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in
      * {@code expectedModel} <br>
-     * 
+     *
      * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-        String expectedMessage, Model expectedModel) {
+            String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
@@ -171,15 +171,15 @@ public class LogicManagerTest {
             }
         };
 
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(
-            temporaryFolder.resolve("ExceptionUserPrefs.json"));
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
 
         // Triggers the saveAddressBook method by executing an add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-            + ADDRESS_DESC_AMY;
+        String addCommand =
+                AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

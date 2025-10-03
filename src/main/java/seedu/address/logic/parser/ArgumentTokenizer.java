@@ -48,7 +48,7 @@ public class ArgumentTokenizer {
      */
     private static List<PrefixPosition> findAllPrefixPositions(String argsString, Prefix... prefixes) {
         return Arrays.stream(prefixes).flatMap(prefix -> findPrefixPositions(argsString, prefix).stream())
-            .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     /**
@@ -128,7 +128,7 @@ public class ArgumentTokenizer {
      * by {@code nextPrefixPosition}.
      */
     private static String extractArgumentValue(String argsString, PrefixPosition currentPrefixPosition,
-        PrefixPosition nextPrefixPosition) {
+            PrefixPosition nextPrefixPosition) {
         Prefix prefix = currentPrefixPosition.getPrefix();
 
         int valueStartPos = currentPrefixPosition.getStartPosition() + prefix.getPrefix().length();

@@ -131,7 +131,7 @@ public class VersionTest {
     }
 
     private void verifyVersionParsedCorrectly(String versionString, int major, int minor, int patch,
-        boolean isEarlyAccess) {
+            boolean isEarlyAccess) {
         assertEquals(new Version(major, minor, patch, isEarlyAccess), Version.fromString(versionString));
     }
 }

@@ -62,7 +62,7 @@ public class GuiSettings implements Serializable {
 
         GuiSettings otherGuiSettings = (GuiSettings) other;
         return windowWidth == otherGuiSettings.windowWidth && windowHeight == otherGuiSettings.windowHeight
-            && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates);
+                && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates);
     }
 
     @Override
@@ -73,6 +73,6 @@ public class GuiSettings implements Serializable {
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("windowWidth", windowWidth).add("windowHeight", windowHeight)
-            .add("windowCoordinates", windowCoordinates).toString();
+                .add("windowCoordinates", windowCoordinates).toString();
     }
 }

@@ -16,13 +16,13 @@ public class StringUtil {
      * Returns true if the {@code sentence} contains the {@code word}. Ignores case,
      * but a full word match is required. <br>
      * examples:
-     * 
+     *
      * <pre>
      *       containsWordIgnoreCase("ABc def", "abc") == true
      *       containsWordIgnoreCase("ABc def", "DEF") == true
      *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
      * </pre>
-     * 
+     *
      * @param sentence
      *            cannot be null
      * @param word
@@ -58,7 +58,7 @@ public class StringUtil {
      * Will return false for any other non-null string input e.g. empty string,
      * "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a"
      * (contains letters)
-     * 
+     *
      * @throws NullPointerException
      *             if {@code s} is null.
      */

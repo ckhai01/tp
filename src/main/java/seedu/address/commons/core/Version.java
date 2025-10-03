@@ -50,7 +50,7 @@ public class Version implements Comparable<Version> {
 
     /**
      * Parses a version number string in the format V1.2.3.
-     * 
+     *
      * @param versionString
      *            version number string
      * @return a Version object
@@ -64,7 +64,7 @@ public class Version implements Comparable<Version> {
         }
 
         return new Version(Integer.parseInt(versionMatcher.group(1)), Integer.parseInt(versionMatcher.group(2)),
-            Integer.parseInt(versionMatcher.group(3)), versionMatcher.group(4) == null ? false : true);
+                Integer.parseInt(versionMatcher.group(3)), versionMatcher.group(4) == null ? false : true);
     }
 
     @JsonValue
@@ -105,7 +105,7 @@ public class Version implements Comparable<Version> {
 
         Version otherVersion = (Version) other;
         return major == otherVersion.major && minor == otherVersion.minor && patch == otherVersion.patch
-            && isEarlyAccess == otherVersion.isEarlyAccess;
+                && isEarlyAccess == otherVersion.isEarlyAccess;
     }
 
     @Override

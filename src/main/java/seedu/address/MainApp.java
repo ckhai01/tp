@@ -83,12 +83,12 @@ public class MainApp extends Application {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getAddressBookFilePath()
-                    + " populated with a sample AddressBook.");
+                        + " populated with a sample AddressBook.");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
-                + " Will be starting with an empty AddressBook.");
+                    + " Will be starting with an empty AddressBook.");
             initialData = new AddressBook();
         }
 
@@ -124,8 +124,8 @@ public class MainApp extends Application {
             }
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataLoadingException e) {
-            logger.warning(
-                "Config file at " + configFilePathUsed + " could not be loaded." + " Using default config properties.");
+            logger.warning("Config file at " + configFilePathUsed + " could not be loaded."
+                    + " Using default config properties.");
             initializedConfig = new Config();
         }
 
@@ -157,7 +157,7 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataLoadingException e) {
             logger.warning(
-                "Preference file at " + prefsFilePath + " could not be loaded." + " Using default preferences.");
+                    "Preference file at " + prefsFilePath + " could not be loaded." + " Using default preferences.");
             initializedPrefs = new UserPrefs();
         }
 

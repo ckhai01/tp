@@ -30,13 +30,13 @@ public class JsonUtil {
 
     private static final Logger logger = LogsCenter.getLogger(JsonUtil.class);
 
-    private static ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules()
-        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
-        .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
-        .registerModule(new SimpleModule("SimpleModule").addSerializer(Level.class, new ToStringSerializer())
-            .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
+    private static ObjectMapper objectMapper =
+            new ObjectMapper().findAndRegisterModules().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                    .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
+                    .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY).registerModule(
+                            new SimpleModule("SimpleModule").addSerializer(Level.class, new ToStringSerializer())
+                                    .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
 
     static <T> void serializeObjectToJsonFile(Path jsonFile, T objectToSerialize) throws IOException {
         FileUtil.writeToFile(jsonFile, toJsonString(objectToSerialize));
@@ -60,7 +60,7 @@ public class JsonUtil {
      *             if loading of the JSON file failed.
      */
     public static <T> Optional<T> readJsonFile(Path filePath, Class<T> classOfObjectToDeserialize)
-        throws DataLoadingException {
+            throws DataLoadingException {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
@@ -83,7 +83,7 @@ public class JsonUtil {
     /**
      * Saves the Json object to the specified file. Overwrites existing file if it
      * exists, creates a new file if it doesn't.
-     * 
+     *
      * @param jsonFile
      *            cannot be null
      * @param filePath
@@ -100,7 +100,7 @@ public class JsonUtil {
 
     /**
      * Converts a given string representation of a JSON data to instance of a class
-     * 
+     *
      * @param <T>
      *            The generic type to create an instance of
      * @return The instance of T with the specified values in the JSON string
@@ -111,7 +111,7 @@ public class JsonUtil {
 
     /**
      * Converts a given instance of a class into its JSON data string representation
-     * 
+     *
      * @param instance
      *            The T object to be converted into the JSON string
      * @param <T>
