@@ -68,7 +68,6 @@ dependencies {
 
 spotless {
   java {
-    targetExclude('src/test/**/*.java')
     cleanthat()
     eclipse().configFile("./config/eclipse-formatter.xml")
     importOrder("java.", "javax.", "org.", "com.", "")
