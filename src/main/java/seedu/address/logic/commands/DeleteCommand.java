@@ -8,6 +8,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ArgumentParseResult;
+import seedu.address.logic.parser.Flag;
+import seedu.address.logic.parser.Flag.FlagOption;
+import seedu.address.logic.parser.GreyBookParser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -24,16 +29,20 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
-    private final Index targetIndex;
+    private Index targetIndex;
+    private final Flag<Index> indexFlag = Flag.of("INDEX", FlagOption.SINGLE_PREAMBLE, ParserUtil::parseIndex);
 
-    public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    @Override
+    public void addToParser(GreyBookParser parser) {
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addFlags(indexFlag);
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+
+        targetIndex = arg.getValue(indexFlag);
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

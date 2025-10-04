@@ -119,6 +119,18 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    public static Tag parseTagAllowEmpty(String tag) throws ParseException {
+        requireNonNull(tag);
+        String trimmedTag = tag.trim();
+        if (trimmedTag.isEmpty()) {
+            return new Tag();
+        }
+        if (!Tag.isValidTagName(trimmedTag)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Tag(trimmedTag);
+    }
+
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */

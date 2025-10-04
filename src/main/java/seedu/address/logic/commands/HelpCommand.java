@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ArgumentParseResult;
+import seedu.address.logic.parser.GreyBookParser;
 import seedu.address.model.Model;
 
 /**
@@ -15,7 +18,12 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(Model model) {
+    public void addToParser(GreyBookParser parser) {
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this);
+    }
+
+    @Override
+    public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }

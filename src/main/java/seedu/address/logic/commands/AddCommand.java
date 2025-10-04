@@ -7,11 +7,23 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Set;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ArgumentParseResult;
+import seedu.address.logic.parser.Flag;
+import seedu.address.logic.parser.Flag.FlagOption;
+import seedu.address.logic.parser.GreyBookParser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -29,19 +41,32 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Person toAdd;
+    private final Flag<Name> nameFlag = Flag.of(PREFIX_NAME, "NAME", FlagOption.REQUIRED, ParserUtil::parseName);
+    private final Flag<Phone> phoneFlag = Flag.of(PREFIX_PHONE, "PHONE", FlagOption.REQUIRED, ParserUtil::parsePhone);
+    private final Flag<Email> emailFlag = Flag.of(PREFIX_EMAIL, "EMAIL", FlagOption.REQUIRED, ParserUtil::parseEmail);
+    private final Flag<Address> addressFlag =
+            Flag.of(PREFIX_ADDRESS, "ADDRESS", FlagOption.REQUIRED, ParserUtil::parseAddress);
+    private final Flag<Tag> tagFlag = Flag.of(PREFIX_TAG, "TAG", FlagOption.ZERO_OR_MORE, ParserUtil::parseTag);
 
-    /**
-     * Creates an AddCommand to add the specified {@code Person}
-     */
+    private Person toAdd;
+
+    public AddCommand() {
+    }
+
     public AddCommand(Person person) {
-        requireNonNull(person);
         toAdd = person;
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public void addToParser(GreyBookParser parser) {
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addFlags(nameFlag, phoneFlag, emailFlag, addressFlag,
+                tagFlag);
+    }
+
+    public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
+
+        toAdd = new Person(arg.getValue(nameFlag), arg.getValue(phoneFlag), arg.getValue(emailFlag),
+                arg.getValue(addressFlag), Set.copyOf(arg.getAllValues(tagFlag)));
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

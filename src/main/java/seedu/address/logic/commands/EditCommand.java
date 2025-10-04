@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +21,11 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ArgumentParseResult;
+import seedu.address.logic.parser.Flag;
+import seedu.address.logic.parser.Flag.FlagOption;
+import seedu.address.logic.parser.GreyBookParser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -47,26 +53,63 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
-    private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private Index index;
+    private EditPersonDescriptor editPersonDescriptor;
 
-    /**
-     * @param index
-     *            of the person in the filtered person list to edit
-     * @param editPersonDescriptor
-     *            details to edit the person with
-     */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+    private final Flag<Index> indexFlag = Flag.of("INDEX", FlagOption.SINGLE_PREAMBLE, ParserUtil::parseIndex);
+    private final Flag<Name> nameFlag = Flag.of(PREFIX_NAME, "NAME", FlagOption.OPTIONAL, ParserUtil::parseName);
+    private final Flag<Phone> phoneFlag = Flag.of(PREFIX_PHONE, "PHONE", FlagOption.OPTIONAL, ParserUtil::parsePhone);
+    private final Flag<Email> emailFlag = Flag.of(PREFIX_EMAIL, "EMAIL", FlagOption.OPTIONAL, ParserUtil::parseEmail);
+    private final Flag<Address> addressFlag =
+            Flag.of(PREFIX_ADDRESS, "ADDRESS", FlagOption.OPTIONAL, ParserUtil::parseAddress);
+    private final Flag<Tag> tagFlag =
+            Flag.of(PREFIX_TAG, "TAG", FlagOption.ZERO_OR_MORE, ParserUtil::parseTagAllowEmpty);
 
-        this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+    @Override
+    public void addToParser(GreyBookParser parser) {
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addFlags(indexFlag, nameFlag, phoneFlag, emailFlag,
+                addressFlag, tagFlag);
+    }
+
+    private Optional<Set<Tag>> parseTagsForEdit(Collection<Tag> tags) {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Collection<Tag> tagSet = tags.size() == 1 && tags.stream().anyMatch(tag -> tag.tagName.equals(""))
+                ? Collections.emptySet()
+                : tags;
+        return Optional.of(Set.copyOf(tagSet));
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
+
+        index = arg.getValue(indexFlag);
+
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+
+        if (arg.getOptionalValue(nameFlag).isPresent()) {
+            editPersonDescriptor.setName(arg.getValue(nameFlag));
+        }
+        if (arg.getOptionalValue(phoneFlag).isPresent()) {
+            editPersonDescriptor.setPhone(arg.getValue(phoneFlag));
+        }
+        if (arg.getOptionalValue(emailFlag).isPresent()) {
+            editPersonDescriptor.setEmail(arg.getValue(emailFlag));
+        }
+        if (arg.getOptionalValue(addressFlag).isPresent()) {
+            editPersonDescriptor.setAddress(arg.getValue(addressFlag));
+        }
+        parseTagsForEdit(arg.getAllValues(tagFlag)).ifPresent(editPersonDescriptor::setTags);
+
+        if (!editPersonDescriptor.isAnyFieldEdited()) {
+            throw new CommandException(EditCommand.MESSAGE_NOT_EDITED);
+        }
+
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
