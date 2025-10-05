@@ -10,8 +10,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public abstract class CommandOption<T> implements Option<T> {
 
-    private Prefix prefix;
+    /** The parser associated with this command */
     protected ArgumentParser<T> parser;
+    private Prefix prefix;
     private String name;
 
     protected CommandOption(Prefix prefix, String name, ArgumentParser<T> parser) {

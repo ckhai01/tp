@@ -3,7 +3,7 @@ package seedu.address.logic.commands.stubs;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.logic.parser.commandoption.MultipleOption;
+import seedu.address.logic.parser.commandoption.Option;
 
 public class FindPersonArgumentParseResultStub extends ArgumentParseResultStub {
     private List<String> keywords;
@@ -15,7 +15,7 @@ public class FindPersonArgumentParseResultStub extends ArgumentParseResultStub {
 
     // This stub should only be called with a flag to get the list of keywords
     @Override
-    public <T> List<T> getAllValues(MultipleOption<T> flag) {
+    public <T> List<T> getAllValues(Option<T> flag) {
         @SuppressWarnings("unchecked")
         List<T> ret = (List<T>) keywords;
         return ret;

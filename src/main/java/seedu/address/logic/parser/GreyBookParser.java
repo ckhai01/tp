@@ -14,6 +14,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Stores commands and parses user input
+ */
 public class GreyBookParser {
     /** A map between a command name and its {@link Command} class */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
@@ -37,10 +40,28 @@ public class GreyBookParser {
         return cp;
     }
 
-    public Command getCommand(String name) {
-        return commands.get(name).getCommand();
+    /**
+     * Returns the command associated with the command word
+     *
+     * @param word
+     *            The word to activate the command
+     * @return The command object associated with the word
+     */
+    public Command getCommand(String word) {
+        return commands.get(word).getCommand();
     }
 
+    /**
+     * Parses the whole user input and checks whether it is a valid command
+     *
+     * @param userInput
+     *            The input from the user
+     * @return A {@link ArgumentParseResult} if successfully parsed, storing the
+     *         objects associated with the options for this command
+     * @throws A
+     *             {@link ParseException} if the user input does not conform to the
+     *             format defined by the command
+     */
     public ArgumentParseResult parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {

@@ -13,7 +13,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.parser.commandoption.MultipleOption;
+import seedu.address.logic.parser.commandoption.Option;
 import seedu.address.logic.parser.commandoption.OptionalOption;
 import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.model.tag.Tag;
@@ -59,7 +59,7 @@ public class EditPersonArgumentParseResultStub extends ArgumentParseResultStub {
 
     // Can only be called for tag flag
     @Override
-    public <T> List<T> getAllValues(MultipleOption<T> flag) {
+    public <T> List<T> getAllValues(Option<T> flag) {
         @SuppressWarnings("unchecked")
         List<T> ret = (List<T>) new ArrayList<>(
                 descriptor.getTags().isPresent() ? (descriptor.getTags().get().isEmpty() ? List.of(new Tag())

@@ -17,6 +17,10 @@ import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.logic.parser.commandoption.SinglePreambleOption;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Stores the options associated with its command and handles parsing arguments
+ * under their respective options.
+ */
 public class CommandParser {
     private List<Option<?>> options = new ArrayList<>();
     private String messageUsage;
@@ -31,6 +35,9 @@ public class CommandParser {
         return command;
     }
 
+    /**
+     * Adds the options to this parser, do not add duplicate options
+     */
     public CommandParser addOptions(Option<?>... options) {
         for (Option<?> option : options) {
             this.options.add(option);
@@ -38,11 +45,30 @@ public class CommandParser {
         return this;
     }
 
+    /**
+     * Adds the option to this parser, do not add duplicate options
+     */
     public CommandParser addOption(Option<?> option) {
         options.add(option);
         return this;
     }
 
+    /**
+     * Does most of the parsing, finds which arguments are associated with which
+     * options and parses them accordingly. Also makes sure the user input obeys the
+     * correct format as defined by the options
+     *
+     * @param arguments
+     *            The argument portion of the user input.
+     * @returns A {@link ArgumentParseResult} if successfully parsed
+     * @throws ParseException
+     *             If the user input does not obey the format defined by the
+     *             options. This usually falls under one of three cases: <br/>
+     *             1. There are duplicate prefixes when there should not be <br/>
+     *             2. Required options are not present <br/>
+     *             3. The input is not formatted correctly as defined by the
+     *             {@link ArgumentParser}
+     */
     public ArgumentParseResult parse(String arguments) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, getPrefixOptions());
 
