@@ -119,6 +119,14 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    /**
+     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing
+     * whitespaces will be trimmed. Return an empty tag if the input string is
+     * empty.
+     *
+     * @throws ParseException
+     *             if the given {@code tag} is invalid.
+     */
     public static Tag parseTagAllowEmpty(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
