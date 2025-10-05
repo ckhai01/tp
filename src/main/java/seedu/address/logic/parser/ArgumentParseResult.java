@@ -7,35 +7,37 @@ import java.util.Optional;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.commandoption.MultipleOption;
+import seedu.address.logic.parser.commandoption.Option;
+import seedu.address.logic.parser.commandoption.OptionalOption;
+import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.model.Model;
 
-// We know that all required and one_or_more flags exist in the ArgumentMultimap
-// We also know that there are no duplicates for required
 public class ArgumentParseResult {
-    private Map<Flag<?>, List<?>> flagArgumentToResult;
+    private Map<Option<?>, List<?>> optionArgumentToResult;
     private Command command;
 
-    public ArgumentParseResult(Command command, Map<Flag<?>, List<?>> map) {
-        flagArgumentToResult = map;
+    public ArgumentParseResult(Command command, Map<Option<?>, List<?>> map) {
+        optionArgumentToResult = map;
         this.command = command;
     }
 
     // Cannot call with Optional or Zero or more
-    public <T> T getValue(Flag<T> flag) {
+    public <T> T getValue(RequiredOption<T> option) {
         @SuppressWarnings("unchecked")
-        List<T> values = (List<T>) flagArgumentToResult.get(flag);
+        List<T> values = (List<T>) optionArgumentToResult.get(option);
         return values.get(values.size() - 1);
     }
 
-    public <T> Optional<T> getOptionalValue(Flag<T> flag) {
+    public <T> Optional<T> getOptionalValue(OptionalOption<T> option) {
         @SuppressWarnings("unchecked")
-        List<T> values = (List<T>) flagArgumentToResult.get(flag);
+        List<T> values = (List<T>) optionArgumentToResult.get(option);
         return values == null || values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
     }
 
-    public <T> List<T> getAllValues(Flag<T> flag) {
+    public <T> List<T> getAllValues(MultipleOption<T> option) {
         @SuppressWarnings("unchecked")
-        List<T> values = (List<T>) flagArgumentToResult.get(flag);
+        List<T> values = (List<T>) optionArgumentToResult.get(option);
         return values == null || values.isEmpty() ? List.of() : values;
     }
 

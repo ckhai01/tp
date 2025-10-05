@@ -12,10 +12,10 @@ import java.util.Set;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentParseResult;
-import seedu.address.logic.parser.Flag;
-import seedu.address.logic.parser.Flag.FlagOption;
 import seedu.address.logic.parser.GreyBookParser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.commandoption.RequiredPrefixOption;
+import seedu.address.logic.parser.commandoption.ZeroOrMorePrefixOption;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -40,17 +40,21 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Flag<Name> nameFlag = Flag.of(PREFIX_NAME, "NAME", FlagOption.REQUIRED, ParserUtil::parseName);
-    private final Flag<Phone> phoneFlag = Flag.of(PREFIX_PHONE, "PHONE", FlagOption.REQUIRED, ParserUtil::parsePhone);
-    private final Flag<Email> emailFlag = Flag.of(PREFIX_EMAIL, "EMAIL", FlagOption.REQUIRED, ParserUtil::parseEmail);
-    private final Flag<Address> addressFlag =
-            Flag.of(PREFIX_ADDRESS, "ADDRESS", FlagOption.REQUIRED, ParserUtil::parseAddress);
-    private final Flag<Tag> tagFlag = Flag.of(PREFIX_TAG, "TAG", FlagOption.ZERO_OR_MORE, ParserUtil::parseTag);
+    private final RequiredPrefixOption<Name> nameOption =
+            RequiredPrefixOption.of(PREFIX_NAME, "NAME", ParserUtil::parseName);
+    private final RequiredPrefixOption<Phone> phoneOption =
+            RequiredPrefixOption.of(PREFIX_PHONE, "PHONE", ParserUtil::parsePhone);
+    private final RequiredPrefixOption<Email> emailOption =
+            RequiredPrefixOption.of(PREFIX_EMAIL, "EMAIL", ParserUtil::parseEmail);
+    private final RequiredPrefixOption<Address> addressOption =
+            RequiredPrefixOption.of(PREFIX_ADDRESS, "ADDRESS", ParserUtil::parseAddress);
+    private final ZeroOrMorePrefixOption<Tag> tagOption =
+            ZeroOrMorePrefixOption.of(PREFIX_TAG, "TAG", ParserUtil::parseTag);
 
     @Override
     public void addToParser(GreyBookParser parser) {
-        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addFlags(nameFlag, phoneFlag, emailFlag, addressFlag,
-                tagFlag);
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(nameOption, phoneOption, emailOption,
+                addressOption, tagOption);
     }
 
     @Override
@@ -69,7 +73,8 @@ public class AddCommand extends Command {
 
     @Override
     public Person getParseResult(ArgumentParseResult argResult) {
-        return new Person(argResult.getValue(nameFlag), argResult.getValue(phoneFlag), argResult.getValue(emailFlag),
-                argResult.getValue(addressFlag), Set.copyOf(argResult.getAllValues(tagFlag)));
+        return new Person(argResult.getValue(nameOption), argResult.getValue(phoneOption),
+                argResult.getValue(emailOption), argResult.getValue(addressOption),
+                Set.copyOf(argResult.getAllValues(tagOption)));
     }
 }

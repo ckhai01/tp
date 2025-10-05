@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.stubs;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.parser.Flag;
+import seedu.address.logic.parser.commandoption.RequiredOption;
 
 public class DeletePersonArgumentParseResultStub extends ArgumentParseResultStub {
     private Index index;
@@ -13,7 +13,7 @@ public class DeletePersonArgumentParseResultStub extends ArgumentParseResultStub
 
     @Override
     // This stub should only be called with a flag to get the index
-    public <T> T getValue(Flag<T> flag) {
+    public <T> T getValue(RequiredOption<T> flag) {
         @SuppressWarnings("unchecked")
         T ret = (T) index;
         return ret;

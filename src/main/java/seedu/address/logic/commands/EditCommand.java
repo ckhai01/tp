@@ -22,10 +22,11 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentParseResult;
-import seedu.address.logic.parser.Flag;
-import seedu.address.logic.parser.Flag.FlagOption;
 import seedu.address.logic.parser.GreyBookParser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.commandoption.OptionalPrefixOption;
+import seedu.address.logic.parser.commandoption.SinglePreambleOption;
+import seedu.address.logic.parser.commandoption.ZeroOrMorePrefixOption;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -53,19 +54,22 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
-    private final Flag<Index> indexFlag = Flag.of("INDEX", FlagOption.SINGLE_PREAMBLE, ParserUtil::parseIndex);
-    private final Flag<Name> nameFlag = Flag.of(PREFIX_NAME, "NAME", FlagOption.OPTIONAL, ParserUtil::parseName);
-    private final Flag<Phone> phoneFlag = Flag.of(PREFIX_PHONE, "PHONE", FlagOption.OPTIONAL, ParserUtil::parsePhone);
-    private final Flag<Email> emailFlag = Flag.of(PREFIX_EMAIL, "EMAIL", FlagOption.OPTIONAL, ParserUtil::parseEmail);
-    private final Flag<Address> addressFlag =
-            Flag.of(PREFIX_ADDRESS, "ADDRESS", FlagOption.OPTIONAL, ParserUtil::parseAddress);
-    private final Flag<Tag> tagFlag =
-            Flag.of(PREFIX_TAG, "TAG", FlagOption.ZERO_OR_MORE, ParserUtil::parseTagAllowEmpty);
+    private final SinglePreambleOption<Index> indexOption = SinglePreambleOption.of("INDEX", ParserUtil::parseIndex);
+    private final OptionalPrefixOption<Name> nameOption =
+            OptionalPrefixOption.of(PREFIX_NAME, "NAME", ParserUtil::parseName);
+    private final OptionalPrefixOption<Phone> phoneOption =
+            OptionalPrefixOption.of(PREFIX_PHONE, "PHONE", ParserUtil::parsePhone);
+    private final OptionalPrefixOption<Email> emailOption =
+            OptionalPrefixOption.of(PREFIX_EMAIL, "EMAIL", ParserUtil::parseEmail);
+    private final OptionalPrefixOption<Address> addressOption =
+            OptionalPrefixOption.of(PREFIX_ADDRESS, "ADDRESS", ParserUtil::parseAddress);
+    private final ZeroOrMorePrefixOption<Tag> tagOption =
+            ZeroOrMorePrefixOption.of(PREFIX_TAG, "TAG", ParserUtil::parseTagAllowEmpty);
 
     @Override
     public void addToParser(GreyBookParser parser) {
-        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addFlags(indexFlag, nameFlag, phoneFlag, emailFlag,
-                addressFlag, tagFlag);
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(indexOption, nameOption, phoneOption,
+                emailOption, addressOption, tagOption);
     }
 
     private Optional<Set<Tag>> parseTagsForEdit(Collection<Tag> tags) {
@@ -85,7 +89,7 @@ public class EditCommand extends Command {
     public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
 
-        Index index = arg.getValue(indexFlag);
+        Index index = arg.getValue(indexOption);
 
         EditPersonDescriptor editPersonDescriptor = getParseResult(arg);
 
@@ -115,19 +119,19 @@ public class EditCommand extends Command {
     public EditPersonDescriptor getParseResult(ArgumentParseResult argResult) {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
-        if (argResult.getOptionalValue(nameFlag).isPresent()) {
-            editPersonDescriptor.setName(argResult.getValue(nameFlag));
+        if (argResult.getOptionalValue(nameOption).isPresent()) {
+            editPersonDescriptor.setName(argResult.getOptionalValue(nameOption).get());
         }
-        if (argResult.getOptionalValue(phoneFlag).isPresent()) {
-            editPersonDescriptor.setPhone(argResult.getValue(phoneFlag));
+        if (argResult.getOptionalValue(phoneOption).isPresent()) {
+            editPersonDescriptor.setPhone(argResult.getOptionalValue(phoneOption).get());
         }
-        if (argResult.getOptionalValue(emailFlag).isPresent()) {
-            editPersonDescriptor.setEmail(argResult.getValue(emailFlag));
+        if (argResult.getOptionalValue(emailOption).isPresent()) {
+            editPersonDescriptor.setEmail(argResult.getOptionalValue(emailOption).get());
         }
-        if (argResult.getOptionalValue(addressFlag).isPresent()) {
-            editPersonDescriptor.setAddress(argResult.getValue(addressFlag));
+        if (argResult.getOptionalValue(addressOption).isPresent()) {
+            editPersonDescriptor.setAddress(argResult.getOptionalValue(addressOption).get());
         }
-        parseTagsForEdit(argResult.getAllValues(tagFlag)).ifPresent(editPersonDescriptor::setTags);
+        parseTagsForEdit(argResult.getAllValues(tagOption)).ifPresent(editPersonDescriptor::setTags);
 
         return editPersonDescriptor;
     }

@@ -8,7 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.logic.parser.Flag;
+import seedu.address.logic.parser.commandoption.MultipleOption;
+import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.model.person.Person;
 
 public class AddPersonArgumentParseResultStub extends ArgumentParseResultStub {
@@ -20,7 +21,7 @@ public class AddPersonArgumentParseResultStub extends ArgumentParseResultStub {
     }
 
     @Override
-    public <T> T getValue(Flag<T> flag) {
+    public <T> T getValue(RequiredOption<T> flag) {
         Object o = null;
         if (flag.getPrefix().equals(PREFIX_NAME)) {
             o = person.getName();
@@ -39,7 +40,7 @@ public class AddPersonArgumentParseResultStub extends ArgumentParseResultStub {
 
     // Can only be called for tag flag
     @Override
-    public <T> List<T> getAllValues(Flag<T> flag) {
+    public <T> List<T> getAllValues(MultipleOption<T> flag) {
         @SuppressWarnings("unchecked")
         List<T> ret = (List<T>) new ArrayList<>(person.getTags());
 

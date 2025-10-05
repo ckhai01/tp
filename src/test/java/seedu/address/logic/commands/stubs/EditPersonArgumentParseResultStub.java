@@ -13,7 +13,9 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.parser.Flag;
+import seedu.address.logic.parser.commandoption.MultipleOption;
+import seedu.address.logic.parser.commandoption.OptionalOption;
+import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.model.tag.Tag;
 
 public class EditPersonArgumentParseResultStub extends ArgumentParseResultStub {
@@ -28,21 +30,15 @@ public class EditPersonArgumentParseResultStub extends ArgumentParseResultStub {
 
     // Can only be called for index flag
     @Override
-    public <T> T getValue(Flag<T> flag) {
-        Object o = null;
-        if (flag.getPrefix().equals(PREFIX_EMPTY)) {
-            o = index;
-        } else {
-            o = getOptionalValue(flag).get();
-        }
+    public <T> T getValue(RequiredOption<T> flag) {
         @SuppressWarnings("unchecked")
-        T ret = (T) o;
+        T ret = (T) index;
 
         return ret;
     }
 
     @Override
-    public <T> Optional<T> getOptionalValue(Flag<T> flag) {
+    public <T> Optional<T> getOptionalValue(OptionalOption<T> flag) {
         Object o = null;
         if (flag.getPrefix().equals(PREFIX_NAME)) {
             o = descriptor.getName();
@@ -63,7 +59,7 @@ public class EditPersonArgumentParseResultStub extends ArgumentParseResultStub {
 
     // Can only be called for tag flag
     @Override
-    public <T> List<T> getAllValues(Flag<T> flag) {
+    public <T> List<T> getAllValues(MultipleOption<T> flag) {
         @SuppressWarnings("unchecked")
         List<T> ret = (List<T>) new ArrayList<>(
                 descriptor.getTags().isPresent() ? (descriptor.getTags().get().isEmpty() ? List.of(new Tag())

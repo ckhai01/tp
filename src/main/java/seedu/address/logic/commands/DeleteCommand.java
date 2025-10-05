@@ -8,10 +8,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentParseResult;
-import seedu.address.logic.parser.Flag;
-import seedu.address.logic.parser.Flag.FlagOption;
 import seedu.address.logic.parser.GreyBookParser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.commandoption.SinglePreambleOption;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -28,11 +27,11 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
-    private final Flag<Index> indexFlag = Flag.of("INDEX", FlagOption.SINGLE_PREAMBLE, ParserUtil::parseIndex);
+    private final SinglePreambleOption<Index> indexOption = SinglePreambleOption.of("INDEX", ParserUtil::parseIndex);
 
     @Override
     public void addToParser(GreyBookParser parser) {
-        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addFlags(indexFlag);
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(indexOption);
     }
 
     @Override
@@ -53,6 +52,6 @@ public class DeleteCommand extends Command {
 
     @Override
     public Index getParseResult(ArgumentParseResult argResult) {
-        return argResult.getValue(indexFlag);
+        return argResult.getValue(indexOption);
     }
 }

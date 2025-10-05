@@ -9,11 +9,16 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.parser.Flag.FlagOption;
+import seedu.address.logic.parser.commandoption.NoDuplicateOption;
+import seedu.address.logic.parser.commandoption.OneOrMorePreambleOption;
+import seedu.address.logic.parser.commandoption.Option;
+import seedu.address.logic.parser.commandoption.PrefixOption;
+import seedu.address.logic.parser.commandoption.RequiredOption;
+import seedu.address.logic.parser.commandoption.SinglePreambleOption;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class CommandParser {
-    private Map<Prefix, Flag<?>> flags = new HashMap<>();
+    private List<Option<?>> options = new ArrayList<>();
     private String messageUsage;
     private Command command;
 
@@ -26,60 +31,62 @@ public class CommandParser {
         return command;
     }
 
-    public CommandParser addFlags(Flag<?>... flags) {
-        for (Flag<?> flag : flags) {
-            this.flags.put(flag.getPrefix(), flag);
+    public CommandParser addOptions(Option<?>... options) {
+        for (Option<?> option : options) {
+            this.options.add(option);
         }
         return this;
     }
 
-    public CommandParser addFlag(Flag<?> flag) {
-        flags.put(flag.getPrefix(), flag);
+    public CommandParser addOption(Option<?> option) {
+        options.add(option);
         return this;
     }
 
     public ArgumentParseResult parse(String arguments) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, filterPrefixByOption(FlagOption.REQUIRED,
-                FlagOption.ONE_OR_MORE, FlagOption.OPTIONAL, FlagOption.ZERO_OR_MORE));
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, getPrefixOptions());
 
-        if (!arePrefixesPresent(argMultimap, filterPrefixByOption(FlagOption.REQUIRED, FlagOption.ONE_OR_MORE,
-                FlagOption.SINGLE_PREAMBLE, FlagOption.ONE_OR_MORE_PREAMBLES))) {
+        if (!arePrefixesPresent(argMultimap, getRequiredOptions())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(filterPrefixByOption(FlagOption.REQUIRED, FlagOption.OPTIONAL));
+        argMultimap.verifyNoDuplicatePrefixesFor(getNoDuplicateOptions());
 
-        // Parse the arguments here, so that any ParseExceptions are thrown
-        // Each Flag and List pair must share the same generic type
-        Map<Flag<?>, List<?>> flagArgumentToResult = new HashMap<>();
-        for (Flag<?> flag : flags.values()) {
+        Map<Option<?>, List<?>> optionArgumentToResult = new HashMap<>();
+        for (Option<?> option : options) {
             List<Object> result = new ArrayList<>();
-            if (flag.getFlagOption() == FlagOption.ONE_OR_MORE_PREAMBLES) {
+            if (option instanceof OneOrMorePreambleOption) {
                 for (String preamble : argMultimap.getPreamble().split("\\s+")) {
-                    result.add(flag.parseFlagArgument(preamble));
+                    result.add(option.parseOptionArgument(preamble));
                 }
-            } else if (flag.getFlagOption() == FlagOption.SINGLE_PREAMBLE) {
-                List<String> nonEmptyPreambles =
-                        argMultimap.getAllValues(new Prefix("")).stream().filter(x -> !x.isEmpty()).toList();
-                if (nonEmptyPreambles.size() != 1) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage));
-                } else {
-                    result.add(flag.parseFlagArgument(nonEmptyPreambles.get(0)));
-                }
+            } else if (option instanceof SinglePreambleOption) {
+                result.add(option.parseOptionArgument(argMultimap.getPreamble()));
             } else {
-                for (String arg : argMultimap.getAllValues(flag.getPrefix())) {
-                    result.add(flag.parseFlagArgument(arg));
+                for (String arg : argMultimap.getAllValues(option.getPrefix())) {
+                    result.add(option.parseOptionArgument(arg));
                 }
             }
-            flagArgumentToResult.put(flag, result);
+            optionArgumentToResult.put(option, result);
         }
 
-        return new ArgumentParseResult(command, flagArgumentToResult);
+        return new ArgumentParseResult(command, optionArgumentToResult);
     }
 
-    private Prefix[] filterPrefixByOption(FlagOption... options) {
-        return flags.values().stream().filter(flag -> List.of(options).contains(flag.getFlagOption()))
-                .map(Flag::getPrefix).toList().toArray(new Prefix[0]);
+    private Prefix[] getPrefixOptions() {
+        return filterOptionsByInstance(PrefixOption.class);
+    }
+
+    private Prefix[] getRequiredOptions() {
+        return filterOptionsByInstance(RequiredOption.class);
+    }
+
+    private Prefix[] getNoDuplicateOptions() {
+        return filterOptionsByInstance(NoDuplicateOption.class);
+    }
+
+    private Prefix[] filterOptionsByInstance(Class<?> cls) {
+        return options.stream().filter(option -> cls.isInstance(option)).map(Option::getPrefix).toList()
+                .toArray(new Prefix[0]);
     }
 
     /**
