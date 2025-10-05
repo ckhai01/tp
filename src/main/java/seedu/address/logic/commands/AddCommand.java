@@ -47,14 +47,13 @@ public class AddCommand extends Command {
             Flag.of(PREFIX_ADDRESS, "ADDRESS", FlagOption.REQUIRED, ParserUtil::parseAddress);
     private final Flag<Tag> tagFlag = Flag.of(PREFIX_TAG, "TAG", FlagOption.ZERO_OR_MORE, ParserUtil::parseTag);
 
-    public AddCommand() {
-    }
-
+    @Override
     public void addToParser(GreyBookParser parser) {
         parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addFlags(nameFlag, phoneFlag, emailFlag, addressFlag,
                 tagFlag);
     }
 
+    @Override
     public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
 
