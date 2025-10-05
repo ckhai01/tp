@@ -8,13 +8,18 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.logic.parser.commandoption.Option;
+import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.model.person.Person;
 
+/**
+ * Mock stub for ArgumentParseResult to test AddCommand. Only stores the
+ * person to be added
+ */
 public class AddPersonArgumentParseResultStub extends ArgumentParseResultStub {
     private Person person;
 
+    /** @param person The person to be added */
     public AddPersonArgumentParseResultStub(Person person) {
         super();
         this.person = person;

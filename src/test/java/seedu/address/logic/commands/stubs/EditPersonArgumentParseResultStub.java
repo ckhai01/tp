@@ -2,9 +2,9 @@ package seedu.address.logic.commands.stubs;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPTY;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +18,19 @@ import seedu.address.logic.parser.commandoption.OptionalOption;
 import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Mock stub for ArgumentParseResult to test EditCommand.
+ * Stores the index of the person to be editted and the EditPersonDescriptor for
+ * the person.
+ */
 public class EditPersonArgumentParseResultStub extends ArgumentParseResultStub {
     private Index index;
     private EditPersonDescriptor descriptor;
 
+    /**
+     * @param index      the Index of the person to be editted
+     * @param descriptor the EditorPersonDescriptor to edit the person
+     */
     public EditPersonArgumentParseResultStub(Index index, EditPersonDescriptor descriptor) {
         super();
         this.index = index;

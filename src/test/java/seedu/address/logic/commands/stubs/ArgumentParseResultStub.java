@@ -11,6 +11,7 @@ import seedu.address.logic.parser.commandoption.OptionalOption;
 import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.model.Model;
 
+/** Mock stub for a ArgumentParseResult that does nothing */
 public class ArgumentParseResultStub extends ArgumentParseResult {
     public ArgumentParseResultStub() {
         super(null, null);
