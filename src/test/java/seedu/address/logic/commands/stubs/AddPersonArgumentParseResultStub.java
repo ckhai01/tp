@@ -1,0 +1,48 @@
+package seedu.address.logic.commands.stubs;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import seedu.address.logic.parser.Flag;
+import seedu.address.model.person.Person;
+
+public class AddPersonArgumentParseResultStub extends ArgumentParseResultStub {
+    private Person person;
+
+    public AddPersonArgumentParseResultStub(Person person) {
+        super();
+        this.person = person;
+    }
+
+    @Override
+    public <T> T getValue(Flag<T> flag) {
+        Object o = null;
+        if (flag.getPrefix().equals(PREFIX_NAME)) {
+            o = person.getName();
+        } else if (flag.getPrefix().equals(PREFIX_EMAIL)) {
+            o = person.getEmail();
+        } else if (flag.getPrefix().equals(PREFIX_PHONE)) {
+            o = person.getPhone();
+        } else if (flag.getPrefix().equals(PREFIX_ADDRESS)) {
+            o = person.getAddress();
+        }
+
+        @SuppressWarnings("unchecked")
+        T ret = (T) o;
+        return ret;
+    }
+
+    // Can only be called for tag flag
+    @Override
+    public <T> List<T> getAllValues(Flag<T> flag) {
+        @SuppressWarnings("unchecked")
+        List<T> ret = (List<T>) new ArrayList<>(person.getTags());
+
+        return ret;
+    }
+}

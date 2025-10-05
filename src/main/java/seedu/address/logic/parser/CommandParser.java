@@ -39,7 +39,8 @@ public class CommandParser {
     }
 
     public ArgumentParseResult parse(String arguments) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, getPrefixes());
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, filterPrefixByOption(FlagOption.REQUIRED,
+                FlagOption.ONE_OR_MORE, FlagOption.OPTIONAL, FlagOption.ZERO_OR_MORE));
 
         if (!arePrefixesPresent(argMultimap, filterPrefixByOption(FlagOption.REQUIRED, FlagOption.ONE_OR_MORE,
                 FlagOption.SINGLE_PREAMBLE, FlagOption.ONE_OR_MORE_PREAMBLES))) {
@@ -54,10 +55,8 @@ public class CommandParser {
         for (Flag<?> flag : flags.values()) {
             List<Object> result = new ArrayList<>();
             if (flag.getFlagOption() == FlagOption.ONE_OR_MORE_PREAMBLES) {
-                for (String preamble : argMultimap.getAllValues(new Prefix(""))) {
-                    if (!preamble.isEmpty()) {
-                        result.add(flag.parseFlagArgument(preamble));
-                    }
+                for (String preamble : argMultimap.getPreamble().split("\\s+")) {
+                    result.add(flag.parseFlagArgument(preamble));
                 }
             } else if (flag.getFlagOption() == FlagOption.SINGLE_PREAMBLE) {
                 List<String> nonEmptyPreambles =
@@ -76,10 +75,6 @@ public class CommandParser {
         }
 
         return new ArgumentParseResult(command, flagArgumentToResult);
-    }
-
-    private Prefix[] getPrefixes() {
-        return flags.keySet().toArray(new Prefix[0]);
     }
 
     private Prefix[] filterPrefixByOption(FlagOption... options) {

@@ -10,6 +10,9 @@ import seedu.address.model.Model;
  * executed.
  */
 public abstract class Command {
+    public Object getParseResult(ArgumentParseResult argResult) {
+        return null;
+    }
 
     /**
      * Executes the command and returns the result message.

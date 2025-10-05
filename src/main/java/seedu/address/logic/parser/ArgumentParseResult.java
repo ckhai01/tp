@@ -42,4 +42,8 @@ public class ArgumentParseResult {
     public CommandResult execute(Model model) throws CommandException {
         return command.execute(model, this);
     }
+
+    public Command getCommand() {
+        return command;
+    }
 }

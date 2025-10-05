@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentParseResult;
@@ -48,13 +47,7 @@ public class AddCommand extends Command {
             Flag.of(PREFIX_ADDRESS, "ADDRESS", FlagOption.REQUIRED, ParserUtil::parseAddress);
     private final Flag<Tag> tagFlag = Flag.of(PREFIX_TAG, "TAG", FlagOption.ZERO_OR_MORE, ParserUtil::parseTag);
 
-    private Person toAdd;
-
     public AddCommand() {
-    }
-
-    public AddCommand(Person person) {
-        toAdd = person;
     }
 
     public void addToParser(GreyBookParser parser) {
@@ -65,8 +58,7 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
 
-        toAdd = new Person(arg.getValue(nameFlag), arg.getValue(phoneFlag), arg.getValue(emailFlag),
-                arg.getValue(addressFlag), Set.copyOf(arg.getAllValues(tagFlag)));
+        Person toAdd = getParseResult(arg);
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -77,22 +69,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof AddCommand)) {
-            return false;
-        }
-
-        AddCommand otherAddCommand = (AddCommand) other;
-        return toAdd.equals(otherAddCommand.toAdd);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).add("toAdd", toAdd).toString();
+    public Person getParseResult(ArgumentParseResult argResult) {
+        return new Person(argResult.getValue(nameFlag), argResult.getValue(phoneFlag), argResult.getValue(emailFlag),
+                argResult.getValue(addressFlag), Set.copyOf(argResult.getAllValues(tagFlag)));
     }
 }

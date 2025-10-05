@@ -53,9 +53,6 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
-    private Index index;
-    private EditPersonDescriptor editPersonDescriptor;
-
     private final Flag<Index> indexFlag = Flag.of("INDEX", FlagOption.SINGLE_PREAMBLE, ParserUtil::parseIndex);
     private final Flag<Name> nameFlag = Flag.of(PREFIX_NAME, "NAME", FlagOption.OPTIONAL, ParserUtil::parseName);
     private final Flag<Phone> phoneFlag = Flag.of(PREFIX_PHONE, "PHONE", FlagOption.OPTIONAL, ParserUtil::parsePhone);
@@ -88,23 +85,9 @@ public class EditCommand extends Command {
     public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
 
-        index = arg.getValue(indexFlag);
+        Index index = arg.getValue(indexFlag);
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-
-        if (arg.getOptionalValue(nameFlag).isPresent()) {
-            editPersonDescriptor.setName(arg.getValue(nameFlag));
-        }
-        if (arg.getOptionalValue(phoneFlag).isPresent()) {
-            editPersonDescriptor.setPhone(arg.getValue(phoneFlag));
-        }
-        if (arg.getOptionalValue(emailFlag).isPresent()) {
-            editPersonDescriptor.setEmail(arg.getValue(emailFlag));
-        }
-        if (arg.getOptionalValue(addressFlag).isPresent()) {
-            editPersonDescriptor.setAddress(arg.getValue(addressFlag));
-        }
-        parseTagsForEdit(arg.getAllValues(tagFlag)).ifPresent(editPersonDescriptor::setTags);
+        EditPersonDescriptor editPersonDescriptor = getParseResult(arg);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new CommandException(EditCommand.MESSAGE_NOT_EDITED);
@@ -128,6 +111,27 @@ public class EditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
+    @Override
+    public EditPersonDescriptor getParseResult(ArgumentParseResult argResult) {
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+
+        if (argResult.getOptionalValue(nameFlag).isPresent()) {
+            editPersonDescriptor.setName(argResult.getValue(nameFlag));
+        }
+        if (argResult.getOptionalValue(phoneFlag).isPresent()) {
+            editPersonDescriptor.setPhone(argResult.getValue(phoneFlag));
+        }
+        if (argResult.getOptionalValue(emailFlag).isPresent()) {
+            editPersonDescriptor.setEmail(argResult.getValue(emailFlag));
+        }
+        if (argResult.getOptionalValue(addressFlag).isPresent()) {
+            editPersonDescriptor.setAddress(argResult.getValue(addressFlag));
+        }
+        parseTagsForEdit(argResult.getAllValues(tagFlag)).ifPresent(editPersonDescriptor::setTags);
+
+        return editPersonDescriptor;
+    }
+
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
@@ -142,28 +146,6 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
-            return false;
-        }
-
-        EditCommand otherEditCommand = (EditCommand) other;
-        return index.equals(otherEditCommand.index)
-                && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).add("index", index).add("editPersonDescriptor", editPersonDescriptor)
-                .toString();
     }
 
     /**
