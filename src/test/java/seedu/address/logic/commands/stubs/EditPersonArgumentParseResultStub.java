@@ -19,17 +19,18 @@ import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.model.tag.Tag;
 
 /**
- * Mock stub for ArgumentParseResult to test EditCommand.
- * Stores the index of the person to be editted and the EditPersonDescriptor for
- * the person.
+ * Mock stub for ArgumentParseResult to test EditCommand. Stores the index of
+ * the person to be editted and the EditPersonDescriptor for the person.
  */
 public class EditPersonArgumentParseResultStub extends ArgumentParseResultStub {
     private Index index;
     private EditPersonDescriptor descriptor;
 
     /**
-     * @param index      the Index of the person to be editted
-     * @param descriptor the EditorPersonDescriptor to edit the person
+     * @param index
+     *            the Index of the person to be editted
+     * @param descriptor
+     *            the EditorPersonDescriptor to edit the person
      */
     public EditPersonArgumentParseResultStub(Index index, EditPersonDescriptor descriptor) {
         super();
@@ -70,9 +71,9 @@ public class EditPersonArgumentParseResultStub extends ArgumentParseResultStub {
     @Override
     public <T> List<T> getAllValues(Option<T> flag) {
         @SuppressWarnings("unchecked")
-        List<T> ret = (List<T>) new ArrayList<>(
-                descriptor.getTags().isPresent() ? (descriptor.getTags().get().isEmpty() ? List.of(new Tag())
-                        : descriptor.getTags().get()) : Set.of());
+        List<T> ret = (List<T>) new ArrayList<>(descriptor.getTags().isPresent()
+                ? (descriptor.getTags().get().isEmpty() ? List.of(new Tag()) : descriptor.getTags().get())
+                : Set.of());
 
         return ret;
     }

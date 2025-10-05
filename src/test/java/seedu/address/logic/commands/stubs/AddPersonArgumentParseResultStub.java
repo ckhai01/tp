@@ -13,13 +13,16 @@ import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.model.person.Person;
 
 /**
- * Mock stub for ArgumentParseResult to test AddCommand. Only stores the
- * person to be added
+ * Mock stub for ArgumentParseResult to test AddCommand. Only stores the person
+ * to be added
  */
 public class AddPersonArgumentParseResultStub extends ArgumentParseResultStub {
     private Person person;
 
-    /** @param person The person to be added */
+    /**
+     * @param person
+     *            The person to be added
+     */
     public AddPersonArgumentParseResultStub(Person person) {
         super();
         this.person = person;

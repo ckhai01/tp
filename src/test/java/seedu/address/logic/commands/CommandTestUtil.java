@@ -76,8 +76,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, ArgumentParseResult argResult,
-            CommandResult expectedCommandResult,
-            Model expectedModel) {
+            CommandResult expectedCommandResult, Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel, argResult);
             assertEquals(expectedCommandResult, result);
@@ -93,8 +92,7 @@ public class CommandTestUtil {
      * takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, ArgumentParseResult argResult,
-            String expectedMessage,
-            Model expectedModel) {
+            String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, argResult, expectedCommandResult, expectedModel);
     }

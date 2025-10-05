@@ -55,8 +55,8 @@ public class GreyBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        ArgumentParseResult argResult = PARSER
-                .parse(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        ArgumentParseResult argResult =
+                PARSER.parse(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(INDEX_FIRST_PERSON, argResult.getCommand().getParseResult(argResult));
     }
 
@@ -64,8 +64,8 @@ public class GreyBookParserTest {
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        ArgumentParseResult argResult = PARSER.parse(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        ArgumentParseResult argResult = PARSER.parse(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(descriptor, argResult.getCommand().getParseResult(argResult));
     }
 
@@ -78,8 +78,8 @@ public class GreyBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        ArgumentParseResult argResult = PARSER
-                .parse(FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        ArgumentParseResult argResult =
+                PARSER.parse(FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new NameContainsKeywordsPredicate(keywords), argResult.getCommand().getParseResult(argResult));
     }
 

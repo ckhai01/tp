@@ -6,14 +6,15 @@ import java.util.List;
 import seedu.address.logic.parser.commandoption.Option;
 
 /**
- * Mock stub for ArgumentParseResult to test FindCommand. Only stores the
- * list of keywords to find
+ * Mock stub for ArgumentParseResult to test FindCommand. Only stores the list
+ * of keywords to find
  */
 public class FindPersonArgumentParseResultStub extends ArgumentParseResultStub {
     private List<String> keywords;
 
     /**
-     * @param keywords The string of keywords to find, internally parses into a List
+     * @param keywords
+     *            The string of keywords to find, internally parses into a List
      */
     public FindPersonArgumentParseResultStub(String keywords) {
         super();

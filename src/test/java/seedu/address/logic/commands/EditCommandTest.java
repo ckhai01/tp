@@ -37,8 +37,8 @@ public class EditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Person editedPerson = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditPersonArgumentParseResultStub argStub = new EditPersonArgumentParseResultStub(INDEX_FIRST_PERSON,
-                descriptor);
+        EditPersonArgumentParseResultStub argStub =
+                new EditPersonArgumentParseResultStub(INDEX_FIRST_PERSON, descriptor);
         EditCommand editCommand = new EditCommand();
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
@@ -55,8 +55,8 @@ public class EditCommandTest {
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Person editedPerson =
+                personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
@@ -92,8 +92,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_failure() {
-        EditPersonArgumentParseResultStub argStub = new EditPersonArgumentParseResultStub(INDEX_FIRST_PERSON,
-                new EditPersonDescriptor());
+        EditPersonArgumentParseResultStub argStub =
+                new EditPersonArgumentParseResultStub(INDEX_FIRST_PERSON, new EditPersonDescriptor());
         EditCommand editCommand = new EditCommand();
 
         String expectedMessage = EditCommand.MESSAGE_NOT_EDITED;
@@ -105,8 +105,8 @@ public class EditCommandTest {
     public void execute_duplicatePersonUnfilteredList_failure() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
-        EditPersonArgumentParseResultStub argStub = new EditPersonArgumentParseResultStub(INDEX_SECOND_PERSON,
-                descriptor);
+        EditPersonArgumentParseResultStub argStub =
+                new EditPersonArgumentParseResultStub(INDEX_SECOND_PERSON, descriptor);
         EditCommand editCommand = new EditCommand();
 
         assertCommandFailure(editCommand, model, argStub, EditCommand.MESSAGE_DUPLICATE_PERSON);

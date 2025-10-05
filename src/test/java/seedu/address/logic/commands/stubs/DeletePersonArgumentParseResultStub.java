@@ -10,7 +10,10 @@ import seedu.address.logic.parser.commandoption.RequiredOption;
 public class DeletePersonArgumentParseResultStub extends ArgumentParseResultStub {
     private Index index;
 
-    /** @param index The index of the person to be deleted */
+    /**
+     * @param index
+     *            The index of the person to be deleted
+     */
     public DeletePersonArgumentParseResultStub(Index index) {
         super();
         this.index = index;
