@@ -20,6 +20,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final StudentID studentID;
 
     // Data fields
     private final Address address;
@@ -28,13 +29,14 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, StudentID studentID) {
+        requireAllNonNull(name, phone, email, address, tags, studentID);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.studentID = studentID;
     }
 
     public Name getName() {
@@ -51,6 +53,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public StudentID getStudentID() {
+        return studentID;
     }
 
     /**
@@ -90,19 +96,20 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name) && phone.equals(otherPerson.phone) && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address) && tags.equals(otherPerson.tags);
+                && address.equals(otherPerson.address) && tags.equals(otherPerson.tags)
+                && studentID.equals(otherPerson.studentID);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, studentID);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("name", name).add("phone", phone).add("email", email)
-                .add("address", address).add("tags", tags).toString();
+                .add("address", address).add("tags", tags).add("studentID", studentID).toString();
     }
 
 }
