@@ -5,9 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ArgumentParseResult;
+import seedu.address.logic.parser.GreyBookParser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.commandoption.SinglePreambleOption;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -24,16 +27,19 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
-    private final Index targetIndex;
+    private final SinglePreambleOption<Index> indexOption = SinglePreambleOption.of("INDEX", ParserUtil::parseIndex);
 
-    public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    @Override
+    public void addToParser(GreyBookParser parser) {
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(indexOption);
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+
+        Index targetIndex = getParseResult(arg);
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -45,22 +51,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
-            return false;
-        }
-
-        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).add("targetIndex", targetIndex).toString();
+    public Index getParseResult(ArgumentParseResult argResult) {
+        return argResult.getValue(indexOption);
     }
 }

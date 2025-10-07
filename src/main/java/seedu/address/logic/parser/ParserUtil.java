@@ -120,6 +120,26 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing
+     * whitespaces will be trimmed. Return an empty tag if the input string is
+     * empty.
+     *
+     * @throws ParseException
+     *             if the given {@code tag} is invalid.
+     */
+    public static Tag parseTagAllowEmpty(String tag) throws ParseException {
+        requireNonNull(tag);
+        String trimmedTag = tag.trim();
+        if (trimmedTag.isEmpty()) {
+            return new Tag();
+        }
+        if (!Tag.isValidTagName(trimmedTag)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Tag(trimmedTag);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {

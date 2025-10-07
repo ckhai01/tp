@@ -2,8 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ArgumentParseResult;
+import seedu.address.logic.parser.GreyBookParser;
+import seedu.address.logic.parser.commandoption.OneOrMorePreambleOption;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
@@ -19,37 +22,24 @@ public class FindCommand extends Command {
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n" + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final OneOrMorePreambleOption<String> keywordOption = OneOrMorePreambleOption.of("INDEX");
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    @Override
+    public void addToParser(GreyBookParser parser) {
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOption(keywordOption);
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+
+        model.updateFilteredPersonList(getParseResult(arg));
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof FindCommand)) {
-            return false;
-        }
-
-        FindCommand otherFindCommand = (FindCommand) other;
-        return predicate.equals(otherFindCommand.predicate);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).add("predicate", predicate).toString();
+    public NameContainsKeywordsPredicate getParseResult(ArgumentParseResult argResult) {
+        return new NameContainsKeywordsPredicate(argResult.getAllValues(keywordOption));
     }
 }

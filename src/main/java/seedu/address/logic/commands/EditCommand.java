@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +21,12 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ArgumentParseResult;
+import seedu.address.logic.parser.GreyBookParser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.commandoption.OptionalPrefixOption;
+import seedu.address.logic.parser.commandoption.SinglePreambleOption;
+import seedu.address.logic.parser.commandoption.ZeroOrMorePrefixOption;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -47,26 +54,49 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
-    private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final SinglePreambleOption<Index> indexOption = SinglePreambleOption.of("INDEX", ParserUtil::parseIndex);
+    private final OptionalPrefixOption<Name> nameOption =
+            OptionalPrefixOption.of(PREFIX_NAME, "NAME", ParserUtil::parseName);
+    private final OptionalPrefixOption<Phone> phoneOption =
+            OptionalPrefixOption.of(PREFIX_PHONE, "PHONE", ParserUtil::parsePhone);
+    private final OptionalPrefixOption<Email> emailOption =
+            OptionalPrefixOption.of(PREFIX_EMAIL, "EMAIL", ParserUtil::parseEmail);
+    private final OptionalPrefixOption<Address> addressOption =
+            OptionalPrefixOption.of(PREFIX_ADDRESS, "ADDRESS", ParserUtil::parseAddress);
+    private final ZeroOrMorePrefixOption<Tag> tagOption =
+            ZeroOrMorePrefixOption.of(PREFIX_TAG, "TAG", ParserUtil::parseTagAllowEmpty);
 
-    /**
-     * @param index
-     *            of the person in the filtered person list to edit
-     * @param editPersonDescriptor
-     *            details to edit the person with
-     */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+    @Override
+    public void addToParser(GreyBookParser parser) {
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(indexOption, nameOption, phoneOption,
+                emailOption, addressOption, tagOption);
+    }
 
-        this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+    private Optional<Set<Tag>> parseTagsForEdit(Collection<Tag> tags) {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Collection<Tag> tagSet = tags.size() == 1 && tags.stream().anyMatch(tag -> tag.tagName.equals(""))
+                ? Collections.emptySet()
+                : tags;
+        return Optional.of(Set.copyOf(tagSet));
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
+
+        Index index = arg.getValue(indexOption);
+
+        EditPersonDescriptor editPersonDescriptor = getParseResult(arg);
+
+        if (!editPersonDescriptor.isAnyFieldEdited()) {
+            throw new CommandException(EditCommand.MESSAGE_NOT_EDITED);
+        }
+
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -85,6 +115,27 @@ public class EditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
+    @Override
+    public EditPersonDescriptor getParseResult(ArgumentParseResult argResult) {
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+
+        if (argResult.getOptionalValue(nameOption).isPresent()) {
+            editPersonDescriptor.setName(argResult.getOptionalValue(nameOption).get());
+        }
+        if (argResult.getOptionalValue(phoneOption).isPresent()) {
+            editPersonDescriptor.setPhone(argResult.getOptionalValue(phoneOption).get());
+        }
+        if (argResult.getOptionalValue(emailOption).isPresent()) {
+            editPersonDescriptor.setEmail(argResult.getOptionalValue(emailOption).get());
+        }
+        if (argResult.getOptionalValue(addressOption).isPresent()) {
+            editPersonDescriptor.setAddress(argResult.getOptionalValue(addressOption).get());
+        }
+        parseTagsForEdit(argResult.getAllValues(tagOption)).ifPresent(editPersonDescriptor::setTags);
+
+        return editPersonDescriptor;
+    }
+
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
@@ -99,28 +150,6 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
-            return false;
-        }
-
-        EditCommand otherEditCommand = (EditCommand) other;
-        return index.equals(otherEditCommand.index)
-                && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).add("index", index).add("editPersonDescriptor", editPersonDescriptor)
-                .toString();
     }
 
     /**

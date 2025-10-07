@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ArgumentParseResult;
+import seedu.address.logic.parser.GreyBookParser;
 import seedu.address.model.Model;
 
 /**
@@ -8,6 +10,9 @@ import seedu.address.model.Model;
  * executed.
  */
 public abstract class Command {
+    public Object getParseResult(ArgumentParseResult argResult) {
+        return null;
+    }
 
     /**
      * Executes the command and returns the result message.
@@ -18,6 +23,7 @@ public abstract class Command {
      * @throws CommandException
      *             If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException;
 
+    public abstract void addToParser(GreyBookParser parser);
 }

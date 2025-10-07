@@ -7,11 +7,22 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.commons.util.ToStringBuilder;
+import java.util.Set;
+
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ArgumentParseResult;
+import seedu.address.logic.parser.GreyBookParser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.commandoption.RequiredPrefixOption;
+import seedu.address.logic.parser.commandoption.ZeroOrMorePrefixOption;
 import seedu.address.model.Model;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -29,19 +40,28 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Person toAdd;
+    private final RequiredPrefixOption<Name> nameOption =
+            RequiredPrefixOption.of(PREFIX_NAME, "NAME", ParserUtil::parseName);
+    private final RequiredPrefixOption<Phone> phoneOption =
+            RequiredPrefixOption.of(PREFIX_PHONE, "PHONE", ParserUtil::parsePhone);
+    private final RequiredPrefixOption<Email> emailOption =
+            RequiredPrefixOption.of(PREFIX_EMAIL, "EMAIL", ParserUtil::parseEmail);
+    private final RequiredPrefixOption<Address> addressOption =
+            RequiredPrefixOption.of(PREFIX_ADDRESS, "ADDRESS", ParserUtil::parseAddress);
+    private final ZeroOrMorePrefixOption<Tag> tagOption =
+            ZeroOrMorePrefixOption.of(PREFIX_TAG, "TAG", ParserUtil::parseTag);
 
-    /**
-     * Creates an AddCommand to add the specified {@code Person}
-     */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    @Override
+    public void addToParser(GreyBookParser parser) {
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(nameOption, phoneOption, emailOption,
+                addressOption, tagOption);
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
+
+        Person toAdd = getParseResult(arg);
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -52,22 +72,9 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof AddCommand)) {
-            return false;
-        }
-
-        AddCommand otherAddCommand = (AddCommand) other;
-        return toAdd.equals(otherAddCommand.toAdd);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).add("toAdd", toAdd).toString();
+    public Person getParseResult(ArgumentParseResult argResult) {
+        return new Person(argResult.getValue(nameOption), argResult.getValue(phoneOption),
+                argResult.getValue(emailOption), argResult.getValue(addressOption),
+                Set.copyOf(argResult.getAllValues(tagOption)));
     }
 }

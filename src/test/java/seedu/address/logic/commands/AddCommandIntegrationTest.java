@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.stubs.AddPersonArgumentParseResultStub;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -30,18 +31,20 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
+        AddPersonArgumentParseResultStub argStub = new AddPersonArgumentParseResultStub(validPerson);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
-        assertCommandSuccess(new AddCommand(validPerson), model,
+        assertCommandSuccess(new AddCommand(), model, argStub,
                 String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        AddPersonArgumentParseResultStub argStub = new AddPersonArgumentParseResultStub(personInList);
+        assertCommandFailure(new AddCommand(), model, argStub, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }
