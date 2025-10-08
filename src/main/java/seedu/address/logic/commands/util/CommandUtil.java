@@ -41,7 +41,7 @@ public class CommandUtil {
      *            The identifier string
      * @return true if the identifier is a valid index
      */
-    private static boolean isIndex(String identifier) {
+    public static boolean isIndex(String identifier) {
         return StringUtil.isNonZeroUnsignedInteger(identifier);
     }
 
