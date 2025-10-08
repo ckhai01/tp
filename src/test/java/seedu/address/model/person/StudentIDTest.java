@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class StudentIDTest {
+public class StudentIdTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {

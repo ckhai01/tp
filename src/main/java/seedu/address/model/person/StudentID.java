@@ -4,21 +4,22 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's student ID in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidStudentID(String)}
+ * Represents a Person's student ID in the address book. Guarantees: immutable;
+ * is valid as declared in {@link #isValidStudentID(String)}
  */
 public class StudentID {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Student IDs should be in the format A0000000L, where the first letter must be 'A', "
-            + "followed by exactly 7 digits, and ending with any English letter (A-Z or a-z)";
+                    + "followed by exactly 7 digits, and ending with any English letter (A-Z or a-z)";
     public static final String VALIDATION_REGEX = "^A\\d{7}[A-Za-z]$";
     public final String value;
 
     /**
      * Constructs a {@code StudentID}.
      *
-     * @param studentID A valid student ID.
+     * @param studentID
+     *            A valid student ID.
      */
     public StudentID(String studentID) {
         requireNonNull(studentID);
