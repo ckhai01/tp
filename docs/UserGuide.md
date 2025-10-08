@@ -144,7 +144,7 @@ Format: `delete INDEX` or `delete STUDENTID`
 * The student ID must follow the format `A0000000L` where:
   * First character must be 'A'
   * Followed by exactly 7 digits
-  * Ending with any English letter (A-Z or a-z)
+  * Ending with any English letter (A-Z)
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
