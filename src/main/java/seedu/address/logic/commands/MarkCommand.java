@@ -52,8 +52,7 @@ public class MarkCommand extends Command {
             OptionalPrefixOption.of(PREFIX_PRESENT, "ATTENDANCE_PRESENT");
     private final OptionalPrefixOption<String> absentOption =
             OptionalPrefixOption.of(PREFIX_ABSENT, "ATTENDANCE_ABSENT");
-    private final OptionalPrefixOption<String> lateOption =
-            OptionalPrefixOption.of(PREFIX_LATE, "ATTENDANCE_LATE");
+    private final OptionalPrefixOption<String> lateOption = OptionalPrefixOption.of(PREFIX_LATE, "ATTENDANCE_LATE");
     private final OptionalPrefixOption<String> excusedOption =
             OptionalPrefixOption.of(PREFIX_EXCUSED, "ATTENDANCE_EXCUSED");
 
