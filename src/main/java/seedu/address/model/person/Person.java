@@ -90,8 +90,7 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name) && phone.equals(otherPerson.phone) && email.equals(otherPerson.email)
-                && tags.equals(otherPerson.tags)
-                && studentID.equals(otherPerson.studentID);
+                && tags.equals(otherPerson.tags) && studentID.equals(otherPerson.studentID);
     }
 
     @Override

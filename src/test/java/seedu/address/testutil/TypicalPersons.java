@@ -24,17 +24,14 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
-    public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withEmail("alice@example.com").withPhone("94351253")
-            .withStudentID("A1234567A").withTags("friends").build();
-    public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withEmail("johnd@example.com").withPhone("98765432")
-            .withStudentID("A2345678B").withTags("owesMoney", "friends").build();
+    public static final Person ALICE = new PersonBuilder().withName("Alice Pauline").withEmail("alice@example.com")
+            .withPhone("94351253").withStudentID("A1234567A").withTags("friends").build();
+    public static final Person BENSON = new PersonBuilder().withName("Benson Meier").withEmail("johnd@example.com")
+            .withPhone("98765432").withStudentID("A2345678B").withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withStudentID("A3456789C").build();
-    public static final Person DANIEL =
-            new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@example.com")
-                    .withStudentID("A4567890D").withTags("friends").build();
+    public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
+            .withEmail("cornelia@example.com").withStudentID("A4567890D").withTags("friends").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withStudentID("A5678901E").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
@@ -50,11 +47,10 @@ public class TypicalPersons {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withStudentID(VALID_STUDENTID_AMY)
-            .withTags(VALID_TAG_FRIEND).build();
-    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withStudentID(VALID_STUDENTID_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+            .withEmail(VALID_EMAIL_AMY).withStudentID(VALID_STUDENTID_AMY).withTags(VALID_TAG_FRIEND).build();
+    public static final Person BOB =
+            new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+                    .withStudentID(VALID_STUDENTID_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
