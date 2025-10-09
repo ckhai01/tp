@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.util.CommandUtil;
 import seedu.address.logic.parser.ArgumentParseResult;
@@ -12,21 +14,19 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using either the displayed index or student ID
+ * Displays a person identified using either the displayed index or student ID
  * from the address book.
  */
-public class DeleteCommand extends Command {
+public class ViewCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "view";
+
+    public static final String MESSAGE_SUCCESS = "Listed person";
 
     public static final String MESSAGE_USAGE =
-            COMMAND_WORD + ": Deletes the person identified by the index number or student ID.\n"
+            COMMAND_WORD + ": Displays the person identified by the index number or student ID.\n"
                     + "Parameters: INDEX (must be a positive integer) or STUDENTID (format: A0000000L)\n" + "Example: "
                     + COMMAND_WORD + " 1 OR " + COMMAND_WORD + " A0123456X";
-
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Member %1$s has been successfully deleted!";
-
-    public static final String MESSAGE_PERSON_NOT_FOUND = "Error, user does not exist.";
 
     private final SinglePreambleOption<String> identifierOption =
             SinglePreambleOption.of("INDEX or STUDENTID", ParserUtil::parseDeleteIdentifier);
@@ -41,10 +41,13 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
 
         String identifier = getParseResult(arg);
-        Person personToDelete = CommandUtil.resolvePerson(model, identifier);
-
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete.getName()));
+        if (!CommandUtil.isIndex(identifier)) {
+            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        }
+        Person personToView = CommandUtil.resolvePerson(model, identifier);
+        Predicate<Person> personPredicate = p -> (p.equals(personToView));
+        model.updateFilteredPersonList(personPredicate);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
