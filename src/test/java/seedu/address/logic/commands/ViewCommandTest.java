@@ -71,7 +71,8 @@ public class ViewCommandTest {
         // Start with the model filtered to the first person
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        // Choose a different person from the full address book (not necessarily in the current filtered list)
+        // Choose a different person from the full address book (not necessarily in the
+        // current filtered list)
         Person target = expectedModel.getAddressBook().getPersonList().get(1); // second person in full list
         String studentId = target.getStudentID().value;
 

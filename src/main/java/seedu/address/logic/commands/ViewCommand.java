@@ -28,7 +28,6 @@ public class ViewCommand extends Command {
                     + "Parameters: INDEX (must be a positive integer) or STUDENTID (format: A0000000L)\n" + "Example: "
                     + COMMAND_WORD + " 1 OR " + COMMAND_WORD + " A0123456X";
 
-
     private final SinglePreambleOption<String> identifierOption =
             SinglePreambleOption.of("INDEX or STUDENTID", ParserUtil::parseDeleteIdentifier);
 

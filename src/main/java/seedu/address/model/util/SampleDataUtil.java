@@ -36,7 +36,8 @@ public class SampleDataUtil {
                     new StudentID("A5678901E")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                     new Address("Blk 45 Aljunied Street 85, #11-31"), getTagSet("colleagues"),
-                    new StudentID("A6789012F"))};
+                    new StudentID("A6789012F"))
+        };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
