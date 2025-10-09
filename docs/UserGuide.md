@@ -151,6 +151,25 @@ Examples:
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 * `delete A0123456X` deletes the person with student ID A0123456X from the address book.
 
+### Viewing a person : `view`
+
+Finds and displays a person from the address book.
+
+Format: `view INDEX` or `view STUDENTID`
+
+* Finds and displays the person at the specified `INDEX` or with the specified `STUDENTID`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The student ID must follow the format `A0000000L` where:
+    * First character must be 'A'
+    * Followed by exactly 7 digits
+    * Ending with any English letter (A-Z)
+
+Examples:
+* `list` followed by `view 2` displays the 2nd person in the address book.
+* `view A0123456X` displays the person with student ID A0123456X from the address book.
+* `view 3` followed by `view A0123456X` will also display the person with student ID A0123456X, even if they are not the 3rd person in the address book.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -204,7 +223,8 @@ Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete** | `delete INDEX` or `delete STUDENTID`<br> e.g., `delete 3`, `delete A0123456X`
+**View**   | `view INDEX` or `view STUDENTID`<br> e.g., `view 3`, `view A0123456X`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
