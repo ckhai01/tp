@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.StudentID;
 
 /**
  * Tests for {@code ViewCommand} covering the index path.
@@ -32,7 +33,7 @@ public class ViewCommandTest {
     @Test
     public void executebyIndex_unfilteredshowsThatPerson() {
         Person target = model.getFilteredPersonList().get(0);
-        ArgumentParseResultStub arg = new ViewArgumentParseResultStub("1"); // index "1"
+        ArgumentParseResultStub arg = new ViewArgumentParseResultStub(INDEX_FIRST_PERSON); // index "1"
 
         // Expected: filtered to exactly the target person
         expectedModel.updateFilteredPersonList(p -> p.equals(target));
@@ -45,7 +46,8 @@ public class ViewCommandTest {
         // Arrange: pre-filter the model to first person
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Person target = model.getFilteredPersonList().get(0);
-        ArgumentParseResultStub arg = new ViewArgumentParseResultStub("1"); // index "1" within the filtered list
+        ArgumentParseResultStub arg = new ViewArgumentParseResultStub(INDEX_FIRST_PERSON); // index "1" within the
+                                                                                           // filtered list
 
         // Expected: still only the same target person shown
         expectedModel.updateFilteredPersonList(p -> p.equals(target));
@@ -57,7 +59,7 @@ public class ViewCommandTest {
     public void executebyStudentId_unfilteredshowsThatPerson() {
         // Take any real person from the full list and use their student ID
         Person target = model.getFilteredPersonList().get(0);
-        String studentId = target.getStudentID().value;
+        StudentID studentId = target.getStudentID();
 
         ArgumentParseResultStub arg = new ViewArgumentParseResultStub(studentId);
 
@@ -74,7 +76,7 @@ public class ViewCommandTest {
         // Choose a different person from the full address book (not necessarily in the
         // current filtered list)
         Person target = expectedModel.getAddressBook().getPersonList().get(1); // second person in full list
-        String studentId = target.getStudentID().value;
+        StudentID studentId = target.getStudentID();
 
         ArgumentParseResultStub arg = new ViewArgumentParseResultStub(studentId);
 

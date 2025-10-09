@@ -8,6 +8,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonIdentifier;
 import seedu.address.model.person.StudentID;
 
 /**
@@ -29,11 +30,11 @@ public class CommandUtil {
      * @throws CommandException
      *             if the person cannot be found
      */
-    public static Person resolvePerson(Model model, String identifier) throws CommandException {
-        if (isIndex(identifier)) {
-            return findPersonByIndex(model, identifier);
+    public static Person resolvePerson(Model model, PersonIdentifier identifier) throws CommandException {
+        if (identifier instanceof Index) {
+            return findPersonByIndex(model, (Index) identifier);
         } else {
-            return findPersonByStudentId(model, identifier);
+            return findPersonByStudentId(model, (StudentID) identifier);
         }
     }
 
@@ -53,21 +54,20 @@ public class CommandUtil {
      *
      * @param model
      *            The model containing the person list
-     * @param indexString
-     *            The index as a string
+     * @param index
+     *            The index as an {@link Index}
      * @return The person at the specified index
      * @throws CommandException
      *             if the index is out of bounds
      */
-    private static Person findPersonByIndex(Model model, String indexString) throws CommandException {
-        Index targetIndex = Index.fromOneBased(Integer.parseInt(indexString));
+    private static Person findPersonByIndex(Model model, Index index) throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
 
-        return lastShownList.get(targetIndex.getZeroBased());
+        return lastShownList.get(index.getZeroBased());
     }
 
     /**
@@ -75,18 +75,16 @@ public class CommandUtil {
      *
      * @param model
      *            The model containing the person list
-     * @param studentIdString
-     *            The student ID as a string
+     * @param studentId
+     *            The student ID as a {@link StudentID}
      * @return The person with the specified student ID
      * @throws CommandException
      *             if no person with the student ID is found
      */
-    private static Person findPersonByStudentId(Model model, String studentIdString) throws CommandException {
-        StudentID targetStudentId = new StudentID(studentIdString);
+    private static Person findPersonByStudentId(Model model, StudentID studentId) throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        Optional<Person> person =
-                lastShownList.stream().filter(p -> p.getStudentID().equals(targetStudentId)).findFirst();
+        Optional<Person> person = lastShownList.stream().filter(p -> p.getStudentID().equals(studentId)).findFirst();
 
         if (!person.isPresent()) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);

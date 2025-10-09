@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,11 +12,13 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.StudentID;
 import seedu.address.testutil.TypicalPersons;
 
 public class CommandUtilTest {
@@ -34,7 +37,7 @@ public class CommandUtilTest {
         // one-based index "1" should resolve to the first person in the currently
         // filtered list
         Person expected = model.getFilteredPersonList().get(0);
-        Person resolved = CommandUtil.resolvePerson(model, "1");
+        Person resolved = CommandUtil.resolvePerson(model, INDEX_FIRST_PERSON);
         assertEquals(expected, resolved);
     }
 
@@ -42,23 +45,23 @@ public class CommandUtilTest {
     public void resolvePersonByIndex_outOfBoundsThrowsCommandException() {
         int outOfBoundsOneBased = model.getFilteredPersonList().size() + 1;
         CommandException ex = assertThrows(CommandException.class,
-                () -> CommandUtil.resolvePerson(model, String.valueOf(outOfBoundsOneBased)));
+                () -> CommandUtil.resolvePerson(model, Index.fromOneBased(outOfBoundsOneBased)));
         assertEquals(NOT_FOUND_MSG, ex.getMessage());
     }
 
     @Test
     public void resolvePersonByStudentId_success() throws Exception {
         Person expected = model.getFilteredPersonList().get(0);
-        String id = expected.getStudentID().value;
 
-        Person resolved = CommandUtil.resolvePerson(model, id);
+        Person resolved = CommandUtil.resolvePerson(model, expected.getStudentID());
         assertEquals(expected, resolved);
     }
 
     @Test
     public void resolvePersonByStudentId_notFoundThrowsCommandException() {
         String missingId = generateMissingValidStudentId();
-        CommandException ex = assertThrows(CommandException.class, () -> CommandUtil.resolvePerson(model, missingId));
+        CommandException ex =
+                assertThrows(CommandException.class, () -> CommandUtil.resolvePerson(model, new StudentID(missingId)));
         assertEquals(NOT_FOUND_MSG, ex.getMessage());
     }
 

@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PersonIdentifier;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.StudentID;
 import seedu.address.model.tag.Tag;
@@ -48,7 +49,7 @@ public class ParserUtil {
      * @throws ParseException
      *             if the input is neither a valid index nor a valid student ID.
      */
-    public static String parseDeleteIdentifier(String input) throws ParseException {
+    public static PersonIdentifier parsePersonIdentifier(String input) throws ParseException {
         requireNonNull(input);
         String trimmed = input.trim();
 
@@ -61,7 +62,7 @@ public class ParserUtil {
                     + "or a valid Student ID (format: A0000000L).");
         }
 
-        return trimmed;
+        return isValidIndex ? parseIndex(trimmed) : new StudentID(trimmed);
     }
 
     /**
