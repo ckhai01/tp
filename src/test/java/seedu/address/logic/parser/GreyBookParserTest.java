@@ -26,6 +26,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonIdentifier;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -57,8 +58,8 @@ public class GreyBookParserTest {
     public void parseCommand_delete() throws Exception {
         ArgumentParseResult argResult =
                 PARSER.parse(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        String result = (String) argResult.getCommand().getParseResult(argResult);
-        assertEquals(String.valueOf(INDEX_FIRST_PERSON.getOneBased()), result);
+        PersonIdentifier result = (PersonIdentifier) argResult.getCommand().getParseResult(argResult);
+        assertEquals(INDEX_FIRST_PERSON, result);
     }
 
     @Test

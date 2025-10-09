@@ -12,6 +12,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.commandoption.SinglePreambleOption;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonIdentifier;
 
 /**
  * Displays a person identified using either the displayed index or student ID
@@ -28,8 +29,8 @@ public class ViewCommand extends Command {
                     + "Parameters: INDEX (must be a positive integer) or STUDENTID (format: A0000000L)\n" + "Example: "
                     + COMMAND_WORD + " 1 OR " + COMMAND_WORD + " A0123456X";
 
-    private final SinglePreambleOption<String> identifierOption =
-            SinglePreambleOption.of("INDEX or STUDENTID", ParserUtil::parseDeleteIdentifier);
+    private final SinglePreambleOption<PersonIdentifier> identifierOption =
+            SinglePreambleOption.of("INDEX or STUDENTID", ParserUtil::parsePersonIdentifier);
 
     @Override
     public void addToParser(GreyBookParser parser) {
@@ -40,10 +41,7 @@ public class ViewCommand extends Command {
     public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
 
-        String identifier = getParseResult(arg);
-        if (!CommandUtil.isIndex(identifier)) {
-            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        }
+        PersonIdentifier identifier = getParseResult(arg);
         Person personToView = CommandUtil.resolvePerson(model, identifier);
         Predicate<Person> personPredicate = p -> (p.equals(personToView));
         model.updateFilteredPersonList(personPredicate);
@@ -51,7 +49,7 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public String getParseResult(ArgumentParseResult argResult) {
+    public PersonIdentifier getParseResult(ArgumentParseResult argResult) {
         return argResult.getValue(identifierOption);
     }
 }

@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's student ID in the address book. Guarantees: immutable;
  * is valid as declared in {@link #isValidStudentID(String)}
  */
-public class StudentID {
+public class StudentID implements PersonIdentifier {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Student IDs should be in the format A0000000L, where the first letter must be 'A', "

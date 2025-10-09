@@ -1,32 +1,22 @@
 package seedu.address.logic.commands.stubs;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.commandoption.RequiredOption;
-import seedu.address.model.person.StudentID;
+import seedu.address.model.person.PersonIdentifier;
 
 /**
  * Mock stub for ArgumentParseResult to test DeleteCommand. Stores the
  * identifier string (either index or student ID) of the person to be deleted.
  */
 public class DeletePersonArgumentParseResultStub extends ArgumentParseResultStub {
-    private String identifier;
+    private PersonIdentifier identifier;
 
     /**
      * @param index
      *            The index of the person to be deleted
      */
-    public DeletePersonArgumentParseResultStub(Index index) {
+    public DeletePersonArgumentParseResultStub(PersonIdentifier identifier) {
         super();
-        this.identifier = String.valueOf(index.getOneBased());
-    }
-
-    /**
-     * @param studentID
-     *            The student ID of the person to be deleted
-     */
-    public DeletePersonArgumentParseResultStub(StudentID studentID) {
-        super();
-        this.identifier = studentID.value;
+        this.identifier = identifier;
     }
 
     // This stub should only be called with a flag to get the identifier

@@ -1,6 +1,7 @@
 package seedu.address.commons.core.index;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.PersonIdentifier;
 
 /**
  * Represents a zero-based or one-based index.
@@ -12,7 +13,7 @@ import seedu.address.commons.util.ToStringBuilder;
  * {@code Index}, that component can convert it back to an int if the index will
  * not be passed to a different component again.
  */
-public class Index {
+public class Index implements PersonIdentifier {
     private int zeroBasedIndex;
 
     /**

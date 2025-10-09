@@ -10,6 +10,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.commandoption.SinglePreambleOption;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonIdentifier;
 
 /**
  * Deletes a person identified using either the displayed index or student ID
@@ -28,8 +29,8 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_PERSON_NOT_FOUND = "Error, user does not exist.";
 
-    private final SinglePreambleOption<String> identifierOption =
-            SinglePreambleOption.of("INDEX or STUDENTID", ParserUtil::parseDeleteIdentifier);
+    private final SinglePreambleOption<PersonIdentifier> identifierOption =
+            SinglePreambleOption.of("INDEX or STUDENTID", ParserUtil::parsePersonIdentifier);
 
     @Override
     public void addToParser(GreyBookParser parser) {
@@ -40,7 +41,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
 
-        String identifier = getParseResult(arg);
+        PersonIdentifier identifier = getParseResult(arg);
         Person personToDelete = CommandUtil.resolvePerson(model, identifier);
 
         model.deletePerson(personToDelete);
@@ -48,7 +49,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String getParseResult(ArgumentParseResult argResult) {
+    public PersonIdentifier getParseResult(ArgumentParseResult argResult) {
         return argResult.getValue(identifierOption);
     }
 }

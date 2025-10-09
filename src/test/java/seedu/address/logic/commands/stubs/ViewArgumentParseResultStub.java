@@ -1,20 +1,21 @@
 package seedu.address.logic.commands.stubs;
 
 import seedu.address.logic.parser.commandoption.RequiredOption;
+import seedu.address.model.person.PersonIdentifier;
 
 /**
  * Stub for ViewCommand: returns a single preamble value (index or studentId).
  */
 public class ViewArgumentParseResultStub extends ArgumentParseResultStub {
-    private final String value;
+    private final PersonIdentifier identifier;
 
-    public ViewArgumentParseResultStub(String value) {
-        this.value = value;
+    public ViewArgumentParseResultStub(PersonIdentifier identifier) {
+        this.identifier = identifier;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getValue(RequiredOption<T> option) {
-        return (T) value;
+        return (T) identifier;
     }
 }
