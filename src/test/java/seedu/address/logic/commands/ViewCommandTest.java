@@ -30,7 +30,7 @@ public class ViewCommandTest {
     }
 
     @Test
-    public void execute_byIndex_unfiltered_showsThatPerson() {
+    public void executebyIndex_unfilteredshowsThatPerson() {
         Person target = model.getFilteredPersonList().get(0);
         ArgumentParseResultStub arg = new ViewArgumentParseResultStub("1"); // index "1"
 
@@ -41,7 +41,7 @@ public class ViewCommandTest {
     }
 
     @Test
-    public void execute_byIndex_filtered_showsThatPerson() {
+    public void executebyIndex_filteredshowsThatPerson() {
         // Arrange: pre-filter the model to first person
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Person target = model.getFilteredPersonList().get(0);
@@ -54,7 +54,7 @@ public class ViewCommandTest {
     }
 
     @Test
-    public void execute_byStudentId_unfiltered_showsThatPerson() {
+    public void executebyStudentId_unfilteredshowsThatPerson() {
         // Take any real person from the full list and use their student ID
         Person target = model.getFilteredPersonList().get(0);
         String studentId = target.getStudentID().value;
@@ -67,7 +67,7 @@ public class ViewCommandTest {
     }
 
     @Test
-    public void execute_byStudentId_filtered_resetsThenShowsThatPerson() {
+    public void executebyStudentId_filteredresetsThenShowsThatPerson() {
         // Start with the model filtered to the first person
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 

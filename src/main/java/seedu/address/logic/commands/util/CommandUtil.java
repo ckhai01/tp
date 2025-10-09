@@ -10,6 +10,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentID;
 
+/**
+ * Common utility methods for commands
+ */
 public class CommandUtil {
 
     private static final String MESSAGE_PERSON_NOT_FOUND = "Error, user does not exist.";

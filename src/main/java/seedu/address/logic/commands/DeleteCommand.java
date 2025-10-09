@@ -3,13 +3,13 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.util.CommandUtil;
 import seedu.address.logic.parser.ArgumentParseResult;
 import seedu.address.logic.parser.GreyBookParser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.commandoption.SinglePreambleOption;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.logic.commands.util.CommandUtil;
 
 /**
  * Deletes a person identified using either the displayed index or student ID
