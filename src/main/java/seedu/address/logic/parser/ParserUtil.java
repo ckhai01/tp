@@ -43,8 +43,8 @@ public class ParserUtil {
 
     /**
      * Parses {@code input} as a delete identifier - tries to parse as Index first,
-     * then as StudentID. Returns the input string if it's valid as either format.
-     * Leading and trailing whitespaces will be trimmed.
+     * then as StudentID. Returns a {@link PersonIdentifier} if it's valid as either
+     * format. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException
      *             if the input is neither a valid index nor a valid student ID.

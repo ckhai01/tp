@@ -46,9 +46,8 @@ public class ViewCommandTest {
         // Arrange: pre-filter the model to first person
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Person target = model.getFilteredPersonList().get(0);
-        ArgumentParseResultStub arg = new ViewArgumentParseResultStub(INDEX_FIRST_PERSON); // index "1" within the
-                                                                                           // filtered list
-
+        // index "1" within the filtered list
+        ArgumentParseResultStub arg = new ViewArgumentParseResultStub(INDEX_FIRST_PERSON);
         // Expected: still only the same target person shown
         expectedModel.updateFilteredPersonList(p -> p.equals(target));
 

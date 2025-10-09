@@ -42,7 +42,6 @@ public class ViewCommand extends Command {
         requireNonNull(model);
 
         PersonIdentifier identifier = getParseResult(arg);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         Person personToView = CommandUtil.resolvePerson(model, identifier);
         Predicate<Person> personPredicate = p -> (p.equals(personToView));
         model.updateFilteredPersonList(personPredicate);

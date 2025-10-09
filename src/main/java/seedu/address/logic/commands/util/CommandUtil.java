@@ -25,7 +25,8 @@ public class CommandUtil {
      * @param model
      *            The model containing the person list
      * @param identifier
-     *            The identifier string (index or student ID)
+     *            The identifier as a {@link PersonIdentifier} (either Index or
+     *            StudentID)
      * @return The person to delete
      * @throws CommandException
      *             if the person cannot be found
@@ -34,6 +35,7 @@ public class CommandUtil {
         if (identifier instanceof Index) {
             return findPersonByIndex(model, (Index) identifier);
         } else {
+            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
             return findPersonByStudentId(model, (StudentID) identifier);
         }
     }
