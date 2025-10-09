@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ABSENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXCUSED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LATE;
@@ -24,7 +23,6 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.commandoption.OptionalPrefixOption;
 import seedu.address.logic.parser.commandoption.SinglePreambleOption;
 import seedu.address.model.Model;
-import seedu.address.model.person.AttendanceStatus;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentID;
 import seedu.address.model.tag.Tag;
