@@ -57,7 +57,8 @@ public class GreyBookParserTest {
     public void parseCommand_delete() throws Exception {
         ArgumentParseResult argResult =
                 PARSER.parse(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(INDEX_FIRST_PERSON, argResult.getCommand().getParseResult(argResult));
+        String result = (String) argResult.getCommand().getParseResult(argResult);
+        assertEquals(String.valueOf(INDEX_FIRST_PERSON.getOneBased()), result);
     }
 
     @Test

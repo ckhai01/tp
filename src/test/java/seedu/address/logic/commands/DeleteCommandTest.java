@@ -11,12 +11,12 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.stubs.DeletePersonArgumentParseResultStub;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.StudentID;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -32,8 +32,7 @@ public class DeleteCommandTest {
         DeletePersonArgumentParseResultStub argStub = new DeletePersonArgumentParseResultStub(INDEX_FIRST_PERSON);
         DeleteCommand deleteCommand = new DeleteCommand();
 
-        String expectedMessage =
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete));
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete.getName());
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
@@ -47,7 +46,7 @@ public class DeleteCommandTest {
         DeletePersonArgumentParseResultStub argStub = new DeletePersonArgumentParseResultStub(outOfBoundIndex);
         DeleteCommand deleteCommand = new DeleteCommand();
 
-        assertCommandFailure(deleteCommand, model, argStub, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, argStub, DeleteCommand.MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
@@ -58,8 +57,7 @@ public class DeleteCommandTest {
         DeletePersonArgumentParseResultStub argStub = new DeletePersonArgumentParseResultStub(INDEX_FIRST_PERSON);
         DeleteCommand deleteCommand = new DeleteCommand();
 
-        String expectedMessage =
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete));
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete.getName());
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
@@ -79,7 +77,49 @@ public class DeleteCommandTest {
         DeletePersonArgumentParseResultStub argStub = new DeletePersonArgumentParseResultStub(outOfBoundIndex);
         DeleteCommand deleteCommand = new DeleteCommand();
 
-        assertCommandFailure(deleteCommand, model, argStub, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, argStub, DeleteCommand.MESSAGE_PERSON_NOT_FOUND);
+    }
+
+    @Test
+    public void execute_validStudentIdUnfilteredList_success() {
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        StudentID studentID = personToDelete.getStudentID();
+        DeletePersonArgumentParseResultStub argStub = new DeletePersonArgumentParseResultStub(studentID);
+        DeleteCommand deleteCommand = new DeleteCommand();
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete.getName());
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(personToDelete);
+
+        assertCommandSuccess(deleteCommand, model, argStub, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidStudentIdUnfilteredList_throwsCommandException() {
+        StudentID nonExistentStudentID = new StudentID("A9999999Z");
+        DeletePersonArgumentParseResultStub argStub = new DeletePersonArgumentParseResultStub(nonExistentStudentID);
+        DeleteCommand deleteCommand = new DeleteCommand();
+
+        assertCommandFailure(deleteCommand, model, argStub, DeleteCommand.MESSAGE_PERSON_NOT_FOUND);
+    }
+
+    @Test
+    public void execute_validStudentIdFilteredList_success() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        StudentID studentID = personToDelete.getStudentID();
+        DeletePersonArgumentParseResultStub argStub = new DeletePersonArgumentParseResultStub(studentID);
+        DeleteCommand deleteCommand = new DeleteCommand();
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete.getName());
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(personToDelete);
+        showNoPerson(expectedModel);
+
+        assertCommandSuccess(deleteCommand, model, argStub, expectedMessage, expectedModel);
     }
 
     /**

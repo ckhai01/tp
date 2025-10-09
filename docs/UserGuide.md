@@ -136,15 +136,20 @@ Examples:
 
 Deletes the specified person from the address book.
 
-Format: `delete INDEX`
+Format: `delete INDEX` or `delete STUDENTID`
 
-* Deletes the person at the specified `INDEX`.
+* Deletes the person at the specified `INDEX` or with the specified `STUDENTID`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* The student ID must follow the format `A0000000L` where:
+  * First character must be 'A'
+  * Followed by exactly 7 digits
+  * Ending with any English letter (A-Z)
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `delete A0123456X` deletes the person with student ID A0123456X from the address book.
 
 ### Clearing all entries : `clear`
 

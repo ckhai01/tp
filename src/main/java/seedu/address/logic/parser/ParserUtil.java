@@ -41,6 +41,30 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code input} as a delete identifier - tries to parse as Index first,
+     * then as StudentID. Returns the input string if it's valid as either format.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     *             if the input is neither a valid index nor a valid student ID.
+     */
+    public static String parseDeleteIdentifier(String input) throws ParseException {
+        requireNonNull(input);
+        String trimmed = input.trim();
+
+        // Check if it's a valid index or a valid student ID
+        boolean isValidIndex = StringUtil.isNonZeroUnsignedInteger(trimmed);
+        boolean isValidStudentID = StudentID.isValidStudentID(trimmed);
+
+        if (!isValidIndex && !isValidStudentID) {
+            throw new ParseException("Invalid format. Please provide either a valid index (positive integer) "
+                    + "or a valid Student ID (format: A0000000L).");
+        }
+
+        return trimmed;
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}. Leading and trailing
      * whitespaces will be trimmed.
      *
