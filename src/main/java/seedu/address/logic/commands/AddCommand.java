@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -17,11 +17,11 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.commandoption.RequiredPrefixOption;
 import seedu.address.logic.parser.commandoption.ZeroOrMorePrefixOption;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.StudentID;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,10 +32,10 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. " + "Parameters: "
-            + PREFIX_NAME + "NAME " + PREFIX_PHONE + "PHONE " + PREFIX_EMAIL + "EMAIL " + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n" + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 " + PREFIX_EMAIL + "johnd@example.com " + PREFIX_ADDRESS
-            + "311, Clementi Ave 2, #02-25 " + PREFIX_TAG + "friends " + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "NAME " + PREFIX_PHONE + "PHONE " + PREFIX_EMAIL + "EMAIL " + PREFIX_STUDENTID
+            + "STUDENTID " + "[" + PREFIX_TAG + "TAG]...\n" + "Example: " + COMMAND_WORD + " " + PREFIX_NAME
+            + "John Doe " + PREFIX_PHONE + "98765432 " + PREFIX_EMAIL + "johnd@example.com " + PREFIX_STUDENTID
+            + "A0000000X " + PREFIX_TAG + "friends " + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
@@ -46,15 +46,15 @@ public class AddCommand extends Command {
             RequiredPrefixOption.of(PREFIX_PHONE, "PHONE", ParserUtil::parsePhone);
     private final RequiredPrefixOption<Email> emailOption =
             RequiredPrefixOption.of(PREFIX_EMAIL, "EMAIL", ParserUtil::parseEmail);
-    private final RequiredPrefixOption<Address> addressOption =
-            RequiredPrefixOption.of(PREFIX_ADDRESS, "ADDRESS", ParserUtil::parseAddress);
     private final ZeroOrMorePrefixOption<Tag> tagOption =
             ZeroOrMorePrefixOption.of(PREFIX_TAG, "TAG", ParserUtil::parseTag);
+    private final RequiredPrefixOption<StudentID> studentIdOption =
+            RequiredPrefixOption.of(PREFIX_STUDENTID, "STUDENTID", ParserUtil::parseStudentID);
 
     @Override
     public void addToParser(GreyBookParser parser) {
         parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(nameOption, phoneOption, emailOption,
-                addressOption, tagOption);
+                studentIdOption, tagOption);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class AddCommand extends Command {
     @Override
     public Person getParseResult(ArgumentParseResult argResult) {
         return new Person(argResult.getValue(nameOption), argResult.getValue(phoneOption),
-                argResult.getValue(emailOption), argResult.getValue(addressOption),
+                argResult.getValue(emailOption), argResult.getValue(studentIdOption),
                 Set.copyOf(argResult.getAllValues(tagOption)));
     }
 }
