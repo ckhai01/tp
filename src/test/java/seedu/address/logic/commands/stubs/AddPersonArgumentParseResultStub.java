@@ -1,9 +1,6 @@
 package seedu.address.logic.commands.stubs;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +34,8 @@ public class AddPersonArgumentParseResultStub extends ArgumentParseResultStub {
             o = person.getEmail();
         } else if (flag.getPrefix().equals(PREFIX_PHONE)) {
             o = person.getPhone();
-        } else if (flag.getPrefix().equals(PREFIX_ADDRESS)) {
-            o = person.getAddress();
+        } else if (flag.getPrefix().equals(PREFIX_STUDENTID)) {
+            o = person.getStudentID();
         }
 
         @SuppressWarnings("unchecked")

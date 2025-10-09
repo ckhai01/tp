@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -20,14 +19,11 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    // public static final String DEFAULT_STUDENTID = "A1234567X";
     public static final String DEFAULT_STUDENTID = "A0000000X";
 
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
     private Set<Tag> tags;
     private StudentID studentID;
 
@@ -38,7 +34,6 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         studentID = new StudentID(DEFAULT_STUDENTID);
     }
@@ -50,9 +45,8 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
-        tags = new HashSet<>(personToCopy.getTags());
         studentID = personToCopy.getStudentID();
+        tags = new HashSet<>(personToCopy.getTags());
     }
 
     /**
@@ -69,14 +63,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
         return this;
     }
 
@@ -105,7 +91,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags, studentID);
+        return new Person(name, phone, email, studentID, tags);
     }
 
 }

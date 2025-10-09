@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -28,11 +28,11 @@ import seedu.address.logic.parser.commandoption.OptionalPrefixOption;
 import seedu.address.logic.parser.commandoption.SinglePreambleOption;
 import seedu.address.logic.parser.commandoption.ZeroOrMorePrefixOption;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.StudentID;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -46,7 +46,7 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) " + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE
-            + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] " + "[" + PREFIX_ADDRESS + "ADDRESS] " + "[" + PREFIX_TAG
+            + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] " + "[" + PREFIX_STUDENTID + "STUDENTID] " + "[" + PREFIX_TAG
             + "TAG]...\n" + "Example: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
             + "johndoe@example.com";
 
@@ -61,15 +61,15 @@ public class EditCommand extends Command {
             OptionalPrefixOption.of(PREFIX_PHONE, "PHONE", ParserUtil::parsePhone);
     private final OptionalPrefixOption<Email> emailOption =
             OptionalPrefixOption.of(PREFIX_EMAIL, "EMAIL", ParserUtil::parseEmail);
-    private final OptionalPrefixOption<Address> addressOption =
-            OptionalPrefixOption.of(PREFIX_ADDRESS, "ADDRESS", ParserUtil::parseAddress);
+    private final OptionalPrefixOption<StudentID> studentIdOption =
+            OptionalPrefixOption.of(PREFIX_STUDENTID, "STUDENTID", ParserUtil::parseStudentID);
     private final ZeroOrMorePrefixOption<Tag> tagOption =
             ZeroOrMorePrefixOption.of(PREFIX_TAG, "TAG", ParserUtil::parseTagAllowEmpty);
 
     @Override
     public void addToParser(GreyBookParser parser) {
         parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(indexOption, nameOption, phoneOption,
-                emailOption, addressOption, tagOption);
+                emailOption, studentIdOption, tagOption);
     }
 
     private Optional<Set<Tag>> parseTagsForEdit(Collection<Tag> tags) {
@@ -128,8 +128,8 @@ public class EditCommand extends Command {
         if (argResult.getOptionalValue(emailOption).isPresent()) {
             editPersonDescriptor.setEmail(argResult.getOptionalValue(emailOption).get());
         }
-        if (argResult.getOptionalValue(addressOption).isPresent()) {
-            editPersonDescriptor.setAddress(argResult.getOptionalValue(addressOption).get());
+        if (argResult.getOptionalValue(studentIdOption).isPresent()) {
+            editPersonDescriptor.setStudentID(argResult.getOptionalValue(studentIdOption).get());
         }
         parseTagsForEdit(argResult.getAllValues(tagOption)).ifPresent(editPersonDescriptor::setTags);
 
@@ -146,11 +146,10 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        StudentID updatedStudentId = editPersonDescriptor.getStudentID().orElse(personToEdit.getStudentID());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                personToEdit.getStudentID());
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedStudentId, updatedTags);
     }
 
     /**
@@ -161,7 +160,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
+        private StudentID studentId;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {
@@ -174,7 +173,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setStudentID(toCopy.studentId);
             setTags(toCopy.tags);
         }
 
@@ -182,7 +181,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, studentId, tags);
         }
 
         public void setName(Name name) {
@@ -209,12 +208,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public Optional<StudentID> getStudentID() {
+            return Optional.ofNullable(studentId);
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public void setStudentID(StudentID studentID) {
+            this.studentId = studentID;
         }
 
         /**
@@ -249,14 +248,14 @@ public class EditCommand extends Command {
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(address, otherEditPersonDescriptor.address)
+                    && Objects.equals(studentId, otherEditPersonDescriptor.studentId)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this).add("name", name).add("phone", phone).add("email", email)
-                    .add("address", address).add("tags", tags).toString();
+                    .add("studentID", studentId).add("tags", tags).toString();
         }
     }
 }
