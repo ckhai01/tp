@@ -1,8 +1,8 @@
 package greynekos.address.commons.util;
 
+import static greynekos.address.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static greynekos.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;

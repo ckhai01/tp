@@ -1,10 +1,10 @@
 package greynekos.address.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static greynekos.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static greynekos.address.testutil.Assert.assertThrows;
 import static greynekos.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;

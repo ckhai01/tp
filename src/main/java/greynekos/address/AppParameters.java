@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import javafx.application.Application;
 import greynekos.address.commons.core.LogsCenter;
 import greynekos.address.commons.util.FileUtil;
 import greynekos.address.commons.util.ToStringBuilder;
+import javafx.application.Application;
 
 /**
  * Represents the parsed command-line parameters given to the application.

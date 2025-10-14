@@ -2,13 +2,13 @@ package greynekos.address.logic;
 
 import java.nio.file.Path;
 
-import javafx.collections.ObservableList;
 import greynekos.address.commons.core.GuiSettings;
 import greynekos.address.logic.commands.CommandResult;
 import greynekos.address.logic.commands.exceptions.CommandException;
 import greynekos.address.logic.parser.exceptions.ParseException;
 import greynekos.address.model.ReadOnlyAddressBook;
 import greynekos.address.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component

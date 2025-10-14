@@ -1,9 +1,9 @@
 package greynekos.address.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static greynekos.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static greynekos.address.testutil.Assert.assertThrows;
 import static greynekos.address.testutil.TypicalPersons.BENSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;

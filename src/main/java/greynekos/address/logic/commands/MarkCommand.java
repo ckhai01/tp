@@ -1,12 +1,12 @@
 package greynekos.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_ABSENT;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_EXCUSED;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_LATE;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_PRESENT;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static greynekos.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

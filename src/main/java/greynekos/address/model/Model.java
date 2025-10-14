@@ -4,10 +4,10 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import greynekos.address.commons.core.GuiSettings;
 import greynekos.address.model.person.Person;
 import greynekos.address.model.person.StudentID;
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.

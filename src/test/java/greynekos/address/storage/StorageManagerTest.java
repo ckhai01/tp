@@ -1,8 +1,8 @@
 package greynekos.address.storage;
 
+import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.nio.file.Path;
 

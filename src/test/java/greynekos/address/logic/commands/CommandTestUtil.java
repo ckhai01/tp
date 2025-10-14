@@ -1,13 +1,13 @@
 package greynekos.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static greynekos.address.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;

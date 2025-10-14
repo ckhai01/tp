@@ -1,6 +1,5 @@
 package greynekos.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static greynekos.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static greynekos.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static greynekos.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -10,6 +9,7 @@ import static greynekos.address.logic.commands.CommandTestUtil.showPersonAtIndex
 import static greynekos.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static greynekos.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 

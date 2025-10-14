@@ -1,12 +1,12 @@
 package greynekos.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static greynekos.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static greynekos.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.Collections;

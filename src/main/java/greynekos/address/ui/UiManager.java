@@ -2,15 +2,15 @@ package greynekos.address.ui;
 
 import java.util.logging.Logger;
 
+import greynekos.address.MainApp;
+import greynekos.address.commons.core.LogsCenter;
+import greynekos.address.commons.util.StringUtil;
+import greynekos.address.logic.Logic;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import greynekos.address.MainApp;
-import greynekos.address.commons.core.LogsCenter;
-import greynekos.address.commons.util.StringUtil;
-import greynekos.address.logic.Logic;
 
 /**
  * The manager of the UI component.

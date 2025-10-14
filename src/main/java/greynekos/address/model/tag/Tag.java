@@ -1,7 +1,7 @@
 package greynekos.address.model.tag;
 
-import static java.util.Objects.requireNonNull;
 import static greynekos.address.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Tag in the address book. Guarantees: immutable; name is valid as

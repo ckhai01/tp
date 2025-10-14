@@ -1,8 +1,5 @@
 package greynekos.address.model.person;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static greynekos.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static greynekos.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static greynekos.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -11,6 +8,9 @@ import static greynekos.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND
 import static greynekos.address.testutil.Assert.assertThrows;
 import static greynekos.address.testutil.TypicalPersons.ALICE;
 import static greynekos.address.testutil.TypicalPersons.BOB;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 

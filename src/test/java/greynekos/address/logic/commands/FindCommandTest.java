@@ -1,12 +1,12 @@
 package greynekos.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static greynekos.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static greynekos.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static greynekos.address.testutil.TypicalPersons.CARL;
 import static greynekos.address.testutil.TypicalPersons.ELLE;
 import static greynekos.address.testutil.TypicalPersons.FIONA;
 import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collections;

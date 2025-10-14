@@ -1,7 +1,7 @@
 package greynekos.address.model;
 
-import javafx.collections.ObservableList;
 import greynekos.address.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
  * Unmodifiable view of an address book

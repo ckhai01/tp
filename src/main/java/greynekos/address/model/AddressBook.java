@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import greynekos.address.commons.util.ToStringBuilder;
 import greynekos.address.model.person.Person;
 import greynekos.address.model.person.UniquePersonList;
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the address-book level Duplicates are not allowed (by

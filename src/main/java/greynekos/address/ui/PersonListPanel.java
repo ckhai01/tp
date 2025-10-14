@@ -2,13 +2,13 @@ package greynekos.address.ui;
 
 import java.util.logging.Logger;
 
+import greynekos.address.commons.core.LogsCenter;
+import greynekos.address.model.person.Person;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import greynekos.address.commons.core.LogsCenter;
-import greynekos.address.model.person.Person;
 
 /**
  * Panel containing the list of persons.

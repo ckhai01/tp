@@ -1,19 +1,19 @@
 package greynekos.address.model;
 
-import static java.util.Objects.requireNonNull;
 import static greynekos.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import greynekos.address.commons.core.GuiSettings;
 import greynekos.address.commons.core.LogsCenter;
 import greynekos.address.model.person.Person;
 import greynekos.address.model.person.StudentID;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Represents the in-memory model of the address book data.

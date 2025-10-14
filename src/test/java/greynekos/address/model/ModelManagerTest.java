@@ -1,12 +1,12 @@
 package greynekos.address.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static greynekos.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static greynekos.address.testutil.Assert.assertThrows;
 import static greynekos.address.testutil.TypicalPersons.ALICE;
 import static greynekos.address.testutil.TypicalPersons.BENSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

@@ -5,8 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
 import greynekos.address.commons.core.Config;
 import greynekos.address.commons.core.LogsCenter;
 import greynekos.address.commons.core.Version;
@@ -30,6 +28,8 @@ import greynekos.address.storage.StorageManager;
 import greynekos.address.storage.UserPrefsStorage;
 import greynekos.address.ui.Ui;
 import greynekos.address.ui.UiManager;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Runs the application.

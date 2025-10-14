@@ -5,7 +5,6 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import greynekos.address.commons.core.GuiSettings;
 import greynekos.address.commons.core.LogsCenter;
 import greynekos.address.logic.commands.CommandRegistry;
@@ -18,6 +17,7 @@ import greynekos.address.model.Model;
 import greynekos.address.model.ReadOnlyAddressBook;
 import greynekos.address.model.person.Person;
 import greynekos.address.storage.Storage;
+import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.

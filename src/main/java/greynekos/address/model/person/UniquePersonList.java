@@ -1,15 +1,15 @@
 package greynekos.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static greynekos.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import greynekos.address.model.person.exceptions.DuplicatePersonException;
 import greynekos.address.model.person.exceptions.PersonNotFoundException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not

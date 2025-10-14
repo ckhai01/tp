@@ -28,7 +28,8 @@ public interface UserPrefsStorage {
     Optional<UserPrefs> readUserPrefs() throws DataLoadingException;
 
     /**
-     * Saves the given {@link greynekos.address.model.ReadOnlyUserPrefs} to the storage.
+     * Saves the given {@link greynekos.address.model.ReadOnlyUserPrefs} to the
+     * storage.
      *
      * @param userPrefs
      *            cannot be null.

@@ -1,8 +1,8 @@
 package greynekos.address.logic.commands;
 
+import static greynekos.address.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static greynekos.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
 import greynekos.address.commons.core.GuiSettings;
 import greynekos.address.logic.Messages;
 import greynekos.address.logic.commands.exceptions.CommandException;
@@ -24,6 +23,7 @@ import greynekos.address.model.ReadOnlyUserPrefs;
 import greynekos.address.model.person.Person;
 import greynekos.address.model.person.StudentID;
 import greynekos.address.testutil.PersonBuilder;
+import javafx.collections.ObservableList;
 
 public class AddCommandTest {
 

@@ -1,12 +1,12 @@
 package greynekos.address.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static greynekos.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static greynekos.address.testutil.Assert.assertThrows;
 import static greynekos.address.testutil.TypicalPersons.ALICE;
 import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,11 +15,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import greynekos.address.model.person.Person;
 import greynekos.address.model.person.exceptions.DuplicatePersonException;
 import greynekos.address.testutil.PersonBuilder;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class AddressBookTest {
 

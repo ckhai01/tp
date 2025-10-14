@@ -1,6 +1,5 @@
 package greynekos.address.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static greynekos.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static greynekos.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static greynekos.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -8,6 +7,7 @@ import static greynekos.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static greynekos.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
 import static greynekos.address.testutil.Assert.assertThrows;
 import static greynekos.address.testutil.TypicalPersons.AMY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;

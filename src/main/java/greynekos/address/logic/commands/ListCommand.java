@@ -1,7 +1,7 @@
 package greynekos.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static greynekos.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static java.util.Objects.requireNonNull;
 
 import greynekos.address.logic.commands.exceptions.CommandException;
 import greynekos.address.logic.parser.ArgumentParseResult;

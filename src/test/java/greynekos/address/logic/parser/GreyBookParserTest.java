@@ -1,11 +1,11 @@
 package greynekos.address.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static greynekos.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static greynekos.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static greynekos.address.testutil.Assert.assertThrows;
 import static greynekos.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;

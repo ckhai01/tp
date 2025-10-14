@@ -1,7 +1,7 @@
 package greynekos.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static greynekos.address.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Person's student ID in the address book. Guarantees: immutable;
