@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <TableView fx:id="personTableView" VBox.vgrow="ALWAYS">
+    <columns>
+      <TableColumn fx:id="indexColumn" text="Index" prefWidth="100" />
+      <TableColumn fx:id="nameColumn" text="Name" />
+      <TableColumn fx:id="studentIdColumn" text="StudentID" />
+      <TableColumn fx:id="emailColumn" text="Email" />
+      <TableColumn fx:id="phoneColumn" text="Phone" />
+      <TableColumn fx:id="tagsColumn" text="Tags" />
+    </columns>
+  </TableView>
+</VBox>
