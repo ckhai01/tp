@@ -8,9 +8,11 @@ import greynekos.address.logic.Logic;
 import greynekos.address.logic.commands.CommandResult;
 import greynekos.address.logic.commands.exceptions.CommandException;
 import greynekos.address.logic.parser.exceptions.ParseException;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -50,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private SplitPane splitPane;
+
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
@@ -66,6 +71,22 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+    }
+
+    /**
+     * Runs when this component is initialized. Used to set the splitPane divider
+     * positions once the screen size is known.
+     */
+    @FXML
+    public void initialize() {
+        Platform.runLater(() -> splitPane.setDividerPositions(0.7));
+
+        splitPane.getDividers().get(0).positionProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.doubleValue() < 0.3) {
+                splitPane.setDividerPositions(0.3);
+            }
+        });
+
     }
 
     public Stage getPrimaryStage() {
