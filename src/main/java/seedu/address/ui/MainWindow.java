@@ -73,9 +73,12 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
+    /**
+     * Runs when this component is initialized. Used to set the splitPane divider
+     * positions once the screen size is known.
+     */
     @FXML
     public void initialize() {
-        // Assume fx:id="mainSplitPane"
         Platform.runLater(() -> splitPane.setDividerPositions(0.7));
 
         splitPane.getDividers().get(0).positionProperty().addListener((obs, oldVal, newVal) -> {
