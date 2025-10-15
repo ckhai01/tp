@@ -1,7 +1,9 @@
-package seedu.address.ui;
+package greynekos.address.ui;
 
 import java.util.logging.Logger;
 
+import greynekos.address.commons.core.LogsCenter;
+import greynekos.address.model.person.Person;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,8 +12,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
 
 /**
  * Panel containing the list of persons.
