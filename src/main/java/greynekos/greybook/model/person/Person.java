@@ -11,8 +11,8 @@ import greynekos.greybook.commons.util.ToStringBuilder;
 import greynekos.greybook.model.tag.Tag;
 
 /**
- * Represents a Person in the GreyBook. Guarantees: details are present and
- * not null, field values are validated, immutable.
+ * Represents a Person in the GreyBook. Guarantees: details are present and not
+ * null, field values are validated, immutable.
  */
 public class Person {
 

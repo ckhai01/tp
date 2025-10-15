@@ -4,8 +4,8 @@ import static greynekos.greybook.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's phone number in the GreyBook. Guarantees:
- * immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Represents a Person's phone number in the GreyBook. Guarantees: immutable; is
+ * valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {
 

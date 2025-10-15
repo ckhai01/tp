@@ -4,8 +4,8 @@ import static greynekos.greybook.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's student ID in the GreyBook. Guarantees: immutable;
- * is valid as declared in {@link #isValidStudentID(String)}
+ * Represents a Person's student ID in the GreyBook. Guarantees: immutable; is
+ * valid as declared in {@link #isValidStudentID(String)}
  */
 public class StudentID implements PersonIdentifier {
 

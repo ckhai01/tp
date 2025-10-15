@@ -4,8 +4,8 @@ import static greynekos.greybook.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's name in the GreyBook. Guarantees: immutable; is
- * valid as declared in {@link #isValidName(String)}
+ * Represents a Person's name in the GreyBook. Guarantees: immutable; is valid
+ * as declared in {@link #isValidName(String)}
  */
 public class Name {
 

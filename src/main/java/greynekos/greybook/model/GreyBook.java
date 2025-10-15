@@ -80,9 +80,9 @@ public class GreyBook implements ReadOnlyGreyBook {
 
     /**
      * Replaces the given person {@code target} in the list with
-     * {@code editedPerson}. {@code target} must exist in the GreyBook. The
-     * person identity of {@code editedPerson} must not be the same as another
-     * existing person in the GreyBook.
+     * {@code editedPerson}. {@code target} must exist in the GreyBook. The person
+     * identity of {@code editedPerson} must not be the same as another existing
+     * person in the GreyBook.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
