@@ -3,7 +3,7 @@ package greynekos.address.logic.commands;
 import static greynekos.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static greynekos.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static greynekos.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static greynekos.address.testutil.TypicalPersons.getTypicalGreyBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,8 +24,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalGreyBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getGreyBook(), new UserPrefs());
     }
 
     @Test

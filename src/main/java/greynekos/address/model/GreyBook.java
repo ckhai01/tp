@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
  * Wraps all data at the address-book level Duplicates are not allowed (by
  * .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class GreyBook implements ReadOnlyGreyBook {
 
     private final UniquePersonList persons;
 
@@ -29,13 +29,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
     }
 
-    public AddressBook() {
+    public GreyBook() {
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates a GreyBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public GreyBook(ReadOnlyGreyBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -51,9 +51,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code GreyBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyGreyBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -91,7 +91,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in
+     * Removes {@code key} from this {@code GreyBook}. {@code key} must exist in
      * the address book.
      */
     public void removePerson(Person key) {
@@ -117,12 +117,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddressBook)) {
+        if (!(other instanceof GreyBook)) {
             return false;
         }
 
-        AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        GreyBook otherGreyBook = (GreyBook) other;
+        return persons.equals(otherGreyBook.persons);
     }
 
     @Override

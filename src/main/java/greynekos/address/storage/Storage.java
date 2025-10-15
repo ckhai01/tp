@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import greynekos.address.commons.exceptions.DataLoadingException;
-import greynekos.address.model.ReadOnlyAddressBook;
+import greynekos.address.model.ReadOnlyGreyBook;
 import greynekos.address.model.ReadOnlyUserPrefs;
 import greynekos.address.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends GreyBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataLoadingException;
@@ -20,13 +20,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    @Override
-    Path getAddressBookFilePath();
+    Path getGreyBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException;
+    Optional<ReadOnlyGreyBook> readGreyBook() throws DataLoadingException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveGreyBook(ReadOnlyGreyBook greyBook) throws IOException;
 
 }

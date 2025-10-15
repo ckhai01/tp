@@ -78,7 +78,7 @@ spotless {
 }
 
 shadowJar {
-    archiveFileName = 'addressbook.jar'
+    archiveFileName = 'greybook.jar'
 }
 
 defaultTasks 'clean', 'test'

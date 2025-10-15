@@ -7,25 +7,25 @@ import java.util.logging.Logger;
 
 import greynekos.address.commons.core.LogsCenter;
 import greynekos.address.commons.exceptions.DataLoadingException;
-import greynekos.address.model.ReadOnlyAddressBook;
+import greynekos.address.model.ReadOnlyGreyBook;
 import greynekos.address.model.ReadOnlyUserPrefs;
 import greynekos.address.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of GreyBook data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private GreyBookStorage greyBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
     /**
-     * Creates a {@code StorageManager} with the given {@code AddressBookStorage}
+     * Creates a {@code StorageManager} with the given {@code GreyBookStorage}
      * and {@code UserPrefStorage}.
      */
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
-        this.addressBookStorage = addressBookStorage;
+    public StorageManager(GreyBookStorage greyBookStorage, UserPrefsStorage userPrefsStorage) {
+        this.greyBookStorage = greyBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -46,33 +46,33 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-    // ================ AddressBook methods ==============================
+    // ================ GreyBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getGreyBookFilePath() {
+        return greyBookStorage.getGreyBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyGreyBook> readGreyBook() throws DataLoadingException {
+        return readGreyBook(greyBookStorage.getGreyBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataLoadingException {
+    public Optional<ReadOnlyGreyBook> readGreyBook(Path filePath) throws DataLoadingException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return greyBookStorage.readGreyBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveGreyBook(ReadOnlyGreyBook greyBook) throws IOException {
+        saveGreyBook(greyBook, greyBookStorage.getGreyBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveGreyBook(ReadOnlyGreyBook greyBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        greyBookStorage.saveGreyBook(greyBook, filePath);
     }
 
 }

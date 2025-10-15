@@ -1,6 +1,6 @@
 package greynekos.address.storage;
 
-import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static greynekos.address.testutil.TypicalPersons.getTypicalGreyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import greynekos.address.commons.core.GuiSettings;
-import greynekos.address.model.AddressBook;
-import greynekos.address.model.ReadOnlyAddressBook;
+import greynekos.address.model.GreyBook;
+import greynekos.address.model.ReadOnlyGreyBook;
 import greynekos.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonGreyBookStorage greyBookStorage = new JsonGreyBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(greyBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -49,22 +49,22 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void greyBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is
-         * properly wired to the {@link JsonAddressBookStorage} class. More extensive
+         * properly wired to the {@link JsonGreyBookStorage} class. More extensive
          * testing of UserPref saving/reading is done in {@link
-         * JsonAddressBookStorageTest} class.
+         * JsonGreyBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        GreyBook original = getTypicalGreyBook();
+        storageManager.saveGreyBook(original);
+        ReadOnlyGreyBook retrieved = storageManager.readGreyBook().get();
+        assertEquals(original, new GreyBook(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getGreyBookFilePath() {
+        assertNotNull(storageManager.getGreyBookFilePath());
     }
 
 }

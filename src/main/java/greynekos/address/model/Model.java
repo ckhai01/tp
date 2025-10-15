@@ -39,20 +39,20 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getGreyBookFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setGreyBookFilePath(Path greyBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code greyBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setGreyBook(ReadOnlyGreyBook greyBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the GreyBook */
+    ReadOnlyGreyBook getGreyBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in

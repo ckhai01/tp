@@ -16,7 +16,7 @@ import java.util.List;
 import greynekos.address.commons.core.index.Index;
 import greynekos.address.logic.commands.exceptions.CommandException;
 import greynekos.address.logic.parser.ArgumentParseResult;
-import greynekos.address.model.AddressBook;
+import greynekos.address.model.GreyBook;
 import greynekos.address.model.Model;
 import greynekos.address.model.person.NameContainsKeywordsPredicate;
 import greynekos.address.model.person.Person;
@@ -107,11 +107,11 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        GreyBook expectedGreyBook = new GreyBook(actualModel.getGreyBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, argResult));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedGreyBook, actualModel.getGreyBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
 

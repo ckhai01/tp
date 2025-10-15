@@ -3,7 +3,7 @@ package greynekos.address.logic.commands;
 import static greynekos.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static greynekos.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static greynekos.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static greynekos.address.testutil.TypicalPersons.getTypicalGreyBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,8 +26,8 @@ public class ViewCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalGreyBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getGreyBook(), new UserPrefs());
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ViewCommandTest {
 
         // Choose a different person from the full address book (not necessarily in the
         // current filtered list)
-        Person target = expectedModel.getAddressBook().getPersonList().get(1); // second person in full list
+        Person target = expectedModel.getGreyBook().getPersonList().get(1); // second person in full list
         StudentID studentId = target.getStudentID();
 
         ArgumentParseResultStub arg = new ViewArgumentParseResultStub(studentId);

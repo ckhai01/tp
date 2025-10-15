@@ -3,7 +3,7 @@ package greynekos.address.model;
 import static greynekos.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static greynekos.address.testutil.Assert.assertThrows;
 import static greynekos.address.testutil.TypicalPersons.ALICE;
-import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static greynekos.address.testutil.TypicalPersons.getTypicalGreyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,25 +21,25 @@ import greynekos.address.testutil.PersonBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class AddressBookTest {
+public class GreyBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final GreyBook greyBook = new GreyBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), greyBook.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> greyBook.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyGreyBook_replacesData() {
+        GreyBook newData = getTypicalGreyBook();
+        greyBook.resetData(newData);
+        assertEquals(newData, greyBook);
     }
 
     @Test
@@ -47,46 +47,46 @@ public class AddressBookTest {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        GreyBookStub newData = new GreyBookStub(newPersons);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicatePersonException.class, () -> greyBook.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> greyBook.hasPerson(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasPerson_personNotInGreyBook_returnsFalse() {
+        assertFalse(greyBook.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void hasPerson_personInGreyBook_returnsTrue() {
+        greyBook.addPerson(ALICE);
+        assertTrue(greyBook.hasPerson(ALICE));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> greyBook.getPersonList().remove(0));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
-        assertEquals(expected, addressBook.toString());
+        String expected = GreyBook.class.getCanonicalName() + "{persons=" + greyBook.getPersonList() + "}";
+        assertEquals(expected, greyBook.toString());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface
+     * A stub ReadOnlyGreyBook whose persons list can violate interface
      * constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class GreyBookStub implements ReadOnlyGreyBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
+        GreyBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
 

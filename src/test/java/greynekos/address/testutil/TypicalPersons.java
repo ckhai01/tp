@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import greynekos.address.model.AddressBook;
+import greynekos.address.model.GreyBook;
 import greynekos.address.model.person.Person;
 
 /**
@@ -58,10 +58,10 @@ public class TypicalPersons {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code GreyBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static GreyBook getTypicalGreyBook() {
+        GreyBook ab = new GreyBook();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

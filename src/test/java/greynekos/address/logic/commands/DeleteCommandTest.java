@@ -5,7 +5,7 @@ import static greynekos.address.logic.commands.CommandTestUtil.assertCommandSucc
 import static greynekos.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static greynekos.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static greynekos.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static greynekos.address.testutil.TypicalPersons.getTypicalGreyBook;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ import greynekos.address.model.person.StudentID;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalGreyBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +34,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete.getName());
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getGreyBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, argStub, expectedMessage, expectedModel);
@@ -59,7 +59,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete.getName());
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getGreyBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
@@ -72,7 +72,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getGreyBook().getPersonList().size());
 
         DeletePersonArgumentParseResultStub argStub = new DeletePersonArgumentParseResultStub(outOfBoundIndex);
         DeleteCommand deleteCommand = new DeleteCommand();
@@ -89,7 +89,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete.getName());
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getGreyBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, argStub, expectedMessage, expectedModel);
@@ -115,7 +115,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete.getName());
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getGreyBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, argStub, expectedMessage, expectedModel);

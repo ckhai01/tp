@@ -5,7 +5,7 @@ import static greynekos.address.logic.commands.CommandTestUtil.assertCommandSucc
 import static greynekos.address.testutil.TypicalPersons.CARL;
 import static greynekos.address.testutil.TypicalPersons.ELLE;
 import static greynekos.address.testutil.TypicalPersons.FIONA;
-import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static greynekos.address.testutil.TypicalPersons.getTypicalGreyBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
@@ -24,8 +24,8 @@ import greynekos.address.model.person.NameContainsKeywordsPredicate;
  * {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalGreyBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalGreyBook(), new UserPrefs());
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {

@@ -8,16 +8,16 @@ import static greynekos.address.logic.commands.CommandTestUtil.assertCommandSucc
 import static greynekos.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static greynekos.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static greynekos.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static greynekos.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static greynekos.address.testutil.TypicalPersons.getTypicalGreyBook;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import greynekos.address.model.GreyBook;
 import org.junit.jupiter.api.Test;
 
 import greynekos.address.commons.core.index.Index;
 import greynekos.address.logic.Messages;
 import greynekos.address.logic.commands.EditCommand.EditPersonDescriptor;
 import greynekos.address.logic.commands.stubs.EditPersonArgumentParseResultStub;
-import greynekos.address.model.AddressBook;
 import greynekos.address.model.Model;
 import greynekos.address.model.ModelManager;
 import greynekos.address.model.UserPrefs;
@@ -31,7 +31,7 @@ import greynekos.address.testutil.PersonBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalGreyBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -44,7 +44,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, argStub, expectedMessage, expectedModel);
@@ -66,7 +66,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editCommand, model, argStub, expectedMessage, expectedModel);
@@ -85,7 +85,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, argStub, expectedMessage, expectedModel);
@@ -118,7 +118,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Person personInList = model.getGreyBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditPersonArgumentParseResultStub argStub = new EditPersonArgumentParseResultStub(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
         EditCommand editCommand = new EditCommand();
@@ -145,7 +145,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getGreyBook().getPersonList().size());
 
         EditPersonArgumentParseResultStub argStub = new EditPersonArgumentParseResultStub(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());

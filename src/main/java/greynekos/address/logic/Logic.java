@@ -6,7 +6,7 @@ import greynekos.address.commons.core.GuiSettings;
 import greynekos.address.logic.commands.CommandResult;
 import greynekos.address.logic.commands.exceptions.CommandException;
 import greynekos.address.logic.parser.exceptions.ParseException;
-import greynekos.address.model.ReadOnlyAddressBook;
+import greynekos.address.model.ReadOnlyGreyBook;
 import greynekos.address.model.person.Person;
 import javafx.collections.ObservableList;
 
@@ -28,11 +28,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the GreyBook.
      *
-     * @see greynekos.address.model.Model#getAddressBook()
+     * @see greynekos.address.model.Model#getGreyBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyGreyBook getGreyBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -40,7 +40,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getGreyBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

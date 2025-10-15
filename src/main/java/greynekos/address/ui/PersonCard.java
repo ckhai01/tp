@@ -22,7 +22,7 @@ public class PersonCard extends UiPart<Region> {
      * set to such keywords or an exception will be thrown by JavaFX during runtime.
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The
-     *      issue on AddressBook level 4</a>
+     *      issue on GreyBook level 4</a>
      */
 
     public final Person person;

@@ -13,19 +13,10 @@ import greynekos.address.commons.util.ConfigUtil;
 import greynekos.address.commons.util.StringUtil;
 import greynekos.address.logic.Logic;
 import greynekos.address.logic.LogicManager;
-import greynekos.address.model.AddressBook;
-import greynekos.address.model.Model;
-import greynekos.address.model.ModelManager;
-import greynekos.address.model.ReadOnlyAddressBook;
-import greynekos.address.model.ReadOnlyUserPrefs;
-import greynekos.address.model.UserPrefs;
+import greynekos.address.model.*;
+import greynekos.address.model.GreyBook;
 import greynekos.address.model.util.SampleDataUtil;
-import greynekos.address.storage.AddressBookStorage;
-import greynekos.address.storage.JsonAddressBookStorage;
-import greynekos.address.storage.JsonUserPrefsStorage;
-import greynekos.address.storage.Storage;
-import greynekos.address.storage.StorageManager;
-import greynekos.address.storage.UserPrefsStorage;
+import greynekos.address.storage.*;
 import greynekos.address.ui.Ui;
 import greynekos.address.ui.UiManager;
 import javafx.application.Application;
@@ -48,7 +39,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing GreyBook ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,8 +48,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        GreyBookStorage greyBookStorage = new JsonGreyBookStorage(userPrefs.getGreyBookFilePath());
+        storage = new StorageManager(greyBookStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -75,21 +66,21 @@ public class MainApp extends Application {
      * used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        logger.info("Using data file : " + storage.getAddressBookFilePath());
+        logger.info("Using data file : " + storage.getGreyBookFilePath());
 
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyGreyBook> greyBookOptional;
+        ReadOnlyGreyBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Creating a new data file " + storage.getAddressBookFilePath()
-                        + " populated with a sample AddressBook.");
+            greyBookOptional = storage.readGreyBook();
+            if (!greyBookOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getGreyBookFilePath()
+                        + " populated with a sample GreyBook.");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = greyBookOptional.orElseGet(SampleDataUtil::getSampleGreyBook);
         } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
-                    + " Will be starting with an empty AddressBook.");
-            initialData = new AddressBook();
+            logger.warning("Data file at " + storage.getGreyBookFilePath() + " could not be loaded."
+                    + " Will be starting with an empty GreyBook.");
+            initialData = new GreyBook();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -174,13 +165,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting GreyBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping AddressBook ] =============================");
+        logger.info("============================ [ Stopping GreyBook ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import greynekos.address.model.AddressBook;
-import greynekos.address.model.ReadOnlyAddressBook;
+import greynekos.address.model.GreyBook;
+import greynekos.address.model.ReadOnlyGreyBook;
 import greynekos.address.model.person.Email;
 import greynekos.address.model.person.Name;
 import greynekos.address.model.person.Person;
@@ -14,7 +14,7 @@ import greynekos.address.model.person.StudentID;
 import greynekos.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code GreyBook} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -34,8 +34,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyGreyBook getSampleGreyBook() {
+        GreyBook sampleAb = new GreyBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

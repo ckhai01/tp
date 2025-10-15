@@ -10,15 +10,15 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import greynekos.address.model.ReadOnlyGreyBook;
 import org.junit.jupiter.api.Test;
 
 import greynekos.address.commons.core.GuiSettings;
 import greynekos.address.logic.Messages;
 import greynekos.address.logic.commands.exceptions.CommandException;
 import greynekos.address.logic.commands.stubs.AddPersonArgumentParseResultStub;
-import greynekos.address.model.AddressBook;
+import greynekos.address.model.GreyBook;
 import greynekos.address.model.Model;
-import greynekos.address.model.ReadOnlyAddressBook;
 import greynekos.address.model.ReadOnlyUserPrefs;
 import greynekos.address.model.person.Person;
 import greynekos.address.model.person.StudentID;
@@ -76,12 +76,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getGreyBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setGreyBookFilePath(Path greyBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -91,12 +91,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setGreyBook(ReadOnlyGreyBook greyBook) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyGreyBook getGreyBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -175,8 +175,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyGreyBook getGreyBook() {
+            return new GreyBook();
         }
     }
 }

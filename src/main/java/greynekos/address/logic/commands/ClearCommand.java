@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import greynekos.address.logic.parser.ArgumentParseResult;
 import greynekos.address.logic.parser.GreyBookParser;
-import greynekos.address.model.AddressBook;
+import greynekos.address.model.GreyBook;
 import greynekos.address.model.Model;
 
 /**
@@ -23,7 +23,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, ArgumentParseResult arg) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setGreyBook(new GreyBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

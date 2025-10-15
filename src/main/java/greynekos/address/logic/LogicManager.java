@@ -14,7 +14,7 @@ import greynekos.address.logic.parser.ArgumentParseResult;
 import greynekos.address.logic.parser.GreyBookParser;
 import greynekos.address.logic.parser.exceptions.ParseException;
 import greynekos.address.model.Model;
-import greynekos.address.model.ReadOnlyAddressBook;
+import greynekos.address.model.ReadOnlyGreyBook;
 import greynekos.address.model.person.Person;
 import greynekos.address.storage.Storage;
 import javafx.collections.ObservableList;
@@ -54,7 +54,7 @@ public class LogicManager implements Logic {
         commandResult = argParseResult.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveGreyBook(model.getGreyBook());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
@@ -65,8 +65,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyGreyBook getGreyBook() {
+        return model.getGreyBook();
     }
 
     @Override
@@ -75,8 +75,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getGreyBookFilePath() {
+        return model.getGreyBookFilePath();
     }
 
     @Override
