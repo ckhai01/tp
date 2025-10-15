@@ -6,11 +6,15 @@
 <?import javafx.scene.control.TableColumn?>
 
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
-  <TableView fx:id="personTableView" VBox.vgrow="NEVER" prefHeight="150">
+  <ListView fx:id="personListView" VBox.vgrow="NEVER" prefHeight="0" />
+  <TableView fx:id="personTableView" VBox.vgrow="ALWAYS">
     <columns>
-      <TableColumn fx:id="nameColumn" text="Name" prefWidth="150" />
-      <TableColumn fx:id="studentIDColumn" text="StudentID" prefWidth="150" />
+      <TableColumn fx:id="indexColumn" text="Index" prefWidth="100" />
+      <TableColumn fx:id="nameColumn" text="Name" />
+      <TableColumn fx:id="studentIDColumn" text="StudentID" />
+      <TableColumn fx:id="emailColumn" text="Email" />
+      <TableColumn fx:id="phoneColumn" text="Phone" />
+      <TableColumn fx:id="tagsColumn" text="Tags" />
     </columns>
   </TableView>
 </VBox>
