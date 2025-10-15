@@ -35,8 +35,16 @@
           </Menu>
         </MenuBar>
 
-        <SplitPane fx:id="splitPane" VBox.vgrow="ALWAYS" dividerPositions="0.0"
+        <SplitPane fx:id="splitPane" VBox.vgrow="ALWAYS" dividerPositions="0.7"
           orientation="VERTICAL">
+          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+            VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+          </VBox>
+
           <VBox>
             <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder"
               styleClass="pane-with-border">
@@ -54,13 +62,6 @@
             </StackPane>
           </VBox>
 
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
-            VBox.vgrow="ALWAYS">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-          </VBox>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

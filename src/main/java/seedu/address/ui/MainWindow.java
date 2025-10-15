@@ -76,11 +76,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void initialize() {
         // Assume fx:id="mainSplitPane"
-        Platform.runLater(() -> splitPane.setDividerPositions(0.0));
+        Platform.runLater(() -> splitPane.setDividerPositions(0.7));
 
         splitPane.getDividers().get(0).positionProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal.doubleValue() > 0.7) {
-                splitPane.setDividerPositions(0.7);
+            if (newVal.doubleValue() < 0.3) {
+                splitPane.setDividerPositions(0.3);
             }
         });
 
