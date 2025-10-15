@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,42 +16,36 @@ import seedu.address.model.person.Person;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-
-    @FXML
-    private ListView<Person> personListView;
+public class PersonTablePanel extends UiPart<Region> {
+    private static final String FXML = "PersonTablePanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(PersonTablePanel.class);
 
     @FXML
     private TableView<Person> personTableView;
 
     @FXML
-    TableColumn<Person, String> indexColumn;
+    private TableColumn<Person, String> indexColumn;
 
     @FXML
-    TableColumn<Person, String> nameColumn;
+    private TableColumn<Person, String> nameColumn;
 
     @FXML
-    TableColumn<Person, String> studentIDColumn;
+    private TableColumn<Person, String> studentIdColumn;
 
     @FXML
-    TableColumn<Person, String> emailColumn;
+    private TableColumn<Person, String> emailColumn;
 
     @FXML
-    TableColumn<Person, String> phoneColumn;
+    private TableColumn<Person, String> phoneColumn;
 
     @FXML
-    TableColumn<Person, String> tagsColumn;
+    private TableColumn<Person, String> tagsColumn;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonTablePanel(ObservableList<Person> personList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
-
         indexColumn.setCellFactory(col -> new TableCell<>() {
             @Override
             public void updateIndex(int index) {
@@ -66,7 +59,7 @@ public class PersonListPanel extends UiPart<Region> {
         });
 
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName().toString()));
-        studentIDColumn.setCellValueFactory(
+        studentIdColumn.setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getStudentID().toString()));
         emailColumn
                 .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail().toString()));
@@ -76,7 +69,7 @@ public class PersonListPanel extends UiPart<Region> {
                 cellData.getValue().getTags().stream().map(Object::toString).reduce((x, y) -> x + "," + y).orElse("")));
 
         personTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        personTableView.setItems(personListView.getItems());
+        personTableView.setItems(personList);
     }
 
     /**
