@@ -16,7 +16,7 @@ import greynekos.greybook.model.person.PersonIdentifier;
 
 /**
  * Displays a person identified using either the displayed index or student ID
- * from the greybook book.
+ * from GreyBook.
  */
 public class ViewCommand extends Command {
 

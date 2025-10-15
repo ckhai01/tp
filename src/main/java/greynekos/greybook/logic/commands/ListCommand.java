@@ -9,7 +9,7 @@ import greynekos.greybook.logic.parser.GreyBookParser;
 import greynekos.greybook.model.Model;
 
 /**
- * Lists all persons in the greybook book to the user.
+ * Lists all persons in GreyBook to the user.
  */
 public class ListCommand extends Command {
 

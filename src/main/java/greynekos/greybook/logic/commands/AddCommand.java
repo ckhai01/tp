@@ -25,7 +25,7 @@ import greynekos.greybook.model.person.StudentID;
 import greynekos.greybook.model.tag.Tag;
 
 /**
- * Adds a person to the greybook book.
+ * Adds a person to GreyBook.
  */
 public class AddCommand extends Command {
 
@@ -38,7 +38,7 @@ public class AddCommand extends Command {
             + "A0000000X " + PREFIX_TAG + "friends " + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in GreyBook";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in GreyBook.";
 
     private final RequiredPrefixOption<Name> nameOption =
             RequiredPrefixOption.of(PREFIX_NAME, "NAME", ParserUtil::parseName);

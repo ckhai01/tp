@@ -8,7 +8,7 @@ import greynekos.greybook.model.GreyBook;
 import greynekos.greybook.model.Model;
 
 /**
- * Clears the greybook book.
+ * Clears GreyBook.
  */
 public class ClearCommand extends Command {
 

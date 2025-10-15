@@ -11,7 +11,7 @@ import greynekos.greybook.model.Model;
 import greynekos.greybook.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in greybook book whose name contains any of the
+ * Finds and lists all persons in GreyBook whose name contains any of the
  * argument keywords. Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

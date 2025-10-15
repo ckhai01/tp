@@ -14,7 +14,7 @@ import greynekos.greybook.model.person.PersonIdentifier;
 
 /**
  * Deletes a person identified using either the displayed index or student ID
- * from the greybook book.
+ * from GreyBook.
  */
 public class DeleteCommand extends Command {
 

@@ -36,7 +36,7 @@ import greynekos.greybook.model.person.StudentID;
 import greynekos.greybook.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the greybook book.
+ * Edits the details of an existing person in GreyBook.
  */
 public class EditCommand extends Command {
 
