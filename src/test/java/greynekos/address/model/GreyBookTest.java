@@ -80,8 +80,7 @@ public class GreyBookTest {
     }
 
     /**
-     * A stub ReadOnlyGreyBook whose persons list can violate interface
-     * constraints.
+     * A stub ReadOnlyGreyBook whose persons list can violate interface constraints.
      */
     private static class GreyBookStub implements ReadOnlyGreyBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();

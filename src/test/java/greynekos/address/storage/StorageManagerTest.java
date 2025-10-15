@@ -53,8 +53,8 @@ public class StorageManagerTest {
         /*
          * Note: This is an integration test that verifies the StorageManager is
          * properly wired to the {@link JsonGreyBookStorage} class. More extensive
-         * testing of UserPref saving/reading is done in {@link
-         * JsonGreyBookStorageTest} class.
+         * testing of UserPref saving/reading is done in {@link JsonGreyBookStorageTest}
+         * class.
          */
         GreyBook original = getTypicalGreyBook();
         storageManager.saveGreyBook(original);

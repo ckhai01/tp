@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import greynekos.address.model.GreyBook;
-import greynekos.address.model.ReadOnlyGreyBook;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import greynekos.address.commons.exceptions.DataLoadingException;
+import greynekos.address.model.GreyBook;
+import greynekos.address.model.ReadOnlyGreyBook;
 
 public class JsonGreyBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonGreyBookStorageTest");
@@ -94,8 +94,7 @@ public class JsonGreyBookStorageTest {
      */
     private void saveGreyBook(ReadOnlyGreyBook greyBook, String filePath) {
         try {
-            new JsonGreyBookStorage(Paths.get(filePath)).saveGreyBook(greyBook,
-                    addToTestDataPathIfNotNull(filePath));
+            new JsonGreyBookStorage(Paths.get(filePath)).saveGreyBook(greyBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

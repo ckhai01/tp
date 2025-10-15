@@ -91,8 +91,8 @@ public class GreyBook implements ReadOnlyGreyBook {
     }
 
     /**
-     * Removes {@code key} from this {@code GreyBook}. {@code key} must exist in
-     * the address book.
+     * Removes {@code key} from this {@code GreyBook}. {@code key} must exist in the
+     * address book.
      */
     public void removePerson(Person key) {
         persons.remove(key);

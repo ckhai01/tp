@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import greynekos.address.model.ReadOnlyGreyBook;
 import org.junit.jupiter.api.Test;
 
 import greynekos.address.commons.core.GuiSettings;
@@ -19,6 +18,7 @@ import greynekos.address.logic.commands.exceptions.CommandException;
 import greynekos.address.logic.commands.stubs.AddPersonArgumentParseResultStub;
 import greynekos.address.model.GreyBook;
 import greynekos.address.model.Model;
+import greynekos.address.model.ReadOnlyGreyBook;
 import greynekos.address.model.ReadOnlyUserPrefs;
 import greynekos.address.model.person.Person;
 import greynekos.address.model.person.StudentID;

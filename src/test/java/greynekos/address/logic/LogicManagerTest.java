@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 
-import greynekos.address.model.ReadOnlyGreyBook;
-import greynekos.address.storage.JsonGreyBookStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -27,8 +25,10 @@ import greynekos.address.logic.commands.exceptions.CommandException;
 import greynekos.address.logic.parser.exceptions.ParseException;
 import greynekos.address.model.Model;
 import greynekos.address.model.ModelManager;
+import greynekos.address.model.ReadOnlyGreyBook;
 import greynekos.address.model.UserPrefs;
 import greynekos.address.model.person.Person;
+import greynekos.address.storage.JsonGreyBookStorage;
 import greynekos.address.storage.JsonUserPrefsStorage;
 import greynekos.address.storage.StorageManager;
 import greynekos.address.testutil.PersonBuilder;
@@ -45,8 +45,7 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonGreyBookStorage greyBookStorage =
-                new JsonGreyBookStorage(temporaryFolder.resolve("greyBook.json"));
+        JsonGreyBookStorage greyBookStorage = new JsonGreyBookStorage(temporaryFolder.resolve("greyBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(greyBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);

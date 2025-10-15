@@ -11,13 +11,13 @@ import static greynekos.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static greynekos.address.testutil.TypicalPersons.getTypicalGreyBook;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import greynekos.address.model.GreyBook;
 import org.junit.jupiter.api.Test;
 
 import greynekos.address.commons.core.index.Index;
 import greynekos.address.logic.Messages;
 import greynekos.address.logic.commands.EditCommand.EditPersonDescriptor;
 import greynekos.address.logic.commands.stubs.EditPersonArgumentParseResultStub;
+import greynekos.address.model.GreyBook;
 import greynekos.address.model.Model;
 import greynekos.address.model.ModelManager;
 import greynekos.address.model.UserPrefs;

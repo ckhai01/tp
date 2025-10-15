@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import greynekos.address.model.GreyBook;
 import org.junit.jupiter.api.Test;
 
 import greynekos.address.commons.exceptions.IllegalValueException;
 import greynekos.address.commons.util.JsonUtil;
+import greynekos.address.model.GreyBook;
 import greynekos.address.testutil.TypicalPersons;
 
 public class JsonSerializableGreyBookTest {
