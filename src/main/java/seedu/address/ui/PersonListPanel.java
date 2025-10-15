@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
@@ -19,6 +20,12 @@ public class PersonListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Person> personListView;
+
+    @FXML
+    TableColumn<Person, String> nameColumn;
+
+    @FXML
+    TableColumn<Person, String> studentIDColumn;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
