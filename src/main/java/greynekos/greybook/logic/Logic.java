@@ -38,7 +38,7 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Returns the user prefs' greybook book file path.
+     * Returns the user prefs' GreyBook file path.
      */
     Path getGreyBookFilePath();
 

@@ -72,7 +72,7 @@ public class ViewCommandTest {
         // Start with the model filtered to the first person
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        // Choose a different person from the full greybook book (not necessarily in the
+        // Choose a different person from the full GreyBook (not necessarily in the
         // current filtered list)
         Person target = expectedModel.getGreyBook().getPersonList().get(1); // second person in full list
         StudentID studentId = target.getStudentID();

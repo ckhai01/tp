@@ -16,7 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 /**
- * Represents the in-memory model of the greybook book data.
+ * Represents the in-memory model of the GreyBook data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -31,7 +31,7 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyGreyBook greyBook, ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(greyBook, userPrefs);
 
-        logger.fine("Initializing with greybook book: " + greyBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with GreyBook: " + greyBook + " and user prefs " + userPrefs);
 
         this.greyBook = new GreyBook(greyBook);
         this.userPrefs = new UserPrefs(userPrefs);

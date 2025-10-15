@@ -63,7 +63,7 @@ public class GreyBook implements ReadOnlyGreyBook {
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in
-     * the greybook book.
+     * the GreyBook.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -71,8 +71,8 @@ public class GreyBook implements ReadOnlyGreyBook {
     }
 
     /**
-     * Adds a person to the greybook book. The person must not already exist in the
-     * greybook book.
+     * Adds a person to the GreyBook. The person must not already exist in the
+     * GreyBook.
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -80,9 +80,9 @@ public class GreyBook implements ReadOnlyGreyBook {
 
     /**
      * Replaces the given person {@code target} in the list with
-     * {@code editedPerson}. {@code target} must exist in the greybook book. The
+     * {@code editedPerson}. {@code target} must exist in the GreyBook. The
      * person identity of {@code editedPerson} must not be the same as another
-     * existing person in the greybook book.
+     * existing person in the GreyBook.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -92,7 +92,7 @@ public class GreyBook implements ReadOnlyGreyBook {
 
     /**
      * Removes {@code key} from this {@code GreyBook}. {@code key} must exist in the
-     * greybook book.
+     * GreyBook.
      */
     public void removePerson(Person key) {
         persons.remove(key);

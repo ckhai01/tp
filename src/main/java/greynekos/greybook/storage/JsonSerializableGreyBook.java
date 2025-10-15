@@ -43,7 +43,7 @@ class JsonSerializableGreyBook {
     }
 
     /**
-     * Converts this greybook book into the model's {@code GreyBook} object.
+     * Converts this GreyBook into the model's {@code GreyBook} object.
      *
      * @throws IllegalValueException
      *             if there were any data constraints violated.

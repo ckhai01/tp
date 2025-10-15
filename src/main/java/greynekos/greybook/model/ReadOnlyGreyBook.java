@@ -4,7 +4,7 @@ import greynekos.greybook.model.person.Person;
 import javafx.collections.ObservableList;
 
 /**
- * Unmodifiable view of an greybook book
+ * Unmodifiable view of an GreyBook
  */
 public interface ReadOnlyGreyBook {
 

@@ -37,17 +37,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' greybook book file path.
+     * Returns the user prefs' GreyBook file path.
      */
     Path getGreyBookFilePath();
 
     /**
-     * Sets the user prefs' greybook book file path.
+     * Sets the user prefs' GreyBook file path.
      */
     void setGreyBookFilePath(Path greyBookFilePath);
 
     /**
-     * Replaces greybook book data with the data in {@code greyBook}.
+     * Replaces GreyBook data with the data in {@code greyBook}.
      */
     void setGreyBook(ReadOnlyGreyBook greyBook);
 
@@ -56,12 +56,12 @@ public interface Model {
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in
-     * the greybook book.
+     * the GreyBook.
      */
     boolean hasPerson(Person person);
 
     /**
-     * Deletes the given person. The person must exist in the greybook book.
+     * Deletes the given person. The person must exist in the GreyBook.
      */
     void deletePerson(Person target);
 
@@ -73,9 +73,9 @@ public interface Model {
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the greybook book. The person identity of
+     * {@code target} must exist in the GreyBook. The person identity of
      * {@code editedPerson} must not be the same as another existing person in the
-     * greybook book.
+     * GreyBook.
      */
     void setPerson(Person target, Person editedPerson);
 

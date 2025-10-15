@@ -4,7 +4,7 @@ import static greynekos.greybook.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Tag in the greybook book. Guarantees: immutable; name is valid
+ * Represents a Tag in the GreyBook. Guarantees: immutable; name is valid
  * as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
