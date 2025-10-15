@@ -1,8 +1,8 @@
 {
   "baseUrl": "",
   "titlePrefix": "GreyBook",
-  "titleSuffix": "AddressBook Level-3",
-  "faviconPath": "images/SeEduLogo.png",
+  "titleSuffix": "GreyBook",
+  "faviconPath": "images/greynekos.png",
   "style": {
     "codeTheme": "light"
   },
