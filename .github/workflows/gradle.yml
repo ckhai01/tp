@@ -44,3 +44,18 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Build with Gradle
+        run: ./gradlew shadowJar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: greybook.jar
+          path: build/libs/greybook.jar
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag' && runner.os == 'Linux'
+        with:
+          files: build/libs/greybook.jar
