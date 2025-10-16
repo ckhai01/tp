@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import greynekos.greybook.commons.core.index.Index;
@@ -21,7 +22,7 @@ import greynekos.greybook.logic.parser.ArgumentParseResult;
 import greynekos.greybook.logic.parser.GreyBookParser;
 import greynekos.greybook.logic.parser.ParserUtil;
 import greynekos.greybook.logic.parser.commandoption.OptionalPrefixOption;
-import greynekos.greybook.logic.parser.commandoption.SinglePreambleOption;
+import greynekos.greybook.logic.parser.commandoption.OptionalSinglePreambleOption;
 import greynekos.greybook.model.Model;
 import greynekos.greybook.model.person.Person;
 import greynekos.greybook.model.person.StudentID;
@@ -44,7 +45,8 @@ public class MarkCommand extends Command {
     public static final String MESSAGE_MARK_PERSON_SUCCESS = "Marked %1$s's Attendance: %2$s\n%3$s";
     public static final String MESSAGE_MISSING_ATTENDANCE_FLAG = "You must provide one of -p, -a, -l, -e.";
 
-    private final SinglePreambleOption<Index> indexOption = SinglePreambleOption.of("INDEX", ParserUtil::parseIndex);
+    private final OptionalSinglePreambleOption<Index> indexOption =
+            OptionalSinglePreambleOption.of("INDEX", ParserUtil::parseIndex);
     private final OptionalPrefixOption<StudentID> studentIdOption =
             OptionalPrefixOption.of(PREFIX_STUDENTID, "STUDENT_ID", ParserUtil::parseStudentID);
 
@@ -71,14 +73,28 @@ public class MarkCommand extends Command {
             throw new CommandException(MESSAGE_MISSING_ATTENDANCE_FLAG);
         }
 
+        // Get optional values
+        Optional<Index> indexOptional = arg.getOptionalValue(indexOption);
+        Optional<StudentID> studentIdOptional = arg.getOptionalValue(studentIdOption);
+
+        boolean hasIndex = indexOptional.isPresent();
+        boolean hasStudentId = studentIdOptional.isPresent();
+
+        if (hasIndex && hasStudentId) {
+            throw new CommandException("You can only specify either an index or a student ID, not both.");
+        }
+        if (!hasIndex && !hasStudentId) {
+            throw new CommandException("You must specify either an index or a student ID.");
+        }
+
         Person personToMark;
-        if (arg.getOptionalValue(studentIdOption).isPresent()) {
+        if (studentIdOptional.isPresent()) {
             // mark by StudentID
-            StudentID studentId = arg.getOptionalValue(studentIdOption).get();
+            StudentID studentId = studentIdOptional.get();
             personToMark = getPersonByStudentId(model, studentId);
         } else {
             // mark by index
-            Index index = arg.getValue(indexOption);
+            Index index = indexOptional.get();
             personToMark = getPersonByIndex(model, index);
         }
 

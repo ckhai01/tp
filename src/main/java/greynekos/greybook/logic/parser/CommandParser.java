@@ -12,6 +12,7 @@ import greynekos.greybook.logic.commands.Command;
 import greynekos.greybook.logic.parser.commandoption.NoDuplicateOption;
 import greynekos.greybook.logic.parser.commandoption.OneOrMorePreambleOption;
 import greynekos.greybook.logic.parser.commandoption.Option;
+import greynekos.greybook.logic.parser.commandoption.OptionalSinglePreambleOption;
 import greynekos.greybook.logic.parser.commandoption.PrefixOption;
 import greynekos.greybook.logic.parser.commandoption.RequiredOption;
 import greynekos.greybook.logic.parser.commandoption.SinglePreambleOption;
@@ -87,6 +88,11 @@ public class CommandParser {
                 }
             } else if (option instanceof SinglePreambleOption) {
                 result.add(option.parseOptionArgument(argMultimap.getPreamble()));
+            } else if (option instanceof OptionalSinglePreambleOption) {
+                String preamble = argMultimap.getPreamble();
+                if (!preamble.isEmpty()) {
+                    result.add(option.parseOptionArgument(preamble));
+                }
             } else {
                 for (String arg : argMultimap.getAllValues(option.getPrefix())) {
                     result.add(option.parseOptionArgument(arg));
