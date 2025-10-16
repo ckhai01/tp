@@ -51,7 +51,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: greybook.jar
+          name: greybook-${{ runner.os }}.jar
           path: build/libs/greybook.jar
 
       - name: Release
