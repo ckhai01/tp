@@ -1,9 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.lang.reflect.Array;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -13,13 +9,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Arrays;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentParseResult;
 import seedu.address.logic.parser.GreyBookParser;
 import seedu.address.model.AddressBook;
@@ -52,7 +45,7 @@ public class MarkCommandTest {
         ArgumentParseResult arg = parser.parse(userInput);
 
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        
+
         Tag expectedTag = new Tag(today + "-Present");
         Set<Tag> mergedTags = mergeTags(targetPerson.getTags(), expectedTag);
         String[] mergedTagStrings = mergedTags.stream().map(tag -> tag.tagName).toArray(String[]::new);
@@ -61,8 +54,8 @@ public class MarkCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(targetPerson, markedPerson);
 
-        String expectedMessage = String.format(MarkCommand.MESSAGE_MARK_PERSON_SUCCESS,
-                markedPerson.getName(), "Present", Messages.format(markedPerson));
+        String expectedMessage = String.format(MarkCommand.MESSAGE_MARK_PERSON_SUCCESS, markedPerson.getName(),
+                "Present", Messages.format(markedPerson));
 
         assertCommandSuccess(markCommand, model, arg, expectedMessage, expectedModel);
     }
@@ -84,14 +77,14 @@ public class MarkCommandTest {
 
         Set<Tag> mergedTags = mergeTags(targetPerson.getTags(), expectedTag);
         String[] mergedTagStrings = mergedTags.stream().map(tag -> tag.tagName).toArray(String[]::new);
-        
+
         Person markedPerson = new PersonBuilder(targetPerson).withTags(mergedTagStrings).build();
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(targetPerson, markedPerson);
 
-        String expectedMessage = String.format(MarkCommand.MESSAGE_MARK_PERSON_SUCCESS,
-                markedPerson.getName(), "Late", Messages.format(markedPerson));
+        String expectedMessage = String.format(MarkCommand.MESSAGE_MARK_PERSON_SUCCESS, markedPerson.getName(), "Late",
+                Messages.format(markedPerson));
 
         assertCommandSuccess(markCommand, model, arg, expectedMessage, expectedModel);
     }
@@ -105,8 +98,7 @@ public class MarkCommandTest {
         String userInput = "mark 999 -p";
         ArgumentParseResult arg = parser.parse(userInput);
 
-        assertCommandFailure(markCommand, model, arg,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(markCommand, model, arg, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -118,8 +110,7 @@ public class MarkCommandTest {
         String userInput = "mark i/A0000000X -a";
         ArgumentParseResult arg = parser.parse(userInput);
 
-        assertCommandFailure(markCommand, model, arg,
-                "No student found with ID: A0000000X");
+        assertCommandFailure(markCommand, model, arg, "No student found with ID: A0000000X");
     }
 
     @Test
@@ -131,8 +122,7 @@ public class MarkCommandTest {
         String userInput = "mark " + INDEX_FIRST_PERSON.getOneBased();
         ArgumentParseResult arg = parser.parse(userInput);
 
-        assertCommandFailure(markCommand, model, arg,
-                MarkCommand.MESSAGE_MISSING_ATTENDANCE_FLAG);
+        assertCommandFailure(markCommand, model, arg, MarkCommand.MESSAGE_MISSING_ATTENDANCE_FLAG);
     }
 
     // helper method to merge tag sets

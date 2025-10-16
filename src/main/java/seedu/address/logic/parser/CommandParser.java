@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.commandoption.NoDuplicateOption;
 import seedu.address.logic.parser.commandoption.OneOrMorePreambleOption;
 import seedu.address.logic.parser.commandoption.Option;
+import seedu.address.logic.parser.commandoption.OptionalSinglePreambleOption;
 import seedu.address.logic.parser.commandoption.PrefixOption;
 import seedu.address.logic.parser.commandoption.RequiredOption;
 import seedu.address.logic.parser.commandoption.SinglePreambleOption;
@@ -87,6 +88,11 @@ public class CommandParser {
                 }
             } else if (option instanceof SinglePreambleOption) {
                 result.add(option.parseOptionArgument(argMultimap.getPreamble()));
+            } else if (option instanceof OptionalSinglePreambleOption) {
+                String preamble = argMultimap.getPreamble();
+                if (!preamble.isEmpty()) {
+                    result.add(option.parseOptionArgument(preamble));
+                }
             } else {
                 for (String arg : argMultimap.getAllValues(option.getPrefix())) {
                     result.add(option.parseOptionArgument(arg));
