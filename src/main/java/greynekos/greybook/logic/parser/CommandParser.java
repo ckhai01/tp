@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.parser.commandoption.NoDuplicateOption;
-import seedu.address.logic.parser.commandoption.OneOrMorePreambleOption;
-import seedu.address.logic.parser.commandoption.Option;
-import seedu.address.logic.parser.commandoption.OptionalSinglePreambleOption;
-import seedu.address.logic.parser.commandoption.PrefixOption;
-import seedu.address.logic.parser.commandoption.RequiredOption;
-import seedu.address.logic.parser.commandoption.SinglePreambleOption;
-import seedu.address.logic.parser.exceptions.ParseException;
+import greynekos.greybook.logic.commands.Command;
+import greynekos.greybook.logic.parser.commandoption.NoDuplicateOption;
+import greynekos.greybook.logic.parser.commandoption.OneOrMorePreambleOption;
+import greynekos.greybook.logic.parser.commandoption.Option;
+import greynekos.greybook.logic.parser.commandoption.OptionalSinglePreambleOption;
+import greynekos.greybook.logic.parser.commandoption.PrefixOption;
+import greynekos.greybook.logic.parser.commandoption.RequiredOption;
+import greynekos.greybook.logic.parser.commandoption.SinglePreambleOption;
+import greynekos.greybook.logic.parser.exceptions.ParseException;
 
 /**
  * Stores the options associated with its command and handles parsing arguments

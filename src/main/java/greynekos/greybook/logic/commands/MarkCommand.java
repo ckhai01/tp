@@ -15,18 +15,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ArgumentParseResult;
-import seedu.address.logic.parser.GreyBookParser;
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.commandoption.OptionalPrefixOption;
-import seedu.address.logic.parser.commandoption.OptionalSinglePreambleOption;
-import seedu.address.model.Model;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.StudentID;
-import seedu.address.model.tag.Tag;
+import greynekos.greybook.commons.core.index.Index;
+import greynekos.greybook.logic.Messages;
+import greynekos.greybook.logic.commands.exceptions.CommandException;
+import greynekos.greybook.logic.parser.ArgumentParseResult;
+import greynekos.greybook.logic.parser.GreyBookParser;
+import greynekos.greybook.logic.parser.ParserUtil;
+import greynekos.greybook.logic.parser.commandoption.OptionalPrefixOption;
+import greynekos.greybook.logic.parser.commandoption.OptionalSinglePreambleOption;
+import greynekos.greybook.model.Model;
+import greynekos.greybook.model.person.Person;
+import greynekos.greybook.model.person.StudentID;
+import greynekos.greybook.model.tag.Tag;
 
 /**
  * The MarkCommand marks a club member's attendance (e.g. as Present, Absent,

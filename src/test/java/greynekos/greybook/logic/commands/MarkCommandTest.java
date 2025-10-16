@@ -1,9 +1,9 @@
-package seedu.address.logic.commands;
+package greynekos.greybook.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandFailure;
+import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static greynekos.greybook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static greynekos.greybook.testutil.TypicalPersons.getTypicalGreyBook;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,17 +12,17 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.Messages;
-import seedu.address.logic.parser.ArgumentParseResult;
-import seedu.address.logic.parser.GreyBookParser;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.StudentID;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import greynekos.greybook.logic.Messages;
+import greynekos.greybook.logic.parser.ArgumentParseResult;
+import greynekos.greybook.logic.parser.GreyBookParser;
+import greynekos.greybook.model.GreyBook;
+import greynekos.greybook.model.Model;
+import greynekos.greybook.model.ModelManager;
+import greynekos.greybook.model.UserPrefs;
+import greynekos.greybook.model.person.Person;
+import greynekos.greybook.model.person.StudentID;
+import greynekos.greybook.model.tag.Tag;
+import greynekos.greybook.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -30,7 +30,7 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class MarkCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalGreyBook(), new UserPrefs());
 
     @Test
     public void execute_markByIndex_success() throws Exception {
@@ -51,7 +51,7 @@ public class MarkCommandTest {
         String[] mergedTagStrings = mergedTags.stream().map(tag -> tag.tagName).toArray(String[]::new);
         Person markedPerson = new PersonBuilder(targetPerson).withTags(mergedTagStrings).build();
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
         expectedModel.setPerson(targetPerson, markedPerson);
 
         String expectedMessage = String.format(MarkCommand.MESSAGE_MARK_PERSON_SUCCESS, markedPerson.getName(),
@@ -80,7 +80,7 @@ public class MarkCommandTest {
 
         Person markedPerson = new PersonBuilder(targetPerson).withTags(mergedTagStrings).build();
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
         expectedModel.setPerson(targetPerson, markedPerson);
 
         String expectedMessage = String.format(MarkCommand.MESSAGE_MARK_PERSON_SUCCESS, markedPerson.getName(), "Late",
