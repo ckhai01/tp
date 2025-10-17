@@ -121,7 +121,8 @@ public class ParserUtil {
      */
     public static StudentID parseStudentID(String studentID) throws ParseException {
         requireNonNull(studentID);
-        String trimmedStudentID = studentID.trim();
+        // Always convert studentID to upper case
+        String trimmedStudentID = studentID.trim().toUpperCase();
         if (!StudentID.isValidStudentID(trimmedStudentID)) {
             throw new ParseException(StudentID.MESSAGE_CONSTRAINTS);
         }
