@@ -20,14 +20,14 @@ public class StudentIdTest {
     }
 
     @Test
-    public void isValidStudentID() {
+    public void isValidStudentID_invalidStudentID_returnsFalse() {
         // null student ID
         assertThrows(NullPointerException.class, () -> StudentID.isValidStudentID(null));
 
         // invalid student IDs
         assertFalse(StudentID.isValidStudentID("")); // empty string
         assertFalse(StudentID.isValidStudentID(" ")); // spaces only
-        assertFalse(StudentID.isValidStudentID("B1234567A")); // first letter not 'A'
+        assertFalse(StudentID.isValidStudentID("B1234567A")); // first letter not 'A' or 'U'
         assertFalse(StudentID.isValidStudentID("a1234567A")); // lowercase 'a' at start
         assertFalse(StudentID.isValidStudentID("A123456A")); // only 6 digits
         assertFalse(StudentID.isValidStudentID("A12345678A")); // 8 digits
@@ -38,23 +38,26 @@ public class StudentIdTest {
         assertFalse(StudentID.isValidStudentID("A12A4567B")); // letter in middle digits
         assertFalse(StudentID.isValidStudentID("A 1234567B")); // space in middle
         assertFalse(StudentID.isValidStudentID("A1234567 B")); // space before last letter
+        assertFalse(StudentID.isValidStudentID("A1234567A")); // wrong last character checksum
+        assertFalse(StudentID.isValidStudentID("A1234567x")); // lowercase last letter
+    }
 
-        // valid student IDs
-        assertTrue(StudentID.isValidStudentID("A1234567A")); // uppercase last letter
-        assertTrue(StudentID.isValidStudentID("A1234567a")); // lowercase last letter
-        assertTrue(StudentID.isValidStudentID("A0000000Z")); // all zeros
-        assertTrue(StudentID.isValidStudentID("A9999999z")); // all nines
-        assertTrue(StudentID.isValidStudentID("A1111111B"));
-        assertTrue(StudentID.isValidStudentID("A2222222C"));
+    @Test
+    public void isValidStudentID_validStudentID_returnsTrue() {
+        assertTrue(StudentID.isValidStudentID("A1234567X")); // uppercase last letter
+        assertTrue(StudentID.isValidStudentID("A0000000Y")); // all zeros
+        assertTrue(StudentID.isValidStudentID("A9999999W")); // all nines
+        assertTrue(StudentID.isValidStudentID("A1111111M"));
+        assertTrue(StudentID.isValidStudentID("A2222222B"));
         assertTrue(StudentID.isValidStudentID("A1234567X"));
     }
 
     @Test
     public void equals() {
-        StudentID studentID = new StudentID("A1234567A");
+        StudentID studentID = new StudentID("A1234567X");
 
         // same values -> returns true
-        assertTrue(studentID.equals(new StudentID("A1234567A")));
+        assertTrue(studentID.equals(new StudentID("A1234567X")));
 
         // same object -> returns true
         assertTrue(studentID.equals(studentID));
@@ -66,6 +69,6 @@ public class StudentIdTest {
         assertFalse(studentID.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(studentID.equals(new StudentID("A2345678B")));
+        assertFalse(studentID.equals(new StudentID("A2345678L")));
     }
 }

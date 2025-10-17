@@ -107,10 +107,10 @@ public class MarkCommandTest {
         GreyBookParser parser = new GreyBookParser();
         markCommand.addToParser(parser);
 
-        String userInput = "mark i/A0000000X -a";
+        String userInput = "mark i/A0000000Y -a";
         ArgumentParseResult arg = parser.parse(userInput);
 
-        assertCommandFailure(markCommand, model, arg, "No student found with ID: A0000000X");
+        assertCommandFailure(markCommand, model, arg, "No student found with ID: A0000000Y");
     }
 
     @Test

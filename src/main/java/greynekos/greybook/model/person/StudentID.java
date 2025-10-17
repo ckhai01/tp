@@ -13,6 +13,7 @@ public class StudentID implements PersonIdentifier {
             "Student IDs should be in the format A0000000Y, where the first letter must be 'A', "
                     + "followed by exactly 7 digits, and ending with any English letter (A-Z or a-z)";
     public static final String VALIDATION_REGEX = "^(?:A\\d{7}|U\\d{6,7})[YXWURNMLJHEAB]$";
+    public static final String VALID_CHECKSUMS = "YXWURNMLJHEAB";
     public final String value;
 
     /**
@@ -34,7 +35,29 @@ public class StudentID implements PersonIdentifier {
         if (!test.matches(VALIDATION_REGEX)) {
             return false;
         }
-        return StudentID.isValidStudentIDChecksum(test);
+        return isValidStudentIDChecksum(test);
+    }
+
+    /**
+     * Calculates the checksum character, given the student ID digits
+     */
+    public static char calculateStudentIDChecksum(String test) {
+        int[] weights;
+        if (test.charAt(0) == 'U') {
+            weights = new int[]{0, 1, 3, 1, 2, 7};
+        } else { // 'A'
+            weights = new int[]{1, 1, 1, 1, 1, 1};
+        }
+
+        String digits = test.substring(test.length() - 6);
+        int sum = 0;
+
+        for (int i = 0; i < 6; i++) {
+            int digit = Character.getNumericValue(digits.charAt(i));
+            sum += weights[i] * digit;
+        }
+
+        return VALID_CHECKSUMS.charAt(sum % 13);
     }
 
     /**
@@ -50,23 +73,7 @@ public class StudentID implements PersonIdentifier {
             values = values.substring(0, 3) + values.substring(4);
         }
 
-        int[] weights;
-        if (values.charAt(0) == 'U') {
-            weights = new int[]{0, 1, 3, 1, 2, 7};
-        } else { // 'A'
-            weights = new int[]{1, 1, 1, 1, 1, 1};
-        }
-
-        String digits = values.substring(values.length() - 6);
-        int sum = 0;
-
-        for (int i = 0; i < 6; i++) {
-            int digit = Character.getNumericValue(digits.charAt(i));
-            sum += weights[i] * digit;
-        }
-
-        char checkChar = "YXWURNMLJHEAB".charAt(sum % 13);
-        return checksum == checkChar;
+        return checksum == calculateStudentIDChecksum(values);
     }
 
     @Override

@@ -58,7 +58,7 @@ public class ParserUtil {
 
         if (!isValidIndex && !isValidStudentID) {
             throw new ParseException("Invalid format. Please provide either a valid index (positive integer) "
-                    + "or a valid Student ID (format: A0000000L).");
+                    + "or a valid Student ID (format: A0000000Y).");
         }
 
         return isValidIndex ? parseIndex(trimmed) : new StudentID(trimmed);

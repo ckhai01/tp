@@ -40,7 +40,7 @@ public class MarkCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) " + "or " + PREFIX_STUDENTID + "STUDENT_ID\n" + "Flags: "
             + PREFIX_PRESENT + " for Present, " + PREFIX_ABSENT + " for Absent, " + PREFIX_LATE + " for Late, "
             + PREFIX_EXCUSED + " for Excused\n" + "Example: " + COMMAND_WORD + " 1 " + PREFIX_PRESENT + "\n"
-            + "         " + COMMAND_WORD + " " + PREFIX_STUDENTID + "A0123456X " + PREFIX_ABSENT;
+            + "         " + COMMAND_WORD + " " + PREFIX_STUDENTID + "A0123456J " + PREFIX_ABSENT;
 
     public static final String MESSAGE_MARK_PERSON_SUCCESS = "Marked %1$s's Attendance: %2$s\n%3$s";
     public static final String MESSAGE_MISSING_ATTENDANCE_FLAG = "You must provide one of -p, -a, -l, -e.";
