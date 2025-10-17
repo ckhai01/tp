@@ -31,7 +31,7 @@ GreyBook is a **desktop app for managing contacts, optimized for use via a  Line
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com i/A0000000X` : Adds a contact named `John Doe` to the GreyBook.
+   * `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` : Adds a contact named `John Doe` to the GreyBook.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -141,7 +141,7 @@ Format: `delete INDEX` or `delete STUDENTID`
 * Deletes the person at the specified `INDEX` or with the specified `STUDENTID`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The student ID must follow the format `A0000000L` where:
+* The student ID must follow the format `A0000000Y` where:
   * First character must be 'A'
   * Followed by exactly 7 digits
   * Ending with any English letter (A-Z)
@@ -149,7 +149,7 @@ Format: `delete INDEX` or `delete STUDENTID`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the GreyBook.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-* `delete A0123456X` deletes the person with student ID A0123456X from the GreyBook.
+* `delete A0123456J` deletes the person with student ID A0123456J from the GreyBook.
 
 ### Viewing a person : `view`
 
@@ -160,15 +160,15 @@ Format: `view INDEX` or `view STUDENTID`
 * Finds and displays the person at the specified `INDEX` or with the specified `STUDENTID`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The student ID must follow the format `A0000000L` where:
+* The student ID must follow the format `A0000000Y` where:
     * First character must be 'A'
     * Followed by exactly 7 digits
     * Ending with any English letter (A-Z)
 
 Examples:
 * `list` followed by `view 2` displays the 2nd person in the GreyBook.
-* `view A0123456X` displays the person with student ID A0123456X from the GreyBook.
-* `view 3` followed by `view A0123456X` will also display the person with student ID A0123456X, even if they are not the 3rd person in the GreyBook.
+* `view A0123456J` displays the person with student ID A0123456J from the GreyBook.
+* `view 3` followed by `view A0123456J` will also display the person with student ID A0123456J, even if they are not the 3rd person in the GreyBook.
 
 ### Clearing all entries : `clear`
 
@@ -221,10 +221,10 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000X t/friend t/colleague`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000Y t/friend t/colleague`
 **Clear**  | `clear`
-**Delete** | `delete INDEX` or `delete STUDENTID`<br> e.g., `delete 3`, `delete A0123456X`
-**View**   | `view INDEX` or `view STUDENTID`<br> e.g., `view 3`, `view A0123456X`
+**Delete** | `delete INDEX` or `delete STUDENTID`<br> e.g., `delete 3`, `delete A0123456J`
+**View**   | `view INDEX` or `view STUDENTID`<br> e.g., `view 3`, `view A0123456J`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`

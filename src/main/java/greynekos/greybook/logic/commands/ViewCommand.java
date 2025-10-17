@@ -26,8 +26,8 @@ public class ViewCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Displays the person identified by the index number or student ID.\n"
-                    + "Parameters: INDEX (must be a positive integer) or STUDENTID (format: A0000000L)\n" + "Example: "
-                    + COMMAND_WORD + " 1 OR " + COMMAND_WORD + " A0123456X";
+                    + "Parameters: INDEX (must be a positive integer) or STUDENTID (format: A0000000Y)\n" + "Example: "
+                    + COMMAND_WORD + " 1 OR " + COMMAND_WORD + " A0123456J";
 
     private final SinglePreambleOption<PersonIdentifier> identifierOption =
             SinglePreambleOption.of("INDEX or STUDENTID", ParserUtil::parsePersonIdentifier);

@@ -484,13 +484,13 @@ testers are expected to do more _exploratory_ testing.
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete A0123456X` (assuming a person with this student ID exists)<br>
-      Expected: Contact with student ID A0123456X is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete A0123456J` (assuming a person with this student ID exists)<br>
+      Expected: Contact with student ID A0123456J is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Test case: `delete A9999999Z` (assuming no person with this student ID exists)<br>
+   1. Test case: `delete A9999999W` (assuming no person with this student ID exists)<br>
       Expected: No person is deleted. Error message "Error, user does not exist." shown in the status message.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `delete INVALID_STUDENTID`, `...` (where x is larger than the list size)<br>

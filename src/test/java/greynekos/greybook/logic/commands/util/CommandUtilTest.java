@@ -77,26 +77,22 @@ public class CommandUtilTest {
 
     /**
      * Produces a valid-looking student ID that is guaranteed not to appear in the
-     * current model data. Assumes standard AB3-style pattern A\d{7}[A-Z].
+     * current model data. Assumes standard AB3-style pattern
+     * (?:A\\d{7}|U\\d{6,7})[YXWURNMLJHEAB].
      */
     private String generateMissingValidStudentId() {
         Set<String> existing =
                 model.getFilteredPersonList().stream().map(p -> p.getStudentID().value).collect(Collectors.toSet());
 
         // Try a sequence of valid IDs until we find one not present.
-        // Start from A0000000Z and bump the trailing letter if needed.
-        String baseDigits = "0000000";
-        for (char suffix = 'Z'; suffix >= 'A'; suffix--) {
-            String candidate = "A" + baseDigits + suffix;
-            if (!existing.contains(candidate)) {
-                return candidate;
-            }
-        }
-        // As a fallback, vary the digits slightly (still valid format).
-        for (int i = 1; i < 10; i++) {
-            String candidate = "A000000" + i + "X";
-            if (!existing.contains(candidate)) {
-                return candidate;
+        // Start from A0000000.
+        int startDigits = 0;
+        for (int i = 0; i < 10000000; i++) {
+            String baseDigits = "A" + String.format("%07d", startDigits + i);
+            String validStudentId = baseDigits + StudentID.calculateStudentIdChecksum(baseDigits);
+            assertTrue(StudentID.isValidStudentID(validStudentId), validStudentId);
+            if (!existing.contains(validStudentId)) {
+                return validStudentId;
             }
         }
         // Extremely unlikely to happen with typical test data.

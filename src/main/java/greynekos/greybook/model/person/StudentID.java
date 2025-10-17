@@ -10,9 +10,10 @@ import static java.util.Objects.requireNonNull;
 public class StudentID implements PersonIdentifier {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Student IDs should be in the format A0000000L, where the first letter must be 'A', "
+            "Student IDs should be in the format A0000000Y, where the first letter must be 'A', "
                     + "followed by exactly 7 digits, and ending with any English letter (A-Z or a-z)";
-    public static final String VALIDATION_REGEX = "^A\\d{7}[A-Za-z]$";
+    public static final String VALIDATION_REGEX = "^(?:A\\d{7}|U\\d{6,7})[YXWURNMLJHEAB]$";
+    public static final String VALID_CHECKSUMS = "YXWURNMLJHEAB";
     public final String value;
 
     /**
@@ -31,7 +32,52 @@ public class StudentID implements PersonIdentifier {
      * Returns true if a given string is a valid student ID.
      */
     public static boolean isValidStudentID(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (!test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+        return isValidStudentIdChecksum(test);
+    }
+
+    /**
+     * Calculates the checksum character, given the student ID digits
+     */
+    public static char calculateStudentIdChecksum(String test) {
+        int[] weights;
+        if (test.charAt(0) == 'U') {
+            weights = new int[]{
+                0, 1, 3, 1, 2, 7
+            };
+        } else { // 'A'
+            weights = new int[]{
+                1, 1, 1, 1, 1, 1
+            };
+        }
+
+        String digits = test.substring(test.length() - 6);
+        int sum = 0;
+
+        for (int i = 0; i < 6; i++) {
+            int digit = Character.getNumericValue(digits.charAt(i));
+            sum += weights[i] * digit;
+        }
+
+        return VALID_CHECKSUMS.charAt(sum % 13);
+    }
+
+    /**
+     * Returns true if a given student ID checksum is valid.
+     */
+    private static boolean isValidStudentIdChecksum(String test) {
+        int checksumIndex = test.length() - 1;
+        String values = test.substring(0, checksumIndex);
+        char checksum = test.charAt(checksumIndex);
+
+        // Discard 3rd digit from U-prefixed NUSNET ID (e.g., U1x45678 → U145678)
+        if (values.charAt(0) == 'U' && values.length() == 8) {
+            values = values.substring(0, 3) + values.substring(4);
+        }
+
+        return checksum == calculateStudentIdChecksum(values);
     }
 
     @Override

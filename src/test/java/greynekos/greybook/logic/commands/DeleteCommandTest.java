@@ -97,7 +97,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidStudentIdUnfilteredList_throwsCommandException() {
-        StudentID nonExistentStudentID = new StudentID("A9999999Z");
+        StudentID nonExistentStudentID = new StudentID("A9999999W");
         DeletePersonArgumentParseResultStub argStub = new DeletePersonArgumentParseResultStub(nonExistentStudentID);
         DeleteCommand deleteCommand = new DeleteCommand();
 

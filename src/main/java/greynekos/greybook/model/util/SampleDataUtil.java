@@ -20,17 +20,17 @@ public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[]{
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                    new StudentID("A1234567A"), getTagSet("friends")),
+                    new StudentID("A1234567X"), getTagSet("friends")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                    new StudentID("A2345678B"), getTagSet("colleagues", "friends")),
+                    new StudentID("A2345678L"), getTagSet("colleagues", "friends")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                    new StudentID("A3456789C"), getTagSet("neighbours")),
+                    new StudentID("A3456789Y"), getTagSet("neighbours")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                    new StudentID("A4567890D"), getTagSet("family")),
+                    new StudentID("A4567890H"), getTagSet("family")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                    new StudentID("A5678901E"), getTagSet("classmates")),
+                    new StudentID("A5678901N"), getTagSet("classmates")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                    new StudentID("A6789012F"), getTagSet("colleagues")),
+                    new StudentID("A6789012X"), getTagSet("colleagues")),
         };
     }
 

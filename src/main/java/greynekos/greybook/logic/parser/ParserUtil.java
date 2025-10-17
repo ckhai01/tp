@@ -58,7 +58,7 @@ public class ParserUtil {
 
         if (!isValidIndex && !isValidStudentID) {
             throw new ParseException("Invalid format. Please provide either a valid index (positive integer) "
-                    + "or a valid Student ID (format: A0000000L).");
+                    + "or a valid Student ID (format: A0000000Y).");
         }
 
         return isValidIndex ? parseIndex(trimmed) : new StudentID(trimmed);
@@ -121,7 +121,8 @@ public class ParserUtil {
      */
     public static StudentID parseStudentID(String studentID) throws ParseException {
         requireNonNull(studentID);
-        String trimmedStudentID = studentID.trim();
+        // Always convert studentID to upper case
+        String trimmedStudentID = studentID.trim().toUpperCase();
         if (!StudentID.isValidStudentID(trimmedStudentID)) {
             throw new ParseException(StudentID.MESSAGE_CONSTRAINTS);
         }
