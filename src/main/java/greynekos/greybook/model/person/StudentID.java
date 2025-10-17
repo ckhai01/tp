@@ -44,9 +44,13 @@ public class StudentID implements PersonIdentifier {
     public static char calculateStudentIdChecksum(String test) {
         int[] weights;
         if (test.charAt(0) == 'U') {
-            weights = new int[]{0, 1, 3, 1, 2, 7};
+            weights = new int[]{
+                0, 1, 3, 1, 2, 7
+            };
         } else { // 'A'
-            weights = new int[]{1, 1, 1, 1, 1, 1};
+            weights = new int[]{
+                1, 1, 1, 1, 1, 1
+            };
         }
 
         String digits = test.substring(test.length() - 6);

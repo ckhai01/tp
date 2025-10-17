@@ -77,7 +77,8 @@ public class CommandUtilTest {
 
     /**
      * Produces a valid-looking student ID that is guaranteed not to appear in the
-     * current model data. Assumes standard AB3-style pattern (?:A\\d{7}|U\\d{6,7})[YXWURNMLJHEAB].
+     * current model data. Assumes standard AB3-style pattern
+     * (?:A\\d{7}|U\\d{6,7})[YXWURNMLJHEAB].
      */
     private String generateMissingValidStudentId() {
         Set<String> existing =
