@@ -92,7 +92,7 @@ public class CommandUtilTest {
         int startDigits = 0;
         for (int i = 0; i < 10000000; i++) {
             String baseDigits = "A" + String.format("%07d", startDigits + i);
-            String validStudentId = baseDigits + StudentID.calculateStudentIDChecksum(baseDigits);
+            String validStudentId = baseDigits + StudentID.calculateStudentIdChecksum(baseDigits);
             assertTrue(StudentID.isValidStudentID(validStudentId), validStudentId);
             if (!existing.contains(validStudentId)) {
                 return validStudentId;

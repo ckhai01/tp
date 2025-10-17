@@ -35,13 +35,13 @@ public class StudentID implements PersonIdentifier {
         if (!test.matches(VALIDATION_REGEX)) {
             return false;
         }
-        return isValidStudentIDChecksum(test);
+        return isValidStudentIdChecksum(test);
     }
 
     /**
      * Calculates the checksum character, given the student ID digits
      */
-    public static char calculateStudentIDChecksum(String test) {
+    public static char calculateStudentIdChecksum(String test) {
         int[] weights;
         if (test.charAt(0) == 'U') {
             weights = new int[]{0, 1, 3, 1, 2, 7};
@@ -63,7 +63,7 @@ public class StudentID implements PersonIdentifier {
     /**
      * Returns true if a given student ID checksum is valid.
      */
-    private static boolean isValidStudentIDChecksum(String test) {
+    private static boolean isValidStudentIdChecksum(String test) {
         int checksumIndex = test.length() - 1;
         String values = test.substring(0, checksumIndex);
         char checksum = test.charAt(checksumIndex);
@@ -73,7 +73,7 @@ public class StudentID implements PersonIdentifier {
             values = values.substring(0, 3) + values.substring(4);
         }
 
-        return checksum == calculateStudentIDChecksum(values);
+        return checksum == calculateStudentIdChecksum(values);
     }
 
     @Override
