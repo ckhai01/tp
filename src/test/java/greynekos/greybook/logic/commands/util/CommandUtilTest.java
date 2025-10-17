@@ -21,10 +21,6 @@ import greynekos.greybook.model.person.Person;
 import greynekos.greybook.model.person.StudentID;
 import greynekos.greybook.testutil.TypicalPersons;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class CommandUtilTest {
 
     private static final String NOT_FOUND_MSG = "Error, user does not exist.";
