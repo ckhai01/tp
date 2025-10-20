@@ -45,13 +45,13 @@
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
-          <VBox minHeight="70" prefHeight="70" maxHeight="150">
+          <VBox minHeight="60" prefHeight="60" maxHeight="200">
             <!-- Spacer that shrinks when result display appears -->
             <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplaySpacer" />
 
-            <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"
+            <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplayPlaceholder"
               styleClass="pane-with-border"
-              minHeight="30" prefHeight="50" maxHeight="50">
+              minHeight="30" prefHeight="40" maxHeight="150">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
