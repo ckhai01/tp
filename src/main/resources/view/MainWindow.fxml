@@ -35,7 +35,7 @@
           </Menu>
         </MenuBar>
 
-        <SplitPane fx:id="splitPane" VBox.vgrow="ALWAYS" dividerPositions="0.7"
+        <SplitPane fx:id="splitPane" VBox.vgrow="ALWAYS"
           orientation="VERTICAL">
           <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
             VBox.vgrow="ALWAYS">
@@ -45,17 +45,20 @@
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
-          <VBox>
-            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder"
-              styleClass="pane-with-border">
+          <VBox minHeight="70" prefHeight="70" maxHeight="150">
+            <!-- Spacer that shrinks when result display appears -->
+            <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplaySpacer" />
+
+            <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"
+              styleClass="pane-with-border"
+              minHeight="30" prefHeight="50" maxHeight="50">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
             </StackPane>
 
-            <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplayPlaceholder"
-              styleClass="pane-with-border"
-              minHeight="100" prefHeight="100">
+            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder"
+              styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
