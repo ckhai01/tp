@@ -93,7 +93,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]…​`
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com i/A1111111X p/1234567 t/criminal`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com i/A1111111M p/1234567 t/criminal`
 
 ### Listing all persons : `list`
 
