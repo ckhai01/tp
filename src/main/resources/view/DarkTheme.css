@@ -36,7 +36,7 @@
 
 .label-header {
   -fx-font-size: 32pt;
-  -fx-font-family: "Segoe UI Light";
+  -fx-font-family: "Consolas", "Monaco", "Courier New", monospace;
   -fx-text-fill: #c9d1d9;
   -fx-opacity: 1;
 }
@@ -108,15 +108,21 @@
   -fx-border-color: transparent transparent rgba(63, 185, 80, 0.3) transparent;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected {
-  -fx-background-color: rgba(63, 185, 80, 0.12);
+.table-view .table-cell {
+  -fx-font-family: "Monaco", "Menlo", "Consolas", "Courier New", monospace;
+  -fx-font-size: 13px;
+  -fx-text-fill: #c9d1d9;
+  -fx-padding: 8 16 8 16;
+  -fx-alignment: center-left;
 }
 
-.table-view .table-cell {
-  -fx-padding: 0 16 0 16;
-  -fx-text-fill: #c9d1d9;
-  -fx-font-size: 11pt;
-  -fx-font-family: "Consolas", "Monaco", "Courier New", monospace;
+.table-view .table-cell .text {
+  -fx-font-family: "Monaco", "Menlo", "Consolas", "Courier New", monospace;
+  -fx-font-smoothing-type: lcd;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+  -fx-background-color: rgba(63, 185, 80, 0.12);
 }
 
 /* ========================================
@@ -168,15 +174,15 @@
 }
 
 .cell_big_label {
-  -fx-font-family: "Segoe UI Semibold";
+  -fx-font-family: "Consolas", "Monaco", "Courier New", monospace;
   -fx-font-size: 16px;
-  -fx-text-fill: #010504;
+  -fx-text-fill: #c9d1d9;
 }
 
 .cell_small_label {
-  -fx-font-family: "Segoe UI";
+  -fx-font-family: "Consolas", "Monaco", "Courier New", monospace;
   -fx-font-size: 13px;
-  -fx-text-fill: #010504;
+  -fx-text-fill: #7d8594;
 }
 
 .stack-pane {
@@ -279,13 +285,13 @@
  */
 .button {
   -fx-padding: 5 22 5 22;
-  -fx-border-color: #e2e2e2;
+  -fx-border-color: #484f58;
   -fx-border-width: 2;
   -fx-background-radius: 0;
-  -fx-background-color: #1d1d1d;
-  -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  -fx-background-color: #0d1117;
+  -fx-font-family: "Consolas", "Monaco", "Courier New", monospace;
   -fx-font-size: 11pt;
-  -fx-text-fill: #d8d8d8;
+  -fx-text-fill: #c9d1d9;
   -fx-background-insets:
     0 0 0 0,
     0,
