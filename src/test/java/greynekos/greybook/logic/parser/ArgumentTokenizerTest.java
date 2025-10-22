@@ -3,6 +3,7 @@ package greynekos.greybook.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -139,6 +140,53 @@ public class ArgumentTokenizerTest {
         assertArgumentAbsent(argMultimap, pSlash);
         assertArgumentPresent(argMultimap, dashT, "not joined^Qjoined");
         assertArgumentAbsent(argMultimap, hatQ);
+    }
+
+    @Test
+    public void tokenize_singleEscapeString() throws ParseException {
+        String argsString = "SomePreambleString -t \"dashT-Value\" p/pSlash value";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT);
+        assertArgumentPresent(argMultimap, dashT, "dashT-Value");
+        assertArgumentPresent(argMultimap, pSlash, "pSlash value");
+    }
+
+    @Test
+    public void tokenize_multipleEscapeStrings() throws ParseException {
+        String argsString = "SomePreambleString -t \"dashT\"-Va\"lue\" p/\"p\"Sl\"ash \"va\"lu\"e";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT);
+        assertArgumentPresent(argMultimap, dashT, "dashT-Value");
+        assertArgumentPresent(argMultimap, pSlash, "pSlash value");
+    }
+
+    @Test
+    public void tokenize_openEscapeString_throwsParseException() {
+        String argsString = "SomePreambleString -t \"dashT-Value";
+        ParseException parseException = assertThrows(ParseException.class,
+                () -> ArgumentTokenizer.tokenize(argsString, dashT), "Expected ParseException to be thrown");
+
+        assertTrue(parseException.getMessage().equals("Expected \" at end of argument"));
+    }
+
+    @Test
+    public void tokenize_prefixInEscapeString() throws ParseException {
+        String argsString = "SomePreambleString -t \"dashT p/-Value\"";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT);
+        assertArgumentPresent(argMultimap, dashT, "dashT p/-Value");
+        assertArgumentAbsent(argMultimap, pSlash);
+    }
+
+    @Test
+    public void tokenize_escapeQuotes() throws ParseException {
+        String argsString = "SomePreambleString -t \\\"dashT-Value";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, dashT);
+        assertArgumentPresent(argMultimap, dashT, "\"dashT-Value");
+    }
+
+    @Test
+    public void tokenize_escapeQuotesInQuotes() throws ParseException {
+        String argsString = "SomePreambleString -t \"\\\"dashT-Value\"";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, dashT);
+        assertArgumentPresent(argMultimap, dashT, "\"dashT-Value");
     }
 
     @Test

@@ -196,8 +196,6 @@ public class ArgumentTokenizer {
             throw new ParseException("Expected \" at end of argument");
         }
 
-        System.out.println(escapedValue.toString());
-
         return escapedValue.toString();
     }
 
