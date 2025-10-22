@@ -4,6 +4,7 @@
     "phone": "9482424",
     "email": "invalid@email!3e",
     "address": "4th street",
-    "studentID" : "A0000000Y"
+    "studentID" : "A0000000Y",
+    "attendanceStatus": "LEFT"
   } ]
 }
