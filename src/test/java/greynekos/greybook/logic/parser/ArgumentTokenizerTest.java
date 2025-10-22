@@ -190,6 +190,13 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
+    public void tokenize_escapeBackslash() throws ParseException {
+        String argsString = "SomePreambleString -t \\\\dashT-Value";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, dashT);
+        assertArgumentPresent(argMultimap, dashT, "\\dashT-Value");
+    }
+
+    @Test
     public void equalsMethod() {
         Prefix aaa = new Prefix("aaa");
 
