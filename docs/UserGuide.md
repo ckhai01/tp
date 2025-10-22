@@ -264,11 +264,6 @@ Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a val
     - Start GreyBook again.  
       *(`preferences.json` is in the same folder as your `.jar`, or in your app data folder depending on OS.)*
 
-2. **Help window stays minimized if you run `help` again.**  
-   **Fix:**
-    - Manually restore the minimized Help window from your taskbar/dock.
-    - Close it if you want to reopen it fresh.
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
