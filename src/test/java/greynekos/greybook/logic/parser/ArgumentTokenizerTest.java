@@ -168,6 +168,15 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
+    public void tokenize_invalidEscapeSequence_throwsParseException() {
+        String argsString = "SomePreambleString -t \\dashT-Value";
+        ParseException parseException = assertThrows(ParseException.class,
+                () -> ArgumentTokenizer.tokenize(argsString, dashT), "Expected ParseException to be thrown");
+
+        assertTrue(parseException.getMessage().equals("Invalid escape sequence"));
+    }
+
+    @Test
     public void tokenize_prefixInEscapeString() throws ParseException {
         String argsString = "SomePreambleString -t \"dashT p/-Value\"";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT);
