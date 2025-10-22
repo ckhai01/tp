@@ -8,38 +8,42 @@
 
 GreyBook is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GreyBook can get your contact management tasks done faster than traditional GUI apps.
 
+> New to a CLI? It just means that you type short commands (like 'add' or 'list') instead of clicking through menus on a GUI.
+
 <!-- * Table of Contents -->
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
-
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+1. **Install Java 17 or newer.**
+    - Check your version: open a terminal (Windows: Command Prompt; macOS/Linux: Terminal) and run `java -version`.
+    - If you don’t have Java 17+, install the latest Long Term Support (LTS) Java. macOS users can follow this guide: <https://se-education.org/guides/tutorials/javaInstallationMac.html>.
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F13-4/tp/releases).
+2. **Download GreyBook.**
+    - Get the latest `.jar` from the [Releases page](https://github.com/AY2526S1-CS2103T-F13-4/tp/releases).
+    - Save it to a folder you’ll remember (this becomes GreyBook’s “home” folder).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your GreyBook.
+3. **Start the app.**
+    - In a terminal, run the command `cd` with the GreyBook's "Home" folder, and run GreyBook with Java:
+      ```
+      cd C:\Users\John\GreyBookFolder
+      java -jar GreyBook.jar
+      ```
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar GreyBook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+4. **What you’ll see.**
+    - A window opens with sample contacts so you can try commands.
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+5. **Try a few commands:**
+    - `help` — open the help window
+    - `list` — show all contacts
+    - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` — add a contact
+    - `delete 3` — delete the 3rd contact in the list
+    - `clear` — delete all contacts
+    - `exit` — quit the app
 
-   * `list` : Lists all contacts.
+> If you see a security prompt on macOS the first time you open the app, right-click the `.jar` and choose **Open**, then confirm.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` : Adds a contact named `John Doe` to the GreyBook.
-
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
-
-   * `clear` : Deletes all contacts.
-
-   * `exit` : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -49,22 +53,22 @@ GreyBook is a **desktop app for managing contacts, optimized for use via a  Line
 
 **Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are called **parameters**, things you replace.<br>
+  e.g. in `add n/NAME`, replace `NAME` with a person's name, like `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times, including zero times.<br>
+  e.g. `[t/TAG]…​` can be used as ` ` (0 times), `t/friend` (1 time), `t/friend t/family` (2 times) etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extra parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application. Type them out manually instead!
 </box>
 
 ### Viewing help : `help`
@@ -88,8 +92,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]…​`
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com i/A1111111X p/1234567 t/criminal`
 
 ### Listing all persons : `list`
 
@@ -101,12 +105,12 @@ Format: `list`
 
 Edits an existing person in the GreyBook.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/STUDENTID] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* Existing values will be updated to the new values.
+* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
@@ -120,7 +124,7 @@ Finds persons whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
@@ -153,17 +157,13 @@ Examples:
 
 ### Viewing a person : `view`
 
-Finds and displays a person from the GreyBook.
+Show details for one contact by list number **or** student ID.
 
 Format: `view INDEX` or `view STUDENTID`
 
-* Finds and displays the person at the specified `INDEX` or with the specified `STUDENTID`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The student ID must follow the format `A0000000Y` where:
-    * First character must be 'A'
-    * Followed by exactly 7 digits
-    * Ending with any English letter (A-Z)
+* `INDEX` refers to the index number shown in the displayed person list.
+* `STUDENTID` format: `A0000000Y` (see rules under **Delete**).
+* You may type a `STUDENTID` not currently displayed on the list to view it.
 
 Examples:
 * `list` followed by `view 2` displays the 2nd person in the GreyBook.
@@ -172,60 +172,114 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the GreyBook.
+Deletes **all** entries from GreyBook.
 
 Format: `clear`
+> This action cannot be undone!
 
 ### Exiting the program : `exit`
 
-Exits the program.
+Closes GreyBook.
 
 Format: `exit`
 
 ### Saving the data
 
-GreyBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+GreyBook data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-GreyBook data are saved automatically as a JSON file `[JAR file location]/data/GreyBook.json`. Advanced users are welcome to update data directly by editing that data file.
+GreyBook data is saved automatically as a JSON file at: <br>
+`[JAR file location]/data/GreyBook.json`
 
-<box type="warning" seamless>
 
-**Caution:**
-If your changes to the data file makes its format invalid, GreyBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the GreyBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
 
-### Archiving data files `[coming in v2.0]`
+> **Caution!** Editing this file is recommended for advanced users only. 
+If your changes to the data file makes it invalid, GreyBook will discard all data and start fresh on the next run. Before you edit, make a backup copy of the file. <br><br>
+Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## FAQs
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous GreyBook home folder.
+**Q: What operating systems does GreyBook support?**  
+**A:** Any system that can run Java 17+ (Windows, macOS, Linux). If Java runs, GreyBook runs.
+
+**Q: Do I need to install anything besides GreyBook?**  
+**A:** Yes—**Java 17 or newer**. Check with `java -version`. If it’s older, install a current Long Term Support Java version.
+
+**Q: How do I update GreyBook to a new version?**  
+**A:** Download the new `.jar` and run it. Your existing data in `data/GreyBook.json` will be picked up automatically if you keep it in the same folder.
+
+**Q: Will I lose my data when I update?**  
+**A:** No. The data file is separate from the app. Keep `data/GreyBook.json` with the `.jar` and you’re good.
+
+**Q: Where exactly is my data?**  
+**A:** In `[JAR file location]/data/GreyBook.json`.
+
+**Q: Can I move GreyBook to another computer (or a USB drive)?**  
+**A:** Yes. Copy the `.jar` **and** the `data` folder together. On the new computer, double-click the `.jar`.
+
+**Q: Is there an undo command?**  
+**A:** Not currently. Actions like `delete` and `clear` are immediate and irreversible. Consider regular backups of `data/GreyBook.json`.
+
+**Q: How do I back up my contacts?**  
+**A:** Close GreyBook and copy `data/GreyBook.json` to a safe place (cloud/storage drive).
+
+**Q: I edited the JSON and something broke. What now?**  
+**A:** Close GreyBook, restore your backup `GreyBook.json`, then reopen GreyBook. Avoid manual edits unless you’re confident.
+
+**Q: Are name searches case-sensitive?**  
+**A:** No. `hans` matches `Hans`.
+
+**Q: Why doesn’t `find Han` match `Hans`?**  
+**A:** `find` matches **full words**. Use the full word or multiple keywords.
+
+**Q: How do tags work?**  
+**A:** Add any number: `t/friend t/colleague`. Editing tags **replaces** the old set. Use `t/` (empty) to clear all tags.
+
+**Q: Can I store addresses or other fields?**  
+**A:** Only the fields shown in the command formats are supported (e.g., `n/`, `p/`, `e/`, `i/`, and tags).
+
+**Q: Does GreyBook save automatically?**  
+**A:** Yes. Changes are saved to `GreyBook.json` right after each command.
+
+**Q: How many contacts can I store?**  
+**A:** There’s no hard limit in the app; performance depends on your computer.
+
+**Q: How do I reset GreyBook to factory data?**  
+**A:** Close the app, delete `data/GreyBook.json`, and reopen GreyBook (you’ll start fresh with sample data).
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+1. **App opens off-screen after moving between multiple monitors.**  
+   **Fix:**
+    - Close GreyBook.
+    - Delete the `preferences.json` file created by GreyBook.
+    - Start GreyBook again.  
+      *(`preferences.json` is in the same folder as your `.jar`, or in your app data folder depending on OS.)*
+
+2. **Help window stays minimized if you run `help` again.**  
+   **Fix:**
+    - Manually restore the minimized Help window from your taskbar/dock.
+    - Close it if you want to reopen it fresh.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
 
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000Y t/friend t/colleague`
-**Clear**  | `clear`
-**Delete** | `delete INDEX` or `delete STUDENTID`<br> e.g., `delete 3`, `delete A0123456J`
-**View**   | `view INDEX` or `view STUDENTID`<br> e.g., `view 3`, `view A0123456J`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
+Action | What it does | Format (examples)
+---|---|---
+**Add** | Create a new contact | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]...`<br>e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000Y t/friend t/colleague`
+**List** | Show all contacts | `list`
+**Find** | Search by name (full words) | `find KEYWORD [MORE_KEYWORDS]`<br>e.g., `find James Jake`
+**View** | Show one contact by number or ID | `view INDEX` or `view STUDENTID`<br>e.g., `view 3`, `view A0123456J`
+**Edit** | Update details | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]...`<br>e.g., `edit 2 n/James Lee e/jameslee@example.com`
+**Delete** | Remove a contact | `delete INDEX` or `delete STUDENTID`<br>e.g., `delete 3`, `delete A0123456J`
+**Clear** | Delete **all** contacts | `clear`
+**Help** | Open the help window | `help`
+**Exit** | Quit the app | `exit`
+
