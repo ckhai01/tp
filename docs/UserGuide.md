@@ -129,11 +129,11 @@ Examples:
 
 Marks the attendance of an existing person in the GreyBook.
 
-Format: `mark (INDEX || i/STUDENTID) (p/ || a/ || l/ || e/)`
+Format: `mark (INDEX || STUDENTID) (p/ || a/ || l/ || e/)`
 
 * `||` indicates "or", meaning that within the parentheses, the user can provide either one option or the other, but **not both simultaneously**.
 * `mark INDEX` marks the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* `mark i/STUDENTID` marks the person with the specified `STUDENTID`. The person with the student ID must be in the displayed person list.
+* `mark STUDENTID` marks the person with the specified `STUDENTID`. The person with the student ID must be in the displayed person list.
 * One attendance flag must be provided.
   * `p/`: Present
   * `a/`: Absent
@@ -144,21 +144,21 @@ Format: `mark (INDEX || i/STUDENTID) (p/ || a/ || l/ || e/)`
 
 
 Examples:
-*  `mark i/A0000000Y p/` Marks the person with the student ID `A0000000Y` as `Present`.
+*  `mark A0000000Y p/` Marks the person with the student ID `A0000000Y` as `Present`.
 *  `mark 2 e/` Marks the 2nd person as `Excused`.
 
 ### Unmarking a person : `unmark`
 
 Removes the attendance status of an existing person in the GreyBook.
 
-Format: `unmark INDEX` or `unmark i/STUDENTID` or `unmark all`
+Format: `unmark INDEX` or `unmark STUDENTID` or `unmark all`
 
 * `unmark INDEX` removes the attendance of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* `unmark i/STUDENTID` removes the attendance of the person with the specified `STUDENTID`. The person with the student ID must be in the displayed person list.
+* `unmark STUDENTID` removes the attendance of the person with the specified `STUDENTID`. The person with the student ID must be in the displayed person list.
 * `unmark all` removes the attendance of **all persons** in the contact list.
 
 Examples:
-*  `unmark i/A0000000Y` Unmarks the person with the student ID `A0000000Y`.
+*  `unmark A0000000Y` Unmarks the person with the student ID `A0000000Y`.
 *  `unmark 2` Unmarks the 2nd person.
 *  `unmark all` Unmarks everyone in the current contact list.
 
@@ -322,6 +322,8 @@ Action | What it does | Format (examples)
 **Find** | Search by name (full words) | `find KEYWORD [MORE_KEYWORDS]`<br>e.g., `find James Jake`
 **View** | Show one contact by number or ID | `view INDEX` or `view STUDENTID`<br>e.g., `view 3`, `view A0123456J`
 **Edit** | Update details | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]...`<br>e.g., `edit 2 n/James Lee e/jameslee@example.com`
+**Mark** | Mark attendance | `mark (INDEX \|\| STUDENTID) (p/ \|\| a/ \|\| l/ \|\| e/)`<br> e.g.,`mark 2 p/`, `mark A0123456J a/`
+**Unmark** | Unmark attendance | `unmark INDEX` or `unmark STUDENTID` or `unmark all`<br> e.g.,`unmark 2`, `unmark A0123456J`, `unmark all`
 **Delete** | Remove a contact | `delete INDEX` or `delete STUDENTID`<br>e.g., `delete 3`, `delete A0123456J`
 **Clear** | Delete **all** contacts | `clear`
 **Help** | Open the help window | `help`
