@@ -209,7 +209,7 @@ Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a val
 **A:** Any system that can run Java 17+ (Windows, macOS, Linux). If Java runs, GreyBook runs.
 
 **Q: Do I need to install anything besides GreyBook?**  
-**A:** Yes—**Java 17 or newer**. Check with `java -version`. If it’s older, install a current Long Term Support Java version.
+**A:** Yes, **Java 17 or newer**. Check with `java -version`. If it’s older, install a current Long Term Support Java version.
 
 **Q: How do I update GreyBook to a new version?**  
 **A:** Download the new `.jar` and run it. Your existing data in `data/GreyBook.json` will be picked up automatically if you keep it in the same folder.
