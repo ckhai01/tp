@@ -6,7 +6,7 @@
 
 # GreyBook User Guide
 
-GreyBook is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GreyBook can get your contact management tasks done faster than traditional GUI apps.
+GreyBook is a **desktop app for managing contacts, optimised for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GreyBook can get your contact management tasks done faster than traditional GUI apps.
 
 > New to a CLI? It just means that you type short commands (like 'add' or 'list') instead of clicking through menus on a GUI.
 
@@ -36,10 +36,12 @@ GreyBook is a **desktop app for managing contacts, optimized for use via a Comma
 
 5. **Try a few commands:**
     - `help` — open the help window
-    - `list` — show all contacts
-    - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` — add a contact
-    - `delete 3` — delete the 3rd contact in the list
-    - `clear` — delete all contacts
+    - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` — add a person
+    - `view 1` — shows 1st person in the list
+    - `view A0000000Y` — shows John Doe, assuming you have added him
+    - `list` — show all people
+    - `delete 3` — delete the 3rd person in the list
+    - `clear` — delete all people
     - `exit` — quit the app
 
 > If you see a security prompt on macOS the first time you open the app, right-click the `.jar` and choose **Open**, then confirm.
