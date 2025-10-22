@@ -1,20 +1,3 @@
-/* ========================================
-   FIGMA-INSPIRED COLOR PALETTE
-   Based on GreyBook Contact Management System
-   ======================================== */
-   
-/*
-   Color Reference (Figma-matched):
-   Background: #0a0e1a (Very dark navy - main background)
-   Table Background: #0d1117 (Slightly lighter than main)
-   Row Dividers: #1a1f2e (Subtle dividers)
-   Header Text: #7d8594 (Muted gray)
-   Body Text: #c9d1d9 (Light gray)
-   Cyan Accent: #58a6ff (Bright cyan for Student IDs)
-   Emerald Accent: #3fb950 (Emerald for tags)
-   Placeholder: #484f58 (Dark gray)
-*/
-
 .background {
   -fx-background-color: #0a0e1a;
   background-color: #0a0e1a; /* Used in the default.html file */
