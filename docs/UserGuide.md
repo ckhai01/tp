@@ -193,11 +193,11 @@ GreyBook data is saved automatically as a JSON file at: <br>
 `[JAR file location]/data/GreyBook.json`
 
 
-
-> **Caution!** Editing this file is recommended for advanced users only. 
-If your changes to the data file makes it invalid, GreyBook will discard all data and start fresh on the next run. Before you edit, make a backup copy of the file. <br><br>
+<box type="warning" seamless>
+**Caution!** 
+Editing this file is recommended for advanced users only. If your changes to the data file makes it invalid, GreyBook will discard all data and start fresh on the next run. Before you edit, make a backup copy of the file.
 Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-
+</box>
 
 --------------------------------------------------------------------------------------------------------------------
 
