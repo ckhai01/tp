@@ -3,6 +3,7 @@ package greynekos.greybook.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import greynekos.greybook.model.person.AttendanceStatus;
 import greynekos.greybook.model.person.Email;
 import greynekos.greybook.model.person.Name;
 import greynekos.greybook.model.person.Person;
@@ -26,6 +27,7 @@ public class PersonBuilder {
     private Email email;
     private Set<Tag> tags;
     private StudentID studentID;
+    private AttendanceStatus attendanceStatus;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -36,6 +38,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         tags = new HashSet<>();
         studentID = new StudentID(DEFAULT_STUDENTID);
+        attendanceStatus = new AttendanceStatus();
     }
 
     /**
@@ -47,6 +50,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         studentID = personToCopy.getStudentID();
         tags = new HashSet<>(personToCopy.getTags());
+        attendanceStatus = personToCopy.getAttendance();
     }
 
     /**
@@ -90,8 +94,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code AttendanceStatus} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withAttendanceStatus(AttendanceStatus.Status status) {
+        this.attendanceStatus = new AttendanceStatus(status);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, studentID, tags);
+        return new Person(name, phone, email, studentID, tags, attendanceStatus);
     }
 
 }
