@@ -6,7 +6,7 @@
 
 # GreyBook User Guide
 
-GreyBook is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GreyBook can get your contact management tasks done faster than traditional GUI apps.
+GreyBook is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, GreyBook can get your contact management tasks done faster than traditional GUI apps.
 
 > New to a CLI? It just means that you type short commands (like 'add' or 'list') instead of clicking through menus on a GUI.
 
