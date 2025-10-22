@@ -32,6 +32,10 @@ public class ArgumentTokenizer {
      * @param prefixes
      *            Prefixes to tokenize the arguments string with
      * @return ArgumentMultimap object that maps prefixes to their arguments
+     *
+     * @throws ParseException
+     *             if there is an invalid escape sequence or a quote (") is not
+     *             closed.
      */
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) throws ParseException {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
@@ -72,8 +76,9 @@ public class ArgumentTokenizer {
     /**
      * Returns the index of the first occurrence of {@code prefix} in
      * {@code argsString} starting from index {@code fromIndex}. An occurrence is
-     * valid if there is a whitespace before {@code prefix}. Returns -1 if no such
-     * occurrence can be found.
+     * valid if there is a whitespace before {@code prefix}, and the prefix is not
+     * escaped by having surrounding quotes. Returns -1 if no such occurrence can be
+     * found.
      *
      * E.g if {@code argsString} = "e/hip/900", {@code prefix} = "p/" and
      * {@code fromIndex} = 0, this method returns -1 as there are no valid
@@ -149,7 +154,11 @@ public class ArgumentTokenizer {
     /**
      * Returns the trimmed value of the argument in the arguments string specified
      * by {@code currentPrefixPosition}. The end position of the value is determined
-     * by {@code nextPrefixPosition}.
+     * by {@code nextPrefixPosition}. Also transforms escape characters into the
+     * character they are representing
+     *
+     * @throws ParseException
+     *             if there is an invalid escape sequence or a " is not closed.
      */
     private static String extractArgumentValue(String argsString, PrefixPosition currentPrefixPosition,
             PrefixPosition nextPrefixPosition) throws ParseException {
