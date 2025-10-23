@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import greynekos.greybook.logic.commands.Command;
+import greynekos.greybook.logic.parser.commandoption.MutuallyExclusiveOption;
 import greynekos.greybook.logic.parser.commandoption.NoDuplicateOption;
 import greynekos.greybook.logic.parser.commandoption.OneOrMorePreambleOption;
 import greynekos.greybook.logic.parser.commandoption.Option;
@@ -68,7 +69,9 @@ public class CommandParser {
      *             1. There are duplicate prefixes when there should not be <br/>
      *             2. Required options are not present <br/>
      *             3. The input is not formatted correctly as defined by the
-     *             {@link ArgumentParser}
+     *             {@link ArgumentParser} <br/>
+     *             4. More than one identifier or flag is provided when only one is
+     *             allowed
      */
     public ArgumentParseResult parse(String arguments) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, getPrefixOptions());
@@ -78,6 +81,7 @@ public class CommandParser {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(getNoDuplicateOptions());
+        argMultimap.verifyNoMutuallyExclusivePrefixesFor(getMutuallyExclusiveOptions());
 
         Map<Option<?>, List<?>> optionArgumentToResult = new HashMap<>();
         for (Option<?> option : options) {
@@ -91,7 +95,11 @@ public class CommandParser {
             } else if (option instanceof OptionalSinglePreambleOption) {
                 String preamble = argMultimap.getPreamble();
                 if (!preamble.isEmpty()) {
-                    result.add(option.parseOptionArgument(preamble));
+                    try {
+                        result.add(option.parseOptionArgument(preamble));
+                    } catch (ParseException e) {
+                        // Ignore empty preamble options
+                    }
                 }
             } else {
                 for (String arg : argMultimap.getAllValues(option.getPrefix())) {
@@ -114,6 +122,10 @@ public class CommandParser {
 
     private Prefix[] getNoDuplicateOptions() {
         return filterOptionsByInstance(NoDuplicateOption.class);
+    }
+
+    private Prefix[] getMutuallyExclusiveOptions() {
+        return filterOptionsByInstance(MutuallyExclusiveOption.class);
     }
 
     private Prefix[] filterOptionsByInstance(Class<?> cls) {

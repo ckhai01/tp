@@ -4,50 +4,54 @@
     "name" : "Alice Pauline",
     "phone" : "94351253",
     "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
     "studentID" : "A1234567X",
-    "tags" : [ "friends" ]
+    "tags" : [ "friends" ],
+    "attendanceStatus" : "PRESENT"
+
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
     "studentID" : "A2345678L",
-    "tags" : [ "owesMoney", "friends" ]
+    "tags" : [ "owesMoney", "friends" ],
+    "attendanceStatus" : "NONE"
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
-    "address" : "wall street",
     "studentID" : "A3456789Y",
-    "tags" : [ ]
+    "tags" : [ ],
+    "attendanceStatus" : "NONE"
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
-    "address" : "10th street",
     "studentID" : "A4567890H",
-    "tags" : [ "friends" ]
+    "tags" : [ "friends" ],
+    "attendanceStatus" : "ABSENT"
+
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@example.com",
-    "address" : "michegan ave",
     "studentID" : "A5678901N",
-    "tags" : [ ]
+    "tags" : [ ],
+    "attendanceStatus" : "LATE"
+
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
-    "address" : "little tokyo",
     "studentID" : "A6789012X",
-    "tags" : [ ]
+    "tags" : [ ],
+    "attendanceStatus" : "NONE"
+
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",
-    "address" : "4th street",
     "studentID" : "A7890123E",
-    "tags" : [ ]
+    "tags" : [ ],
+    "attendanceStatus" : "EXCUSED"
   } ]
 }
