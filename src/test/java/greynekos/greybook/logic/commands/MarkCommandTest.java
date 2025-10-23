@@ -11,7 +11,6 @@ import static greynekos.greybook.testutil.TypicalPersons.getTypicalGreyBook;
 import org.junit.jupiter.api.Test;
 
 import greynekos.greybook.logic.Messages;
-import greynekos.greybook.logic.commands.MarkCommand;
 import greynekos.greybook.logic.parser.ArgumentParseResult;
 import greynekos.greybook.logic.parser.GreyBookParser;
 import greynekos.greybook.model.GreyBook;

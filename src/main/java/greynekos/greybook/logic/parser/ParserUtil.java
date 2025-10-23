@@ -25,8 +25,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     public static final String MESSAGE_INVALID_PERSON_IDENTIFIER =
-        "Person identifier is invalid. It should be either a positive integer index or a valid Student ID "
-                + "(format: A0000000Y).";
+            "Person identifier is invalid. It should be either a positive integer index or a valid Student ID "
+                    + "(format: A0000000Y).";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
