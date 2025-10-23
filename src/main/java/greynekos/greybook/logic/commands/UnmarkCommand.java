@@ -1,7 +1,5 @@
 package greynekos.greybook.logic.commands;
 
-import static greynekos.greybook.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static greynekos.greybook.logic.Messages.MESSAGE_MISSING_STUDENTID;
 import static greynekos.greybook.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static java.util.Objects.requireNonNull;
 
@@ -11,6 +9,7 @@ import java.util.Optional;
 import greynekos.greybook.commons.core.index.Index;
 import greynekos.greybook.logic.Messages;
 import greynekos.greybook.logic.commands.exceptions.CommandException;
+import greynekos.greybook.logic.commands.util.CommandUtil;
 import greynekos.greybook.logic.parser.ArgumentParseResult;
 import greynekos.greybook.logic.parser.GreyBookParser;
 import greynekos.greybook.logic.parser.ParserUtil;
@@ -53,8 +52,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void addToParser(GreyBookParser parser) {
-        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(indexOption, studentIdOption, allOption)
-                .enforceOnePreamble();
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(indexOption, studentIdOption, allOption);
     }
 
     @Override
@@ -71,12 +69,8 @@ public class UnmarkCommand extends Command {
         Optional<Index> indexOptional = arg.getOptionalValue(indexOption);
         Optional<StudentID> studentIdOptional = arg.getOptionalValue(studentIdOption);
 
-        Person personToUnmark;
-        if (studentIdOptional.isPresent()) {
-            personToUnmark = getPersonByStudentId(model, studentIdOptional.get());
-        } else {
-            personToUnmark = getPersonByIndex(model, indexOptional.get());
-        }
+        Person personToUnmark = CommandUtil.resolvePerson(model,
+                studentIdOptional.isPresent() ? studentIdOptional.get() : indexOptional.get());
 
         Person unmarkedPerson = createUnmarkedPerson(personToUnmark);
         model.setPerson(personToUnmark, unmarkedPerson);
@@ -84,19 +78,6 @@ public class UnmarkCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_UNMARK_PERSON_SUCCESS, unmarkedPerson.getName(),
                 Messages.format(unmarkedPerson)));
-    }
-
-    private Person getPersonByIndex(Model model, Index index) throws CommandException {
-        List<Person> list = model.getFilteredPersonList();
-        if (index.getZeroBased() >= list.size()) {
-            throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-        return list.get(index.getZeroBased());
-    }
-
-    private Person getPersonByStudentId(Model model, StudentID sid) throws CommandException {
-        return model.getPersonByStudentId(sid)
-                .orElseThrow(() -> new CommandException(String.format(MESSAGE_MISSING_STUDENTID, sid)));
     }
 
     private CommandResult executeUnmarkAll(Model model) {
