@@ -23,9 +23,6 @@ import greynekos.greybook.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_PERSON_IDENTIFIER =
-            "Person identifier is invalid. It should be either a positive integer index or a valid Student ID "
-                    + "(format: A0000000Y).";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
@@ -60,7 +57,8 @@ public class ParserUtil {
         boolean isValidStudentID = StudentID.isValidStudentID(trimmed);
 
         if (!isValidIndex && !isValidStudentID) {
-            throw new ParseException(MESSAGE_INVALID_PERSON_IDENTIFIER);
+            throw new ParseException("Invalid format. Please provide either a valid index (positive integer) "
+                    + "or a valid Student ID (format: A0000000Y).");
         }
 
         return isValidIndex ? parseIndex(trimmed) : new StudentID(trimmed);

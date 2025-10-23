@@ -16,7 +16,7 @@ import greynekos.greybook.model.person.StudentID;
  */
 public class CommandUtil {
 
-    public static final String MESSAGE_PERSON_NOT_FOUND = "Error, user does not exist.";
+    private static final String MESSAGE_PERSON_NOT_FOUND = "Error, user does not exist.";
 
     /**
      * Finds the person to delete based on the identifier. The identifier can be

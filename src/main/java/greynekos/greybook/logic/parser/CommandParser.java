@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import greynekos.greybook.logic.commands.Command;
+import greynekos.greybook.logic.parser.commandoption.MutuallyExclusiveOption;
 import greynekos.greybook.logic.parser.commandoption.NoDuplicateOption;
 import greynekos.greybook.logic.parser.commandoption.OneOrMorePreambleOption;
 import greynekos.greybook.logic.parser.commandoption.Option;
 import greynekos.greybook.logic.parser.commandoption.OptionalSinglePreambleOption;
 import greynekos.greybook.logic.parser.commandoption.PrefixOption;
-import greynekos.greybook.logic.parser.commandoption.RequiredMutuallyExclusivePrefixOption;
 import greynekos.greybook.logic.parser.commandoption.RequiredOption;
 import greynekos.greybook.logic.parser.commandoption.SinglePreambleOption;
 import greynekos.greybook.logic.parser.exceptions.ParseException;
@@ -125,7 +125,7 @@ public class CommandParser {
     }
 
     private Prefix[] getMutuallyExclusiveOptions() {
-        return filterOptionsByInstance(RequiredMutuallyExclusivePrefixOption.class);
+        return filterOptionsByInstance(MutuallyExclusiveOption.class);
     }
 
     private Prefix[] filterOptionsByInstance(Class<?> cls) {
