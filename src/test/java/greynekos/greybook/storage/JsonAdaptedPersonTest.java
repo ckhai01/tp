@@ -117,7 +117,8 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidAttendanceStatus_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_STUDENTID,
                 VALID_TAGS, INVALID_ATTENDANCE);
-        String expectedMessage = "Attendance status should be one of the following: PRESENT, ABSENT, LATE, EXCUSED, NONE";
+        String expectedMessage =
+                "Attendance status should be one of the following: PRESENT, ABSENT, LATE, EXCUSED, NONE";
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
