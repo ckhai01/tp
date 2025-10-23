@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import greynekos.greybook.logic.parser.exceptions.ParseException;
+
 /**
  * Tokenizes arguments string of the form:
  * {@code preamble <prefix>value <prefix>value ...}<br>
@@ -30,8 +32,12 @@ public class ArgumentTokenizer {
      * @param prefixes
      *            Prefixes to tokenize the arguments string with
      * @return ArgumentMultimap object that maps prefixes to their arguments
+     *
+     * @throws ParseException
+     *             if there is an invalid escape sequence or a quote (") is not
+     *             closed.
      */
-    public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
+    public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) throws ParseException {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         return extractArguments(argsString, positions);
     }
@@ -70,8 +76,9 @@ public class ArgumentTokenizer {
     /**
      * Returns the index of the first occurrence of {@code prefix} in
      * {@code argsString} starting from index {@code fromIndex}. An occurrence is
-     * valid if there is a whitespace before {@code prefix}. Returns -1 if no such
-     * occurrence can be found.
+     * valid if there is a whitespace before {@code prefix}, and the prefix is not
+     * escaped by having surrounding quotes. Returns -1 if no such occurrence can be
+     * found.
      *
      * E.g if {@code argsString} = "e/hip/900", {@code prefix} = "p/" and
      * {@code fromIndex} = 0, this method returns -1 as there are no valid
@@ -80,8 +87,29 @@ public class ArgumentTokenizer {
      * returns 5.
      */
     private static int findPrefixPosition(String argsString, String prefix, int fromIndex) {
-        int prefixIndex = argsString.indexOf(" " + prefix, fromIndex);
-        return prefixIndex == -1 ? -1 : prefixIndex + 1; // +1 as offset for whitespace
+        boolean isInQuotes = false;
+        for (int i = fromIndex; i < argsString.length(); i++) {
+            char c = argsString.charAt(i);
+
+            if (c == '"') {
+                int backslashes = 0;
+                int j = i - 1;
+                while (j >= 0 && argsString.charAt(j) == '\\') {
+                    backslashes += 1;
+                    j--;
+                }
+
+                if (backslashes % 2 == 0) {
+                    isInQuotes = !isInQuotes;
+                }
+            }
+
+            if (!isInQuotes && c == ' ' && argsString.startsWith(prefix, i + 1)) {
+                return i + 1;
+            }
+        }
+
+        return -1;
     }
 
     /**
@@ -97,7 +125,8 @@ public class ArgumentTokenizer {
      *            Zero-based positions of all prefixes in {@code argsString}
      * @return ArgumentMultimap object that maps prefixes to their arguments
      */
-    private static ArgumentMultimap extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
+    private static ArgumentMultimap extractArguments(String argsString, List<PrefixPosition> prefixPositions)
+            throws ParseException {
 
         // Sort by start position
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
@@ -125,16 +154,58 @@ public class ArgumentTokenizer {
     /**
      * Returns the trimmed value of the argument in the arguments string specified
      * by {@code currentPrefixPosition}. The end position of the value is determined
-     * by {@code nextPrefixPosition}.
+     * by {@code nextPrefixPosition}. Also transforms escape characters into the
+     * character they are representing
+     *
+     * @throws ParseException
+     *             if there is an invalid escape sequence or a " is not closed.
      */
     private static String extractArgumentValue(String argsString, PrefixPosition currentPrefixPosition,
-            PrefixPosition nextPrefixPosition) {
+            PrefixPosition nextPrefixPosition) throws ParseException {
         Prefix prefix = currentPrefixPosition.getPrefix();
 
         int valueStartPos = currentPrefixPosition.getStartPosition() + prefix.getPrefix().length();
-        String value = argsString.substring(valueStartPos, nextPrefixPosition.getStartPosition());
+        String value = argsString.substring(valueStartPos, nextPrefixPosition.getStartPosition()).trim();
 
-        return value.trim();
+        StringBuilder escapedValue = new StringBuilder();
+        boolean isBackslash = false;
+        int startOfQuotes = -1;
+
+        for (int i = 0; i < value.length(); i++) {
+            char c = value.charAt(i);
+
+            if (c != '"' && c != '\\') {
+                if (isBackslash) {
+                    throw new ParseException("Invalid escape sequence");
+                }
+                escapedValue.append(c);
+            }
+
+            if (c == '\\') {
+                if (isBackslash) {
+                    escapedValue.append(c);
+                }
+
+                isBackslash = !isBackslash;
+            }
+
+            if (c == '"') {
+                if (isBackslash) {
+                    escapedValue.append(c);
+                    isBackslash = false;
+                } else if (startOfQuotes == -1) {
+                    startOfQuotes = i;
+                } else {
+                    startOfQuotes = -1;
+                }
+            }
+        }
+
+        if (startOfQuotes != -1) {
+            throw new ParseException("Expected \" at end of argument");
+        }
+
+        return escapedValue.toString();
     }
 
     /**
