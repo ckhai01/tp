@@ -53,8 +53,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void addToParser(GreyBookParser parser) {
-        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(indexOption, studentIdOption, allOption)
-                .enforceOnePreamble();
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(indexOption, studentIdOption, allOption);
     }
 
     @Override
