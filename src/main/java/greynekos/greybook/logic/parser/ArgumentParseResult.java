@@ -57,7 +57,9 @@ public class ArgumentParseResult {
     public <T> Optional<T> getOptionalValue(OptionalOption<T> option) {
         @SuppressWarnings("unchecked")
         List<T> values = (List<T>) optionArgumentToResult.get(option);
-        return values == null || values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+        return values == null || values.isEmpty()
+                ? Optional.empty()
+                : Optional.ofNullable(values.get(values.size() - 1));
     }
 
     /**
