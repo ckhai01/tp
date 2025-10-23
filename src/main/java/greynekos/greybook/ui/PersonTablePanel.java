@@ -69,8 +69,6 @@ public class PersonTablePanel extends UiPart<Region> {
                 .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail().toString()));
         phoneColumn
                 .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhone().toString()));
-        tagsColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTags().stream()
-                .map(tag -> tag.tagName).reduce((x, y) -> x + ", " + y).orElse("")));
 
         // Custom cell factory for tags to display them as styled chips
         tagsColumn.setCellFactory(col -> new TableCell<Person, String>() {
@@ -99,7 +97,8 @@ public class PersonTablePanel extends UiPart<Region> {
                     setGraphic(flowPane);
                 }
             }
-         
+        });
+
         attendanceStatusColumn.setCellValueFactory(cellData -> {
             AttendanceStatus status = cellData.getValue().getAttendance();
             String display = (status.value == AttendanceStatus.Status.NONE) ? "" : status.toString();
