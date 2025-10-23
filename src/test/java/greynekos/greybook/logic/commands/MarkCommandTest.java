@@ -1,7 +1,4 @@
-package greynekos.greybook.logic.commands;
-
-import static greynekos.greybook.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static greynekos.greybook.logic.Messages.MESSAGE_MISSING_STUDENTID;
+import static greynekos.greybook.logic.commands.util.CommandUtil.MESSAGE_PERSON_NOT_FOUND;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertParseFailure;
@@ -109,7 +106,7 @@ public class MarkCommandTest {
         String userInput = "mark 999 p/";
         ArgumentParseResult arg = parser.parse(userInput);
 
-        assertCommandFailure(markCommand, model, arg, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(markCommand, model, arg, MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
@@ -121,7 +118,7 @@ public class MarkCommandTest {
         String userInput = "mark A0000000Y a/";
         ArgumentParseResult arg = parser.parse(userInput);
 
-        assertCommandFailure(markCommand, model, arg, String.format(MESSAGE_MISSING_STUDENTID, "A0000000Y"));
+        assertCommandFailure(markCommand, model, arg, MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
