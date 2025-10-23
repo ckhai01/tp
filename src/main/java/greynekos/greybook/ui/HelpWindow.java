@@ -82,7 +82,9 @@ public class HelpWindow extends UiPart<Stage> {
      * Focuses on the help window.
      */
     public void focus() {
+        logger.fine("Focusing help page onto the screen");
         if (getRoot().isIconified()) {
+            logger.fine("Unminimising the help window");
             getRoot().setIconified(false);
         }
         getRoot().toFront();
