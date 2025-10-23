@@ -3,6 +3,7 @@ package greynekos.greybook.ui;
 import java.util.logging.Logger;
 
 import greynekos.greybook.commons.core.LogsCenter;
+import greynekos.greybook.model.person.AttendanceStatus;
 import greynekos.greybook.model.person.Person;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -41,6 +42,9 @@ public class PersonTablePanel extends UiPart<Region> {
     @FXML
     private TableColumn<Person, String> tagsColumn;
 
+    @FXML
+    private TableColumn<Person, String> attendanceStatusColumn;
+
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
@@ -67,6 +71,11 @@ public class PersonTablePanel extends UiPart<Region> {
                 .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhone().toString()));
         tagsColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().getTags().stream().map(Object::toString).reduce((x, y) -> x + "," + y).orElse("")));
+        attendanceStatusColumn.setCellValueFactory(cellData -> {
+            AttendanceStatus status = cellData.getValue().getAttendance();
+            String display = (status.value == AttendanceStatus.Status.NONE) ? "" : status.toString();
+            return new SimpleStringProperty(display);
+        });
 
         personTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         personTableView.setItems(personList);

@@ -14,6 +14,7 @@
       <TableColumn fx:id="emailColumn" text="Email" />
       <TableColumn fx:id="phoneColumn" text="Phone" />
       <TableColumn fx:id="tagsColumn" text="Tags" />
+      <TableColumn fx:id="attendanceStatusColumn" text="Attendance" />
     </columns>
   </TableView>
 </VBox>
