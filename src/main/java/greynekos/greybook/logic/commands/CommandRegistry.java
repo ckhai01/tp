@@ -7,6 +7,7 @@ public class CommandRegistry {
     private static final Command[] commands = {
         new AddCommand(), new ClearCommand(), new DeleteCommand(), new EditCommand(), new ExitCommand(),
         new FindCommand(), new HelpCommand(), new ListCommand(), new ViewCommand(), new MarkCommand(),
+        new UnmarkCommand()
     };
 
     /** Adds all the commands defined in the registry to the parser */
