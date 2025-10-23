@@ -70,6 +70,9 @@ public class PersonTablePanel extends UiPart<Region> {
         phoneColumn
                 .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhone().toString()));
 
+        tagsColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTags().stream()
+                .map(tag -> tag.tagName).reduce((x, y) -> x + ", " + y).orElse("")));
+
         // Custom cell factory for tags to display them as styled chips
         tagsColumn.setCellFactory(col -> new TableCell<Person, String>() {
             private final javafx.scene.layout.FlowPane flowPane = new javafx.scene.layout.FlowPane();
