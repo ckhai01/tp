@@ -36,14 +36,19 @@ GreyBook is a **desktop app for managing contacts, optimised for use via a Comma
    - A window opens with sample contacts so you can try commands.
 
 5. **Try a few commands:**
-   - `help` — open the help window
-   - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` — add a person
-   - `view 1` — shows 1st person in the list
-   - `view A0000000Y` — shows John Doe, assuming you have added him
-   - `list` — show all people
-   - `delete 3` — delete the 3rd person in the list
-   - `clear` — delete all people
-   - `exit` — quit the app
+    - `help` — open the help window
+    - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` — add a person
+    - `view 1` — shows 1st person in the list
+    - `view A0000000Y` — shows John Doe, assuming you have added him
+    - `mark 1 p/` — marks the attendance of the 1st person in the list as `Present`
+    - `mark A0000000Y a/` — marks John Doe as `Absent`
+    - `unmark 1` — remove the attendance status of the 1st person in the list
+    - `unmark A0000000Y` — removes the attendance status of John Doe
+    - `unmark all` — removes the attendance status of all people
+    - `list` — show all people
+    - `delete 3` — delete the 3rd person in the list
+    - `clear` — delete all people
+    - `exit` — quit the app
 
 > If you see a security prompt on macOS the first time you open the app, right-click the `.jar` and choose **Open**, then confirm.
 
@@ -130,6 +135,44 @@ Examples:
 - `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 - `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+### Marking a person : `mark`
+
+Marks the attendance of an existing person in the GreyBook.
+
+Format: `mark (INDEX || STUDENTID) (p/ || a/ || l/ || e/)`
+
+* `||` indicates "or", meaning that within the parentheses, the user can provide either one option or the other, but **not both simultaneously**.
+* `mark INDEX` marks the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* `mark STUDENTID` marks the person with the specified `STUDENTID`. The person with the student ID must be in the displayed person list.
+* One attendance flag must be provided.
+  * `p/`: Present
+  * `a/`: Absent
+  * `l/`: Late
+  * `e/`: Excused
+* Only one attendance flag can be used at a time. Using multiple flags (e.g. `p/ a/`) will result in an error.
+* Attendance flags are **not cumulative**; a new flag replaces the previous status.  
+
+
+Examples:
+*  `mark A0000000Y p/` Marks the person with the student ID `A0000000Y` as `Present`.
+*  `mark 2 e/` Marks the 2nd person as `Excused`.
+
+### Unmarking a person : `unmark`
+
+Removes the attendance status of an existing person in the GreyBook.
+
+Format: `unmark INDEX` or `unmark STUDENTID` or `unmark all`
+
+* `unmark INDEX` removes the attendance of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* `unmark STUDENTID` removes the attendance of the person with the specified `STUDENTID`. The person with the student ID must be in the displayed person list.
+* `unmark all` removes the attendance of **all persons** in the contact list.
+
+Examples:
+*  `unmark A0000000Y` Unmarks the person with the student ID `A0000000Y`.
+*  `unmark 2` Unmarks the 2nd person.
+*  `unmark all` Unmarks everyone in the current contact list.
+
+
 ### Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords.
@@ -214,7 +257,11 @@ Editing this file is recommended for advanced users only. If your changes to the
 Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
----
+### Archiving data files `[coming in v2.0]`
+
+_Details coming soon ..._
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## FAQs
 
@@ -281,14 +328,17 @@ Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a val
 
 ## Command summary
 
-| Action     | What it does                     | Format (examples)                                                                                                                                      |
-| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Add**    | Create a new contact             | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]...`<br>e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000Y t/friend t/colleague` |
-| **List**   | Show all contacts                | `list`                                                                                                                                                 |
-| **Find**   | Search by name (full words)      | `find KEYWORD [MORE_KEYWORDS]`<br>e.g., `find James Jake`                                                                                              |
-| **View**   | Show one contact by number or ID | `view INDEX` or `view STUDENTID`<br>e.g., `view 3`, `view A0123456J`                                                                                   |
-| **Edit**   | Update details                   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]...`<br>e.g., `edit 2 n/James Lee e/jameslee@example.com`                         |
-| **Delete** | Remove a contact                 | `delete INDEX` or `delete STUDENTID`<br>e.g., `delete 3`, `delete A0123456J`                                                                           |
-| **Clear**  | Delete **all** contacts          | `clear`                                                                                                                                                |
-| **Help**   | Open the help window             | `help`                                                                                                                                                 |
-| **Exit**   | Quit the app                     | `exit`                                                                                                                                                 |
+Action | What it does | Format (examples)
+---|---|---
+**Add** | Create a new contact | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]...`<br>e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000Y t/friend t/colleague`
+**List** | Show all contacts | `list`
+**Find** | Search by name (full words) | `find KEYWORD [MORE_KEYWORDS]`<br>e.g., `find James Jake`
+**View** | Show one contact by number or ID | `view INDEX` or `view STUDENTID`<br>e.g., `view 3`, `view A0123456J`
+**Edit** | Update details | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]...`<br>e.g., `edit 2 n/James Lee e/jameslee@example.com`
+**Mark** | Mark attendance | `mark (INDEX \|\| STUDENTID) (p/ \|\| a/ \|\| l/ \|\| e/)`<br> e.g.,`mark 2 p/`, `mark A0123456J a/`
+**Unmark** | Unmark attendance | `unmark INDEX` or `unmark STUDENTID` or `unmark all`<br> e.g.,`unmark 2`, `unmark A0123456J`, `unmark all`
+**Delete** | Remove a contact | `delete INDEX` or `delete STUDENTID`<br>e.g., `delete 3`, `delete A0123456J`
+**Clear** | Delete **all** contacts | `clear`
+**Help** | Open the help window | `help`
+**Exit** | Quit the app | `exit`
+
