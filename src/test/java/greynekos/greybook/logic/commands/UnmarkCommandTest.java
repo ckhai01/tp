@@ -1,9 +1,9 @@
 package greynekos.greybook.logic.commands;
 
-import static greynekos.greybook.logic.Messages.MESSAGE_MISSING_STUDENTID;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertParseFailure;
+import static greynekos.greybook.logic.commands.util.CommandUtil.MESSAGE_PERSON_NOT_FOUND;
 import static greynekos.greybook.logic.commands.UnmarkCommand.MESSAGE_USAGE;
 import static greynekos.greybook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static greynekos.greybook.testutil.TypicalPersons.getTypicalGreyBook;
@@ -115,7 +115,7 @@ public class UnmarkCommandTest {
         String userInput = "unmark 999";
         ArgumentParseResult arg = parser.parse(userInput);
 
-        assertCommandFailure(unmarkCommand, model, arg, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(unmarkCommand, model, arg, MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class UnmarkCommandTest {
         String userInput = "unmark A0000000Y";
         ArgumentParseResult arg = parser.parse(userInput);
 
-        assertCommandFailure(unmarkCommand, model, arg, String.format(MESSAGE_MISSING_STUDENTID, "A0000000Y"));
+        assertCommandFailure(unmarkCommand, model, arg, MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
