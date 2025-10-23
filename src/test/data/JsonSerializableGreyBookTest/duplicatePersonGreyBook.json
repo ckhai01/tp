@@ -4,11 +4,13 @@
     "phone": "94351253",
     "email": "alice@example.com",
     "studentID" : "A0000000Y",
-    "tags": [ "friends" ]
+    "tags": [ "friends" ],
+    "attendanceStatus": "PRESENT"
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
+    "attendanceStatus": "PRESENT",
     "studentID" : "A0000000Y"
   } ]
 }

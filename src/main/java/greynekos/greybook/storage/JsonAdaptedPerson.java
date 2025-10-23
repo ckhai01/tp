@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import greynekos.greybook.commons.exceptions.IllegalValueException;
+import greynekos.greybook.model.person.AttendanceStatus;
 import greynekos.greybook.model.person.Email;
 import greynekos.greybook.model.person.Name;
 import greynekos.greybook.model.person.Person;
@@ -29,6 +30,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String studentID;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final String attendanceStatus;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -36,7 +38,8 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("studentID") String studentID,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("tags") List<JsonAdaptedTag> tags,
+            @JsonProperty("attendanceStatus") String attendanceStatus) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,6 +47,8 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.attendanceStatus = attendanceStatus;
+
     }
 
     /**
@@ -55,6 +60,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         studentID = source.getStudentID().value;
         tags.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
+        attendanceStatus = source.getAttendance().value.name();
     }
 
     /**
@@ -105,7 +111,16 @@ class JsonAdaptedPerson {
         final StudentID modelStudentID = new StudentID(studentID);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelStudentID, modelTags);
-    }
 
+        if (attendanceStatus == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, AttendanceStatus.class.getSimpleName()));
+        }
+        if (!AttendanceStatus.isValidStatus(attendanceStatus)) {
+            throw new IllegalValueException(AttendanceStatus.MESSAGE_CONSTRAINTS);
+        }
+        final AttendanceStatus modelAttendanceStatus = new AttendanceStatus(attendanceStatus);
+
+        return new Person(modelName, modelPhone, modelEmail, modelStudentID, modelTags, modelAttendanceStatus);
+    }
 }

@@ -3,6 +3,7 @@
     "name": "Hans Muster",
     "phone": "9482424",
     "email": "invalid@email!3e",
+    "attendanceStatus": "LEFT",
     "studentID" : "A0000000Y"
   } ]
 }
