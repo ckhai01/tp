@@ -1,6 +1,7 @@
 package greynekos.greybook.ui;
 
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import greynekos.greybook.commons.core.LogsCenter;
 import greynekos.greybook.model.person.AttendanceStatus;
@@ -8,7 +9,6 @@ import greynekos.greybook.model.person.Person;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -70,8 +70,13 @@ public class PersonTablePanel extends UiPart<Region> {
         phoneColumn
                 .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhone().toString()));
 
+        /*
+         * This cellValueFactory is required, as the string is passed to the item
+         * argument in the updateItem function for the cellFactory below. Otherwise the
+         * tag chips will not get added.
+         */
         tagsColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTags().stream()
-                .map(tag -> tag.tagName).reduce((x, y) -> x + ", " + y).orElse("")));
+                .map(tag -> tag.tagName).reduce((x, y) -> x + "," + y).orElse("")));
 
         // Custom cell factory for tags to display them as styled chips
         tagsColumn.setCellFactory(col -> new TableCell<Person, String>() {
@@ -81,6 +86,7 @@ public class PersonTablePanel extends UiPart<Region> {
                 flowPane.setId("tags");
                 flowPane.setHgap(4);
                 flowPane.setVgap(4);
+                flowPane.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
             }
 
             @Override
@@ -91,11 +97,10 @@ public class PersonTablePanel extends UiPart<Region> {
                     setGraphic(null);
                 } else {
                     flowPane.getChildren().clear();
-                    Person person = getTableView().getItems().get(getIndex());
-                    person.getTags().forEach(tag -> {
-                        javafx.scene.control.Label tagLabel = new javafx.scene.control.Label(tag.tagName);
+                    Stream.of(item.split(",")).forEach(tagName -> {
+                        javafx.scene.control.Label tagLabel = new javafx.scene.control.Label(tagName);
                         flowPane.getChildren().add(tagLabel);
-                    });
+                    });;
                     flowPane.setPrefWrapLength(getWidth()); // Wrap based on cell width
                     setGraphic(flowPane);
                 }
@@ -111,23 +116,4 @@ public class PersonTablePanel extends UiPart<Region> {
         personTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         personTableView.setItems(personList);
     }
-
-    /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using
-     * a {@code PersonCard}.
-     */
-    class PersonListViewCell extends ListCell<Person> {
-        @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
-
-            if (empty || person == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
-            }
-        }
-    }
-
 }
