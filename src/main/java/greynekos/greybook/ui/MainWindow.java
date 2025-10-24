@@ -91,8 +91,7 @@ public class MainWindow extends UiPart<Stage> {
         });
 
         // Hide result display initially, show spacer
-        resultDisplayPlaceholder.setVisible(false);
-        resultDisplaySpacer.setVisible(true);
+        toggleResultDisplay(false);
     }
 
     public Stage getPrimaryStage() {
@@ -197,6 +196,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Shows the result display if it is currently hidden.
+     * This method is called after the first command is executed.
+     */
+    private void toggleResultDisplay(boolean shouldDisplayResult) {
+        resultDisplayPlaceholder.setVisible(shouldDisplayResult);
+        resultDisplaySpacer.setVisible(!shouldDisplayResult);
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see greynekos.greybook.logic.Logic#execute(String)
@@ -206,11 +214,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
-            // Show result display after first command
-            if (!resultDisplayPlaceholder.isVisible()) {
-                resultDisplayPlaceholder.setVisible(true);
-                resultDisplaySpacer.setVisible(false);
-            }
+            toggleResultDisplay(true);
 
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -226,11 +230,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
 
-            // Show result display even for errors
-            if (!resultDisplayPlaceholder.isVisible()) {
-                resultDisplayPlaceholder.setVisible(true);
-                resultDisplaySpacer.setVisible(false);
-            }
+            toggleResultDisplay(true);
 
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
