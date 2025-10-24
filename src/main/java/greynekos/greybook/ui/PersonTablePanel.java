@@ -100,7 +100,7 @@ public class PersonTablePanel extends UiPart<Region> {
                     Stream.of(item.split(",")).forEach(tagName -> {
                         javafx.scene.control.Label tagLabel = new javafx.scene.control.Label(tagName);
                         flowPane.getChildren().add(tagLabel);
-                    });;
+                    });
                     flowPane.setPrefWrapLength(getWidth()); // Wrap based on cell width
                     setGraphic(flowPane);
                 }
