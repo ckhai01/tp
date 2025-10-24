@@ -150,7 +150,7 @@ Format: `mark (INDEX || STUDENTID) (p/ || a/ || l/ || e/)`
   * `l/`: Late
   * `e/`: Excused
 * Only one attendance flag can be used at a time. Using multiple flags (e.g. `p/ a/`) will result in an error.
-* Attendance flags are **not cumulative**; a new flag replaces the previous status.  
+* Attendance flags are **not cumulative**; a new flag replaces the previous status.
 
 
 Examples:
@@ -252,7 +252,7 @@ GreyBook data is saved automatically as a JSON file at: <br>
 `[JAR file location]/data/GreyBook.json`
 
 <box type="warning" seamless>
-**Caution!** 
+**Caution!**
 Editing this file is recommended for advanced users only. If your changes to the data file makes it invalid, GreyBook will discard all data and start fresh on the next run. Before you edit, make a backup copy of the file.
 Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
@@ -265,63 +265,63 @@ _Details coming soon ..._
 
 ## FAQs
 
-**Q: What operating systems does GreyBook support?**  
+**Q: What operating systems does GreyBook support?**
 **A:** Any system that can run Java 17+ (Windows, macOS, Linux). If Java runs, GreyBook runs.
 
-**Q: Do I need to install anything besides GreyBook?**  
+**Q: Do I need to install anything besides GreyBook?**
 **A:** Yes, **Java 17 or newer**. Check with `java -version`. If it’s older, install a current Long Term Support Java version.
 
-**Q: How do I update GreyBook to a new version?**  
+**Q: How do I update GreyBook to a new version?**
 **A:** Download the new `.jar` and run it. Your existing data in `data/GreyBook.json` will be picked up automatically if you keep it in the same folder.
 
-**Q: Will I lose my data when I update?**  
+**Q: Will I lose my data when I update?**
 **A:** No. The data file is separate from the app. Keep `data/GreyBook.json` with the `.jar` and you’re good.
 
-**Q: Where exactly is my data?**  
+**Q: Where exactly is my data?**
 **A:** In `[JAR file location]/data/GreyBook.json`.
 
-**Q: Can I move GreyBook to another computer (or a USB drive)?**  
+**Q: Can I move GreyBook to another computer (or a USB drive)?**
 **A:** Yes. Copy the `.jar` **and** the `data` folder together. On the new computer, double-click the `.jar`.
 
-**Q: Is there an undo command?**  
+**Q: Is there an undo command?**
 **A:** Not currently. Actions like `delete` and `clear` are immediate and irreversible. Consider regular backups of `data/GreyBook.json`.
 
-**Q: How do I back up my contacts?**  
+**Q: How do I back up my contacts?**
 **A:** Close GreyBook and copy `data/GreyBook.json` to a safe place (cloud/storage drive).
 
-**Q: I edited the JSON and something broke. What now?**  
+**Q: I edited the JSON and something broke. What now?**
 **A:** Close GreyBook, restore your backup `GreyBook.json`, then reopen GreyBook. Avoid manual edits unless you’re confident.
 
-**Q: Are name searches case-sensitive?**  
+**Q: Are name searches case-sensitive?**
 **A:** No. `hans` matches `Hans`.
 
-**Q: Why doesn’t `find Han` match `Hans`?**  
+**Q: Why doesn’t `find Han` match `Hans`?**
 **A:** `find` matches **full words**. Use the full word or multiple keywords.
 
-**Q: How do tags work?**  
+**Q: How do tags work?**
 **A:** Add any number: `t/friend t/colleague`. Editing tags **replaces** the old set. Use `t/` (empty) to clear all tags.
 
-**Q: Can I store addresses or other fields?**  
+**Q: Can I store addresses or other fields?**
 **A:** Only the fields shown in the command formats are supported (e.g., `n/`, `p/`, `e/`, `i/`, and tags).
 
-**Q: Does GreyBook save automatically?**  
+**Q: Does GreyBook save automatically?**
 **A:** Yes. Changes are saved to `GreyBook.json` right after each command.
 
-**Q: How many contacts can I store?**  
+**Q: How many contacts can I store?**
 **A:** There’s no hard limit in the app; performance depends on your computer.
 
-**Q: How do I reset GreyBook to factory data?**  
+**Q: How do I reset GreyBook to factory data?**
 **A:** Close the app, delete `data/GreyBook.json`, and reopen GreyBook (you’ll start fresh with sample data).
 
 ---
 
 ## Known issues
 
-1. **App opens off-screen after moving between multiple monitors.**  
+1. **App opens off-screen after moving between multiple monitors.**
    **Fix:**
    - Close GreyBook.
    - Delete the `preferences.json` file created by GreyBook.
-   - Start GreyBook again.  
+   - Start GreyBook again.
      _(`preferences.json` is in the same folder as your `.jar`, or in your app data folder depending on OS.)_
 
 ---
