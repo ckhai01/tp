@@ -48,6 +48,8 @@ public class CommandBox extends UiPart<Region> {
                 handleUpArrowEntered();
             } else if (event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.KP_DOWN) {
                 handleDownArrowEntered();
+            } else if (event.getCode() == KeyCode.C && event.isControlDown()) {
+                handleCtrlCEntered();
             }
         });
         Platform.runLater(() -> commandTextField.requestFocus());
@@ -93,6 +95,14 @@ public class CommandBox extends UiPart<Region> {
             shouldUpdateBuffer = false;
         }
         moveCaretToEnd();
+    }
+
+    /**
+     * Handles the Ctrl+C key pressed event.
+     * Simply clears the text field.
+     */
+    private void handleCtrlCEntered() {
+        commandTextField.setText("");
     }
 
     /**
