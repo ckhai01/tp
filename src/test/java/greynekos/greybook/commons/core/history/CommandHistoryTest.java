@@ -2,6 +2,8 @@ package greynekos.greybook.commons.core.history;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -88,6 +90,20 @@ public class CommandHistoryTest {
     void history_testEmptyHistory() {
         assertEquals(history.getPrevCommand(), CommandHistory.NO_PREV_OR_NEXT_COMMAND);
         assertEquals(history.getNextCommand(), CommandHistory.NO_PREV_OR_NEXT_COMMAND);
+    }
+
+    @Test
+    void resetHistory_resetProperly() {
+        history.addCommand("a");
+        history.addCommand("b");
+        history.addCommand("c");
+
+        history.resetHistory();
+        assertEquals(history.getHistory(), Arrays.asList());
+
+        // Resetting an empty history should not change
+        history.resetHistory();
+        assertEquals(history.getHistory(), Arrays.asList());
     }
 
 }
