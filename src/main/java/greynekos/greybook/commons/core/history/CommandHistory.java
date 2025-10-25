@@ -33,7 +33,8 @@ public class CommandHistory {
     /**
      * Creates a new {@code CommandHistory} with existing history.
      *
-     * @param history The existing history.
+     * @param history
+     *            The existing history.
      */
     public CommandHistory(ArrayList<String> history) {
         this.history = history;
@@ -44,7 +45,7 @@ public class CommandHistory {
      * Adds a command to history
      *
      * @param command
-     *                The command string.
+     *            The command string.
      */
     public void addCommand(String command) {
         // Avoid duplicate commands (similar to terminal)

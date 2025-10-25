@@ -14,6 +14,16 @@ import greynekos.greybook.commons.exceptions.DataLoadingException;
  */
 public class ConfigUtil {
 
+    /**
+     * Reads the Config file at the specified path.
+     *
+     * @param configFilePath
+     *            The path to the config file to read
+     * @return An Optional containing the Config object if file exists and is valid,
+     *         empty Optional otherwise
+     * @throws DataLoadingException
+     *             If there are errors loading the config file
+     */
     public static Optional<Config> readConfig(Path configFilePath) throws DataLoadingException {
         return JsonUtil.readJsonFile(configFilePath, new TypeReference<Config>() {
         });

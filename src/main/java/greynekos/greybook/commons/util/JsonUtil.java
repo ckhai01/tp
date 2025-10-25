@@ -55,7 +55,8 @@ public class JsonUtil {
      * @param filePath
      *            cannot be null.
      * @param typeRef
-     *            JSON file has to correspond to the structure in the class given here.
+     *            JSON file has to correspond to the structure in the class given
+     *            here.
      * @throws DataLoadingException
      *             if loading of the JSON file failed.
      */
