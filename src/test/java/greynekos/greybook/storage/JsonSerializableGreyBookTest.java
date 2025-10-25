@@ -25,7 +25,8 @@ public class JsonSerializableGreyBookTest {
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
         JsonSerializableGreyBook dataFromFile =
-                JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE, new TypeReference<JsonSerializableGreyBook>() {}).get();
+                JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE, new TypeReference<JsonSerializableGreyBook>() {
+                }).get();
         GreyBook greyBookFromFile = dataFromFile.toModelType();
         GreyBook typicalPersonsGreyBook = TypicalPersons.getTypicalGreyBook();
         assertEquals(greyBookFromFile, typicalPersonsGreyBook);
@@ -34,14 +35,16 @@ public class JsonSerializableGreyBookTest {
     @Test
     public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
         JsonSerializableGreyBook dataFromFile =
-                JsonUtil.readJsonFile(INVALID_PERSON_FILE, new TypeReference<JsonSerializableGreyBook>() {}).get();
+                JsonUtil.readJsonFile(INVALID_PERSON_FILE, new TypeReference<JsonSerializableGreyBook>() {
+                }).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
         JsonSerializableGreyBook dataFromFile =
-                JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE, new TypeReference<JsonSerializableGreyBook>() {}).get();
+                JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE, new TypeReference<JsonSerializableGreyBook>() {
+                }).get();
         assertThrows(IllegalValueException.class, JsonSerializableGreyBook.MESSAGE_DUPLICATE_PERSON,
                 dataFromFile::toModelType);
     }

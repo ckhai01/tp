@@ -34,7 +34,8 @@ public class JsonUtilTest {
         FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION);
 
         SerializableTestClass serializableTestClass =
-                JsonUtil.deserializeObjectFromJsonFile(SERIALIZATION_FILE, new TypeReference<SerializableTestClass>() {});
+                JsonUtil.deserializeObjectFromJsonFile(SERIALIZATION_FILE, new TypeReference<SerializableTestClass>() {
+                });
 
         assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
         assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());

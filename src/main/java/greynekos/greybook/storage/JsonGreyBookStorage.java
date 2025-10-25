@@ -50,7 +50,8 @@ public class JsonGreyBookStorage implements GreyBookStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableGreyBook> jsonGreyBook =
-                JsonUtil.readJsonFile(filePath, new TypeReference<JsonSerializableGreyBook>() {});
+                JsonUtil.readJsonFile(filePath, new TypeReference<JsonSerializableGreyBook>() {
+                });
         if (!jsonGreyBook.isPresent()) {
             return Optional.empty();
         }

@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import greynekos.greybook.commons.core.GuiSettings;
 import greynekos.greybook.commons.core.LogsCenter;
-import greynekos.greybook.commons.core.history.CommandHistory;
 import greynekos.greybook.logic.Logic;
 import greynekos.greybook.logic.commands.CommandResult;
 import greynekos.greybook.logic.commands.exceptions.CommandException;

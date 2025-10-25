@@ -41,7 +41,8 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
      *             if the file format is not as expected.
      */
     public Optional<UserPrefs> readUserPrefs(Path prefsFilePath) throws DataLoadingException {
-        return JsonUtil.readJsonFile(prefsFilePath, new TypeReference<UserPrefs>() {});
+        return JsonUtil.readJsonFile(prefsFilePath, new TypeReference<UserPrefs>() {
+        });
     }
 
     @Override

@@ -54,14 +54,12 @@ public class JsonUtil {
      *
      * @param filePath
      *            cannot be null.
-     * @param classOfObjectToDeserialize
-     *            JSON file has to correspond to the structure in the class given
-     *            here.
+     * @param typeRef
+     *            JSON file has to correspond to the structure in the class given here.
      * @throws DataLoadingException
      *             if loading of the JSON file failed.
      */
-    public static <T> Optional<T> readJsonFile(Path filePath, TypeReference<T> typeRef)
-            throws DataLoadingException {
+    public static <T> Optional<T> readJsonFile(Path filePath, TypeReference<T> typeRef) throws DataLoadingException {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {

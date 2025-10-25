@@ -38,14 +38,13 @@ public class JsonHistoryStorage implements HistoryStorage {
      * Similar to {@link #readHistory()}
      *
      * @param historyFilePath
-     *                        location of the data. Cannot be null.
+     *            location of the data. Cannot be null.
      * @throws DataLoadingException
-     *                              if the file format is not as expected.
+     *             if the file format is not as expected.
      */
     public Optional<History> readHistory(Path historyFilePath) throws DataLoadingException {
-        return JsonUtil.readJsonFile(historyFilePath,
-                new TypeReference<ArrayList<String>>() {
-                }).map(history -> new History(new CommandHistory(history)));
+        return JsonUtil.readJsonFile(historyFilePath, new TypeReference<ArrayList<String>>() {
+        }).map(history -> new History(new CommandHistory(history)));
     }
 
     @Override

@@ -190,8 +190,7 @@ public class MainApp extends Application {
             }
             initializedHistory = historyOptional.orElse(new History());
         } catch (DataLoadingException e) {
-            logger.warning(
-                    "History file at " + historyFilePath + " could not be loaded." + " Using default history.");
+            logger.warning("History file at " + historyFilePath + " could not be loaded." + " Using default history.");
             initializedHistory = new History();
         }
 

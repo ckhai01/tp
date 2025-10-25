@@ -30,6 +30,11 @@ public class CommandHistory {
         this.history = new ArrayList<>();
     }
 
+    /**
+     * Creates a new {@code CommandHistory} with existing history.
+     *
+     * @param history The existing history.
+     */
     public CommandHistory(ArrayList<String> history) {
         this.history = history;
         resetCursor();

@@ -15,7 +15,8 @@ import greynekos.greybook.commons.exceptions.DataLoadingException;
 public class ConfigUtil {
 
     public static Optional<Config> readConfig(Path configFilePath) throws DataLoadingException {
-        return JsonUtil.readJsonFile(configFilePath, new TypeReference<Config>() {});
+        return JsonUtil.readJsonFile(configFilePath, new TypeReference<Config>() {
+        });
     }
 
     public static void saveConfig(Config config, Path configFilePath) throws IOException {

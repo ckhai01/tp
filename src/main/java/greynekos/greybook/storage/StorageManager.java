@@ -27,7 +27,8 @@ public class StorageManager implements Storage {
      * Creates a {@code StorageManager} with the given {@code GreyBookStorage} and
      * {@code UserPrefStorage}.
      */
-    public StorageManager(GreyBookStorage greyBookStorage, UserPrefsStorage userPrefsStorage, HistoryStorage historyStorage) {
+    public StorageManager(GreyBookStorage greyBookStorage, UserPrefsStorage userPrefsStorage,
+            HistoryStorage historyStorage) {
         this.greyBookStorage = greyBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.historyStorage = historyStorage;
