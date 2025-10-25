@@ -4,6 +4,7 @@ import greynekos.greybook.commons.core.history.CommandHistory;
 import greynekos.greybook.logic.commands.CommandResult;
 import greynekos.greybook.logic.commands.exceptions.CommandException;
 import greynekos.greybook.logic.parser.exceptions.ParseException;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -49,6 +50,7 @@ public class CommandBox extends UiPart<Region> {
                 handleDownArrowEntered();
             }
         });
+        Platform.runLater(() -> commandTextField.requestFocus());
     }
 
     /**
