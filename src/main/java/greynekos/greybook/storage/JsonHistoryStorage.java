@@ -2,7 +2,7 @@ package greynekos.greybook.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -43,7 +43,7 @@ public class JsonHistoryStorage implements HistoryStorage {
      *             if the file format is not as expected.
      */
     public Optional<History> readHistory(Path historyFilePath) throws DataLoadingException {
-        return JsonUtil.readJsonFile(historyFilePath, new TypeReference<ArrayList<String>>() {
+        return JsonUtil.readJsonFile(historyFilePath, new TypeReference<List<String>>() {
         }).map(history -> new History(new CommandHistory(history)));
     }
 

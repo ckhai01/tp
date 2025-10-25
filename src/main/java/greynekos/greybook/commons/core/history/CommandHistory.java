@@ -36,7 +36,7 @@ public class CommandHistory {
      * @param history
      *            The existing history.
      */
-    public CommandHistory(ArrayList<String> history) {
+    public CommandHistory(List<String> history) {
         this.history = history;
         resetCursor();
     }
