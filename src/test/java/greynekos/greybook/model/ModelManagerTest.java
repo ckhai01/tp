@@ -15,6 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import greynekos.greybook.commons.core.GuiSettings;
+import greynekos.greybook.commons.core.history.CommandHistory;
 import greynekos.greybook.model.person.NameContainsKeywordsPredicate;
 import greynekos.greybook.testutil.GreyBookBuilder;
 
@@ -58,6 +59,30 @@ public class ModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void setHistory_nullHistory_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setHistory(null));
+    }
+
+    @Test
+    public void setHistory_validHistory_copiesHistory() {
+        History history = new History();
+        history.setCommandHistory(new CommandHistory());
+        modelManager.setHistory(history);
+
+        // Modifying history should not modify modelManager's history
+        History oldHistory = new History(history);
+        history.setCommandHistory(new CommandHistory());
+        assertEquals(oldHistory, modelManager.getHistory());
+    }
+
+    @Test
+    public void setHistory_validHistory_setsHistory() {
+        History history = new History();
+        modelManager.setHistory(history);
+        assertEquals(history, modelManager.getHistory());
     }
 
     @Test

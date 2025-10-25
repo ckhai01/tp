@@ -98,8 +98,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Handles the Ctrl+C key pressed event.
-     * Simply clears the text field.
+     * Handles the Ctrl+C key pressed event. Simply clears the text field.
      */
     private void handleCtrlCEntered() {
         commandTextField.setText("");
