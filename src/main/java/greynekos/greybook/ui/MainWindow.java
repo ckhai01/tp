@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import greynekos.greybook.commons.core.GuiSettings;
 import greynekos.greybook.commons.core.LogsCenter;
+import greynekos.greybook.commons.core.history.CommandHistory;
 import greynekos.greybook.logic.Logic;
 import greynekos.greybook.logic.commands.CommandResult;
 import greynekos.greybook.logic.commands.exceptions.CommandException;
@@ -31,6 +32,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+
+    private CommandHistory history = new CommandHistory();
 
     // Independent Ui parts residing in this Ui container
     private PersonTablePanel personListPanel;
@@ -148,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getGreyBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, history);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -205,6 +208,9 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+
+            // Save to command history
+            history.addCommand(commandText);
 
             // Show result display after first command
             if (!resultDisplayPlaceholder.isVisible()) {
