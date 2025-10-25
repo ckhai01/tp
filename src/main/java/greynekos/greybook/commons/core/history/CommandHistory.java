@@ -11,14 +11,14 @@ import greynekos.greybook.commons.core.LogsCenter;
  */
 public class CommandHistory {
 
-    private static final Logger logger = LogsCenter.getLogger(CommandHistory.class);
-
     // An empty string is returned when there is no next command to retrieve
     public static final String NO_PREV_OR_NEXT_COMMAND = "";
 
     // The maximum number of items that can be stored in the history
     // This helps to prevent excessive memory usage in long-running applications
     public static final int SIZE_LIMIT = 50;
+
+    private static final Logger logger = LogsCenter.getLogger(CommandHistory.class);
 
     // A "virtual" position between command entry indexes
     private int cursor = 0;
@@ -28,7 +28,7 @@ public class CommandHistory {
      * Adds a command to history
      *
      * @param command
-     *                The command string.
+     *            The command string.
      */
     public void addCommand(String command) {
         // Avoid duplicate commands (similar to terminal)
