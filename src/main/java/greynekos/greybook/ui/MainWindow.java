@@ -196,8 +196,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows the result display if it is currently hidden.
-     * This method is called after the first command is executed.
+     * Toggles the visibility of the result display and spacer.
+     *
+     * @param shouldDisplayResult true to show the result display and hide the spacer,
+     *                           false to hide the result display and show the spacer.
      */
     private void toggleResultDisplay(boolean shouldDisplayResult) {
         resultDisplayPlaceholder.setVisible(shouldDisplayResult);
