@@ -2,9 +2,11 @@ package greynekos.greybook.commons.core.history;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import greynekos.greybook.commons.core.LogsCenter;
+import greynekos.greybook.commons.util.ToStringBuilder;
 
 /**
  * Stores the command history of Greybook.
@@ -22,13 +24,22 @@ public class CommandHistory {
 
     // A "virtual" position between command entry indexes
     private int cursor = 0;
-    private final List<String> history = new ArrayList<>();
+    private final List<String> history;
+
+    public CommandHistory() {
+        this.history = new ArrayList<>();
+    }
+
+    public CommandHistory(ArrayList<String> history) {
+        this.history = history;
+        resetCursor();
+    }
 
     /**
      * Adds a command to history
      *
      * @param command
-     *            The command string.
+     *                The command string.
      */
     public void addCommand(String command) {
         // Avoid duplicate commands (similar to terminal)
@@ -101,5 +112,35 @@ public class CommandHistory {
 
         resetCursor();
         return NO_PREV_OR_NEXT_COMMAND;
+    }
+
+    public List<String> getHistory() {
+        return this.history;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof CommandHistory)) {
+            return false;
+        }
+
+        CommandHistory otherCommandHistory = (CommandHistory) other;
+        return Objects.equals(history, otherCommandHistory.history)
+                && Objects.equals(cursor, otherCommandHistory.cursor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(history, cursor);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).add("history", history).add("cursor", cursor).toString();
     }
 }

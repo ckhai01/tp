@@ -98,10 +98,11 @@ public class ModelManagerTest {
         GreyBook greyBook = new GreyBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         GreyBook differentGreyBook = new GreyBook();
         UserPrefs userPrefs = new UserPrefs();
+        History history = new History();
 
         // same values -> returns true
-        modelManager = new ModelManager(greyBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(greyBook, userPrefs);
+        modelManager = new ModelManager(greyBook, userPrefs, history);
+        ModelManager modelManagerCopy = new ModelManager(greyBook, userPrefs, history);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,12 +115,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different greyBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentGreyBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentGreyBook, userPrefs, history)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(greyBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(greyBook, userPrefs, history)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -127,6 +128,11 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setGreyBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(greyBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(greyBook, differentUserPrefs, history)));
+
+        // different history -> returns false
+        History differentHistory = new History();
+        differentHistory.getCommandHistory().addCommand("test");
+        assertFalse(modelManager.equals(new ModelManager(greyBook, userPrefs, differentHistory)));
     }
 }

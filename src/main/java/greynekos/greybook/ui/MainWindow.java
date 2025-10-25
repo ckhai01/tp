@@ -33,8 +33,6 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    private CommandHistory history = new CommandHistory();
-
     // Independent Ui parts residing in this Ui container
     private PersonTablePanel personListPanel;
     private ResultDisplay resultDisplay;
@@ -151,7 +149,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getGreyBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, history);
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory().getCommandHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -208,9 +206,6 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-
-            // Save to command history
-            history.addCommand(commandText);
 
             // Show result display after first command
             if (!resultDisplayPlaceholder.isVisible()) {
