@@ -32,6 +32,7 @@ public class RequiredMutuallyExclusivePrefixOption<T> extends PrefixOption<T>
         return new RequiredMutuallyExclusivePrefixOption<>(prefixGroup, prefix, name, parser);
     }
 
+    @Override
     public String getPrefixGroup() {
         return this.prefixGroup;
     }

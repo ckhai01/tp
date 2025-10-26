@@ -6,6 +6,7 @@ import java.util.Optional;
 import greynekos.greybook.commons.core.index.Index;
 import greynekos.greybook.commons.util.StringUtil;
 import greynekos.greybook.logic.commands.exceptions.CommandException;
+import greynekos.greybook.logic.parser.ParserUtil;
 import greynekos.greybook.model.Model;
 import greynekos.greybook.model.person.Person;
 import greynekos.greybook.model.person.PersonIdentifier;
@@ -38,7 +39,8 @@ public class CommandUtil {
             model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
             return findPersonByStudentId(model, (StudentID) identifier);
         }
-        throw new CommandException("Invalid person identifier");
+        // Should not reach here
+        throw new CommandException(ParserUtil.MESSAGE_INVALID_PERSON_IDENTIFIER);
     }
 
     /**
