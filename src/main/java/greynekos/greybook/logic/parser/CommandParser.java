@@ -80,9 +80,8 @@ public class CommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage));
         }
 
-        // TODO: Figure out the proper return type so that casting is not needed
-        argMultimap.verifyNoDuplicatePrefixesFor((NoDuplicateOption[]) getNoDuplicateOptions());
-        argMultimap.verifyNoMutuallyExclusivePrefixesFor((MutuallyExclusiveOption[]) getMutuallyExclusiveOptions());
+        argMultimap.verifyNoDuplicatePrefixesFor(getNoDuplicateOptions());
+        argMultimap.verifyNoMutuallyExclusivePrefixesFor(getMutuallyExclusiveOptions());
 
         Map<Option<?>, List<?>> optionArgumentToResult = new HashMap<>();
         for (Option<?> option : options) {
@@ -125,8 +124,9 @@ public class CommandParser {
         return filterOptionsByInstance(NoDuplicateOption.class);
     }
 
-    private Prefix[] getMutuallyExclusiveOptions() {
-        return filterOptionsByInstance(MutuallyExclusiveOption.class);
+    private MutuallyExclusiveOption<?>[] getMutuallyExclusiveOptions() {
+        return options.stream().filter(option -> MutuallyExclusiveOption.class.isInstance(option)).toList()
+                .toArray(new MutuallyExclusiveOption[0]);
     }
 
     private Prefix[] filterOptionsByInstance(Class<?> cls) {

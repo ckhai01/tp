@@ -179,9 +179,7 @@ public class MarkCommandTest {
         GreyBookParser parser = new GreyBookParser();
         markCommand.addToParser(parser);
 
-        String userInput = "mark 1 p/ a/";
-
-        assertParseFailure(parser, userInput,
+        assertParseFailure(parser, "mark 1 p/ a/",
                 Messages.getErrorMessageForMutuallyExclusivePrefixes(PREFIX_PRESENT, PREFIX_ABSENT));
     }
 }

@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 
 import greynekos.greybook.logic.Messages;
 import greynekos.greybook.logic.parser.commandoption.MutuallyExclusiveOption;
-import greynekos.greybook.logic.parser.commandoption.NoDuplicateOption;
 import greynekos.greybook.logic.parser.exceptions.ParseException;
 
 /**
@@ -74,7 +73,7 @@ public class ArgumentMultimap {
      * Throws a {@code ParseException} if any of the prefixes given in
      * {@code prefixes} appeared more than once among the arguments.
      */
-    public void verifyNoDuplicatePrefixesFor(NoDuplicateOption... prefixes) throws ParseException {
+    public void verifyNoDuplicatePrefixesFor(Prefix... prefixes) throws ParseException {
         Prefix[] duplicatedPrefixes = Stream.of(prefixes).distinct()
                 .filter(prefix -> argMultimap.containsKey(prefix) && argMultimap.get(prefix).size() > 1)
                 .toArray(Prefix[]::new);
@@ -91,21 +90,20 @@ public class ArgumentMultimap {
      * This method is useful for validating mutually exclusive flags, where only one
      * prefix in a given group should appear in the input.
      *
-     * @param prefixes
-     *            the prefixes that are mutually exclusive
+     * @param options
+     *            the options that are mutually exclusive
      * @throws ParseException
-     *             if more than one of the specified prefixes has been provided
+     *             if more than one of the specified options has been provided
      */
-    public void verifyNoMutuallyExclusivePrefixesFor(MutuallyExclusiveOption... prefixes) throws ParseException {
-        Map<String, List<MutuallyExclusiveOption>> mutuallyExclusiveOptions =
-                Stream.of(prefixes).distinct().filter(prefix -> argMultimap.containsKey(prefix))
+    public void verifyNoMutuallyExclusivePrefixesFor(MutuallyExclusiveOption<?>... options) throws ParseException {
+        Map<String, List<MutuallyExclusiveOption<?>>> mutuallyExclusiveOptions =
+                Stream.of(options).filter(option -> argMultimap.containsKey(option.getPrefix()))
                         .collect(Collectors.groupingBy(prefix -> prefix.getPrefixGroup()));
 
-        for (List<MutuallyExclusiveOption> prefixGroup : mutuallyExclusiveOptions.values()) {
-            Prefix[] mutuallyExclusivePrefixes = prefixGroup.toArray(Prefix[]::new);
-            if (mutuallyExclusivePrefixes.length > 1) {
-                throw new ParseException(
-                        Messages.getErrorMessageForMutuallyExclusivePrefixes(mutuallyExclusivePrefixes));
+        for (List<MutuallyExclusiveOption<?>> optionsGrouped : mutuallyExclusiveOptions.values()) {
+            if (optionsGrouped.size() > 1) {
+                throw new ParseException(Messages.getErrorMessageForMutuallyExclusivePrefixes(
+                        optionsGrouped.stream().map(option -> option.getPrefix()).toArray(Prefix[]::new)));
             }
         }
     }
