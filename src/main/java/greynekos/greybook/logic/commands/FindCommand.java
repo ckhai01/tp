@@ -3,10 +3,9 @@ package greynekos.greybook.logic.commands;
 import static greynekos.greybook.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -14,52 +13,46 @@ import greynekos.greybook.logic.Messages;
 import greynekos.greybook.logic.commands.exceptions.CommandException;
 import greynekos.greybook.logic.parser.ArgumentParseResult;
 import greynekos.greybook.logic.parser.GreyBookParser;
-import greynekos.greybook.logic.parser.commandoption.OptionalPrefixOption;
 import greynekos.greybook.logic.parser.commandoption.OptionalSinglePreambleOption;
+import greynekos.greybook.logic.parser.commandoption.ZeroOrMorePrefixOption;
 import greynekos.greybook.model.Model;
 import greynekos.greybook.model.person.NameOrStudentIdPredicate;
 import greynekos.greybook.model.person.Person;
 
-/**
- * Finds persons by name keywords (case-insensitive) and/or student ID fragment (i/…).
- */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons by name keywords and/or student ID.\n"
-            + "Parameters: [KEYWORD [MORE_KEYWORDS]...] [" + PREFIX_STUDENTID + "ID_OR_FRAGMENT]\n"
-            + "Examples:\n"
-            + "  " + COMMAND_WORD + " alice bob\n"
-            + "  " + COMMAND_WORD + " " + PREFIX_STUDENTID + "A0123456X\n"
-            + "  " + COMMAND_WORD + " " + PREFIX_STUDENTID + "12345   (partial match)\n"
-            + "  " + COMMAND_WORD + " john " + PREFIX_STUDENTID + "A0123456X";
+            + "Parameters: [KEYWORD [MORE_KEYWORDS]...] [" + PREFIX_STUDENTID + "ID_FRAGMENT]...\n" + "Examples:\n"
+            + "  " + COMMAND_WORD + " alice bob\n" + "  " + COMMAND_WORD + " i/12345 i/A0123456X\n" + "  "
+            + COMMAND_WORD + " i/12345 alex\n" + "  " + COMMAND_WORD + " alex i/12345";
 
-    // Optional preamble: user may provide zero or more words; we accept the whole string and split.
-    private final OptionalSinglePreambleOption<String> preambleOption =
-            OptionalSinglePreambleOption.of("KEYWORDS");
+    public static final String MESSAGE_EMPTY_COMMAND = "Please provide at least one name keyword or an i/ID fragment.";
 
-    // Optional ID fragment: treat as free-form string, not a strict StudentId.
-    private final OptionalPrefixOption<String> studentIdFragmentOption =
-            OptionalPrefixOption.of(PREFIX_STUDENTID, "ID_OR_FRAGMENT", s -> {
-                String t = s == null ? "" : s.trim();
-                if (t.isEmpty()) {
-                    throw new IllegalArgumentException("Student ID fragment cannot be empty");
-                }
-                return t;
-            });
+    private final OptionalSinglePreambleOption<String> preambleOption = OptionalSinglePreambleOption.of("KEYWORDS");
+
+    private final ZeroOrMorePrefixOption<String> studentIdFragmentsOption =
+            ZeroOrMorePrefixOption.of(PREFIX_STUDENTID, "ID_FRAGMENT", s -> s == null ? "" : s.trim());
 
     @Override
     public void addToParser(GreyBookParser parser) {
-        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this)
-                .addOptions(preambleOption, studentIdFragmentOption);
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(studentIdFragmentsOption, preambleOption);
     }
 
     @Override
     public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
 
-        Predicate<Person> predicate = getParseResult(arg);
+        List<String> keywords = new ArrayList<>();
+        List<String> idFrags = new ArrayList<>();
+        parseKeywordsAndIdFrags(arg, keywords, idFrags);
+
+        if (keywords.isEmpty() && idFrags.isEmpty()) {
+            throw new CommandException(MESSAGE_EMPTY_COMMAND);
+        }
+
+        Predicate<Person> predicate = new NameOrStudentIdPredicate(keywords, idFrags);
         model.updateFilteredPersonList(predicate);
 
         return new CommandResult(
@@ -68,17 +61,31 @@ public class FindCommand extends Command {
 
     @Override
     public Predicate<Person> getParseResult(ArgumentParseResult argResult) {
-        // Split optional preamble into keywords, filtering blanks
-        List<String> keywords = argResult.getOptionalValue(preambleOption)
-                .map(s -> Arrays.stream(s.trim().split("\\s+"))
-                        .filter(token -> !token.isBlank())
-                        .collect(Collectors.toList()))
-                .orElse(Collections.emptyList());
+        List<String> keywords = new ArrayList<>();
+        List<String> idFrags = new ArrayList<>();
+        parseKeywordsAndIdFrags(argResult, keywords, idFrags);
+        return new NameOrStudentIdPredicate(keywords, idFrags);
+    }
 
-        Optional<String> idFragment = argResult.getOptionalValue(studentIdFragmentOption)
-                .map(String::trim)
-                .filter(s -> !s.isEmpty());
+    private void parseKeywordsAndIdFrags(ArgumentParseResult arg, List<String> keywordsOut, List<String> idFragsOut) {
+        arg.getOptionalValue(preambleOption).map(
+                s -> Arrays.stream(s.trim().split("\\s+")).filter(tok -> !tok.isBlank()).collect(Collectors.toList()))
+                .ifPresent(keywordsOut::addAll);
 
-        return new NameOrStudentIdPredicate(keywords, idFragment);
+        for (String raw : arg.getAllValues(studentIdFragmentsOption)) {
+            if (raw == null)
+                continue;
+            String trimmed = raw.trim();
+            if (trimmed.isEmpty())
+                continue;
+
+            String[] parts = trimmed.split("\\s+");
+            idFragsOut.add(parts[0]);
+            for (int i = 1; i < parts.length; i++) {
+                String tok = parts[i];
+                if (!tok.isBlank())
+                    keywordsOut.add(tok);
+            }
+        }
     }
 }

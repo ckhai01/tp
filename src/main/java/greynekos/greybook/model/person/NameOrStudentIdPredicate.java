@@ -1,66 +1,53 @@
+// greynekos.greybook.model.person.NameOrStudentIdPredicate.java
 package greynekos.greybook.model.person;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import greynekos.greybook.commons.util.StringUtil;
 
-/**
- * Matches a person if:
- *  - their name contains ANY of the provided keywords (case-insensitive), OR
- *  - their student ID string contains the provided fragment (case-insensitive), if present.
- */
 public class NameOrStudentIdPredicate implements Predicate<Person> {
 
-    private final List<String> keywords;              // may be empty
-    private final Optional<String> studentIdFragment; // normalized to upper-case, may be empty
+    private final List<String> keywords;
+    private final List<String> idFragmentsUp;
 
-    public NameOrStudentIdPredicate(List<String> keywords, Optional<String> studentIdFragment) {
+    public NameOrStudentIdPredicate(List<String> keywords, List<String> idFragments) {
         requireNonNull(keywords);
-        requireNonNull(studentIdFragment);
+        requireNonNull(idFragments);
         this.keywords = keywords;
-        this.studentIdFragment = studentIdFragment.map(s -> s.toUpperCase(Locale.ROOT));
+        this.idFragmentsUp = idFragments.stream().map(s -> s.toUpperCase(Locale.ROOT)).toList();
     }
 
     @Override
     public boolean test(Person person) {
-        boolean matchesName = false;
+        String fullName = person.getName().fullName;
 
-        if (!keywords.isEmpty()) {
-            String fullName = person.getName().fullName; // keep original for StringUtil
-            for (String kw : keywords) {
-                if (!kw.isBlank() && StringUtil.containsWordIgnoreCase(fullName, kw)) {
-                    matchesName = true;
-                    break;
-                }
-            }
-        }
+        boolean matchesName = !keywords.isEmpty() && keywords.stream().filter(kw -> !kw.isBlank())
+                .anyMatch(kw -> StringUtil.containsWordIgnoreCase(fullName, kw));
 
-        boolean matchesStudentId = studentIdFragment
-                .map(frag -> {
-                    String id = person.getStudentID().toString(); // or .value if you expose it
-                    return id != null && id.toUpperCase(Locale.ROOT).contains(frag);
-                })
-                .orElse(false);
+        String idUp = person.getStudentID() == null ? "" : person.getStudentID().toString().toUpperCase(Locale.ROOT);
 
-        return matchesName || matchesStudentId;
+        boolean matchesAnyIdFrag =
+                !idFragmentsUp.isEmpty() && idFragmentsUp.stream().filter(f -> !f.isBlank()).anyMatch(idUp::contains);
+
+        return matchesName || matchesAnyIdFrag;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (!(other instanceof NameOrStudentIdPredicate)) return false;
+        if (other == this)
+            return true;
+        if (!(other instanceof NameOrStudentIdPredicate))
+            return false;
         NameOrStudentIdPredicate o = (NameOrStudentIdPredicate) other;
-        return keywords.equals(o.keywords) && studentIdFragment.equals(o.studentIdFragment);
+        return keywords.equals(o.keywords) && idFragmentsUp.equals(o.idFragmentsUp);
     }
 
     @Override
-    public String toString() {
-        return String.format("NameOrStudentIdPredicate{keywords=%s, studentIdFragment=%s}",
-                keywords, studentIdFragment);
+    public int hashCode() {
+        return keywords.hashCode() * 31 + idFragmentsUp.hashCode();
     }
 }

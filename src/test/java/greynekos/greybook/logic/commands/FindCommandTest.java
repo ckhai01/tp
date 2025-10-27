@@ -17,7 +17,7 @@ import greynekos.greybook.logic.commands.stubs.FindPersonArgumentParseResultStub
 import greynekos.greybook.model.Model;
 import greynekos.greybook.model.ModelManager;
 import greynekos.greybook.model.UserPrefs;
-import greynekos.greybook.model.person.NameContainsKeywordsPredicate;
+import greynekos.greybook.model.person.NameOrStudentIdPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for
@@ -30,7 +30,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        NameOrStudentIdPredicate predicate = preparePredicate(" ", "");
         FindPersonArgumentParseResultStub argStub = new FindPersonArgumentParseResultStub(" ");
         FindCommand command = new FindCommand();
         expectedModel.updateFilteredPersonList(predicate);
@@ -41,7 +41,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        NameOrStudentIdPredicate predicate = preparePredicate("Kurz Elle Kunz", "");
         FindPersonArgumentParseResultStub argStub = new FindPersonArgumentParseResultStub("Kurz Elle Kunz");
         FindCommand command = new FindCommand();
         expectedModel.updateFilteredPersonList(predicate);
@@ -52,7 +52,7 @@ public class FindCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private NameOrStudentIdPredicate preparePredicate(String name, String id) {
+        return new NameOrStudentIdPredicate(Arrays.asList(name.split("\\s+")), Arrays.asList(id.split("\\s+")));
     }
 }
