@@ -17,7 +17,10 @@ import org.junit.jupiter.api.Test;
 
 import greynekos.greybook.logic.parser.ArgumentParseResult;
 import greynekos.greybook.logic.parser.GreyBookParser;
-import greynekos.greybook.model.*;
+import greynekos.greybook.model.History;
+import greynekos.greybook.model.Model;
+import greynekos.greybook.model.ModelManager;
+import greynekos.greybook.model.UserPrefs;
 import greynekos.greybook.model.person.NameOrStudentIdPredicate;
 import greynekos.greybook.model.person.Person;
 import greynekos.greybook.model.person.StudentID;
