@@ -1,10 +1,8 @@
-// greynekos.greybook.model.person.NameOrStudentIdPredicate.java
 package greynekos.greybook.model.person;
 
-import static java.util.Objects.requireNonNull;
+import static greynekos.greybook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.function.Predicate;
 
 import greynekos.greybook.commons.util.StringUtil;
@@ -22,10 +20,9 @@ public class NameOrStudentIdPredicate implements Predicate<Person> {
      * Constructs a NameOrStudentIdPredicate.
      */
     public NameOrStudentIdPredicate(List<String> keywords, List<String> idFragments) {
-        requireNonNull(keywords);
-        requireNonNull(idFragments);
+        requireAllNonNull(keywords, idFragments);
         this.keywords = keywords;
-        this.idFragmentsUp = idFragments.stream().map(s -> s.toUpperCase(Locale.ROOT)).toList();
+        this.idFragmentsUp = idFragments.stream().map(String::toUpperCase).toList();
     }
 
     @Override
@@ -35,7 +32,7 @@ public class NameOrStudentIdPredicate implements Predicate<Person> {
         boolean matchesName = !keywords.isEmpty() && keywords.stream().filter(kw -> !kw.isBlank())
                 .anyMatch(kw -> StringUtil.containsWordIgnoreCase(fullName, kw));
 
-        String idUp = person.getStudentID() == null ? "" : person.getStudentID().toString().toUpperCase(Locale.ROOT);
+        String idUp = person.getStudentID().toString().toUpperCase();
 
         boolean matchesAnyIdFrag =
                 !idFragmentsUp.isEmpty() && idFragmentsUp.stream().filter(f -> !f.isBlank()).anyMatch(idUp::contains);
