@@ -12,14 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import greynekos.greybook.logic.parser.ArgumentParseResult;
 import greynekos.greybook.logic.parser.GreyBookParser;
-import greynekos.greybook.model.GreyBook;
-import greynekos.greybook.model.Model;
-import greynekos.greybook.model.ModelManager;
-import greynekos.greybook.model.UserPrefs;
+import greynekos.greybook.model.*;
 import greynekos.greybook.model.person.NameOrStudentIdPredicate;
 import greynekos.greybook.model.person.Person;
 import greynekos.greybook.model.person.StudentID;
@@ -30,7 +28,14 @@ import greynekos.greybook.model.person.StudentID;
  */
 public class FindCommandTest {
 
-    private Model model = new ModelManager(getTypicalGreyBook(), new UserPrefs());
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalGreyBook(), new UserPrefs(), new History());
+        expectedModel = new ModelManager(model.getGreyBook(), new UserPrefs(), new History());
+    }
 
     @Test
     public void execute_emptyCriteria_throwsCommandException() throws Exception {
@@ -55,7 +60,6 @@ public class FindCommandTest {
 
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
 
-        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
         NameOrStudentIdPredicate predicate =
                 new NameOrStudentIdPredicate(Arrays.asList("Kurz", "Elle", "Kunz"), Collections.emptyList());
         expectedModel.updateFilteredPersonList(predicate);
@@ -78,7 +82,6 @@ public class FindCommandTest {
 
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
 
-        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
         NameOrStudentIdPredicate predicate =
                 new NameOrStudentIdPredicate(Collections.emptyList(), Arrays.asList(sid.value));
         expectedModel.updateFilteredPersonList(predicate);
@@ -103,7 +106,6 @@ public class FindCommandTest {
 
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
 
-        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
         NameOrStudentIdPredicate predicate =
                 new NameOrStudentIdPredicate(Collections.emptyList(), Arrays.asList(id1, id2));
         expectedModel.updateFilteredPersonList(predicate);
@@ -125,7 +127,6 @@ public class FindCommandTest {
 
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
 
-        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
         NameOrStudentIdPredicate predicate = new NameOrStudentIdPredicate(Arrays.asList("Elle"), Arrays.asList(idFrag));
         expectedModel.updateFilteredPersonList(predicate);
 
