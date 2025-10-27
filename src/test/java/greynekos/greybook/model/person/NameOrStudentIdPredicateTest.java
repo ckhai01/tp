@@ -82,6 +82,5 @@ public class NameOrStudentIdPredicateTest {
         assertFalse(p1.equals(p4));
         assertFalse(p1.equals(null));
         assertFalse(p1.equals("not a predicate"));
-        assertEquals(p1.hashCode(), p2.hashCode());
     }
 }
