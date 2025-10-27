@@ -14,8 +14,8 @@ public class RequiredMutuallyExclusivePrefixOption<T> extends PrefixOption<T>
         implements
             OptionalOption<T>,
             MutuallyExclusiveOption<T> {
-    // TODO: Currently does not do any form of checking to assert that this option exists,
-    // even though it is required
+    // TODO: Currently does not do any form of checking to assert that this option
+    // exists, even though it is required
     private final String prefixGroup;
 
     private RequiredMutuallyExclusivePrefixOption(String prefixGroup, Prefix prefix, String name,

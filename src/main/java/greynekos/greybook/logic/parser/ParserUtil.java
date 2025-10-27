@@ -70,12 +70,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code input} as an unmark identifier - tries to parse as {@code All} first, then {@code Index},
-     * then as {@code StudentID}. Returns a {@link PersonIdentifierOrAll} if it's valid as either
-     * format. Leading and trailing whitespaces will be trimmed.
+     * Parses {@code input} as an unmark identifier - tries to parse as {@code All}
+     * first, then {@code Index}, then as {@code StudentID}. Returns a
+     * {@link PersonIdentifierOrAll} if it's valid as either format. Leading and
+     * trailing whitespaces will be trimmed.
      *
      * @throws ParseException
-     *             if the input is neither {@code All.ALL_KEYWORD}, a valid index nor a valid student ID.
+     *             if the input is neither {@code All.ALL_KEYWORD}, a valid index
+     *             nor a valid student ID.
      */
     public static PersonIdentifierOrAll parsePersonIdentifierOrAll(String input) throws ParseException {
         requireNonNull(input);

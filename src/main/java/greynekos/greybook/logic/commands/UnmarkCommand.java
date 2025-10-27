@@ -40,8 +40,8 @@ public class UnmarkCommand extends Command {
      * Unmark Command Preamble and Prefix Options
      */
 
-    private final SinglePreambleOption<PersonIdentifierOrAll> identifierOrAllOption = SinglePreambleOption
-            .of("ALL or INDEX or STUDENTID", ParserUtil::parsePersonIdentifierOrAll);
+    private final SinglePreambleOption<PersonIdentifierOrAll> identifierOrAllOption =
+            SinglePreambleOption.of("ALL or INDEX or STUDENTID", ParserUtil::parsePersonIdentifierOrAll);
 
     @Override
     public void addToParser(GreyBookParser parser) {

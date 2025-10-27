@@ -84,8 +84,7 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Checks that at most one of the specified options is present in the
-     * arguments.
+     * Checks that at most one of the specified options is present in the arguments.
      * <p>
      * This method is useful for validating mutually exclusive flags, where only one
      * option in a given group should appear in the input.
