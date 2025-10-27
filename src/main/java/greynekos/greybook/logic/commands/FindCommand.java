@@ -19,6 +19,11 @@ import greynekos.greybook.model.Model;
 import greynekos.greybook.model.person.NameOrStudentIdPredicate;
 import greynekos.greybook.model.person.Person;
 
+/**
+ * Finds and lists all persons in GreyBook whose name contains any of the
+ * argument keywords, or student ID contains any of the provided ID fragments.
+ * Keyword matching is case-insensitive.
+ */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
@@ -73,18 +78,21 @@ public class FindCommand extends Command {
                 .ifPresent(keywordsOut::addAll);
 
         for (String raw : arg.getAllValues(studentIdFragmentsOption)) {
-            if (raw == null)
+            if (raw == null) {
                 continue;
+            }
             String trimmed = raw.trim();
-            if (trimmed.isEmpty())
+            if (trimmed.isEmpty()) {
                 continue;
+            }
 
             String[] parts = trimmed.split("\\s+");
             idFragsOut.add(parts[0]);
             for (int i = 1; i < parts.length; i++) {
                 String tok = parts[i];
-                if (!tok.isBlank())
+                if (!tok.isBlank()) {
                     keywordsOut.add(tok);
+                }
             }
         }
     }

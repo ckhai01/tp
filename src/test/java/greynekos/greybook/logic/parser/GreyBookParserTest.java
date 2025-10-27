@@ -24,7 +24,7 @@ import greynekos.greybook.logic.commands.FindCommand;
 import greynekos.greybook.logic.commands.HelpCommand;
 import greynekos.greybook.logic.commands.ListCommand;
 import greynekos.greybook.logic.parser.exceptions.ParseException;
-import greynekos.greybook.model.person.NameContainsKeywordsPredicate;
+import greynekos.greybook.model.person.NameOrStudentIdPredicate;
 import greynekos.greybook.model.person.Person;
 import greynekos.greybook.model.person.PersonIdentifier;
 import greynekos.greybook.testutil.EditPersonDescriptorBuilder;
@@ -82,7 +82,8 @@ public class GreyBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         ArgumentParseResult argResult =
                 PARSER.parse(FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new NameContainsKeywordsPredicate(keywords), argResult.getCommand().getParseResult(argResult));
+        assertEquals(new NameOrStudentIdPredicate(keywords, java.util.Collections.emptyList()),
+                argResult.getCommand().getParseResult(argResult));
     }
 
     @Test

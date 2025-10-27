@@ -9,11 +9,18 @@ import java.util.function.Predicate;
 
 import greynekos.greybook.commons.util.StringUtil;
 
+/**
+ * Tests that a {@code Person}'s {@code Name} or {@code StudentID} matches any
+ * of the keywords given.
+ */
 public class NameOrStudentIdPredicate implements Predicate<Person> {
 
     private final List<String> keywords;
     private final List<String> idFragmentsUp;
 
+    /**
+     * Constructs a NameOrStudentIdPredicate.
+     */
     public NameOrStudentIdPredicate(List<String> keywords, List<String> idFragments) {
         requireNonNull(keywords);
         requireNonNull(idFragments);
@@ -38,16 +45,14 @@ public class NameOrStudentIdPredicate implements Predicate<Person> {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this)
+        if (other == this) {
             return true;
-        if (!(other instanceof NameOrStudentIdPredicate))
+        }
+        if (!(other instanceof NameOrStudentIdPredicate)) {
             return false;
-        NameOrStudentIdPredicate o = (NameOrStudentIdPredicate) other;
-        return keywords.equals(o.keywords) && idFragmentsUp.equals(o.idFragmentsUp);
-    }
-
-    @Override
-    public int hashCode() {
-        return keywords.hashCode() * 31 + idFragmentsUp.hashCode();
+        }
+        NameOrStudentIdPredicate otherNameOrStudentIdPredicate = (NameOrStudentIdPredicate) other;
+        return keywords.equals(otherNameOrStudentIdPredicate.keywords)
+                && idFragmentsUp.equals(otherNameOrStudentIdPredicate.idFragmentsUp);
     }
 }
