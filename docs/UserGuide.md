@@ -38,8 +38,6 @@ GreyBook is a **desktop app for managing contacts, optimised for use via a Comma
 5. **Try a few commands:**
     - `help` — open the help window
     - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` — add a person
-    - `view 1` — shows 1st person in the list
-    - `view A0000000Y` — shows John Doe, assuming you have added him
     - `mark 1 p/` — marks the attendance of the 1st person in the list as `Present`
     - `mark A0000000Y a/` — marks John Doe as `Absent`
     - `unmark 1` — remove the attendance status of the 1st person in the list
@@ -212,22 +210,6 @@ Examples:
 - `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 - `delete A0123456J` deletes the person with student ID A0123456J from the GreyBook.
 
-### Viewing a person : `view`
-
-Show details for one contact by list number **or** student ID.
-
-Format: `view INDEX` or `view STUDENTID`
-
-- `INDEX` refers to the index number shown in the displayed person list.
-- `STUDENTID` format: `A0000000Y` (see rules under **Delete**).
-- You may type a `STUDENTID` not currently displayed on the list to view it.
-
-Examples:
-
-- `list` followed by `view 2` displays the 2nd person in the GreyBook.
-- `view A0123456J` displays the person with student ID A0123456J from the GreyBook.
-- `view 3` followed by `view A0123456J` will only display the person with student ID A0123456J, even if they are not the 3rd person in the GreyBook.
-
 ### Clearing all entries : `clear`
 
 Deletes **all** entries from GreyBook.
@@ -333,7 +315,6 @@ Action | What it does | Format (examples)
 **Add** | Create a new contact | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]...`<br>e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000Y t/friend t/colleague`
 **List** | Show all contacts | `list`
 **Find** | Search by name (full words) | `find KEYWORD [MORE_KEYWORDS]`<br>e.g., `find James Jake`
-**View** | Show one contact by number or ID | `view INDEX` or `view STUDENTID`<br>e.g., `view 3`, `view A0123456J`
 **Edit** | Update details | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]...`<br>e.g., `edit 2 n/James Lee e/jameslee@example.com`
 **Mark** | Mark attendance | `mark (INDEX \|\| STUDENTID) (p/ \|\| a/ \|\| l/ \|\| e/)`<br> e.g.,`mark 2 p/`, `mark A0123456J a/`
 **Unmark** | Unmark attendance | `unmark INDEX` or `unmark STUDENTID` or `unmark all`<br> e.g.,`unmark 2`, `unmark A0123456J`, `unmark all`
