@@ -173,20 +173,24 @@ Examples:
 
 ### Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds persons whose names or student ID contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS] [i/STUDENTID]…​`
 
-- The search is case-insensitive. e.g. `hans` will match `Hans`
+- The search is case-insensitive. e.g. `hans` will match `Hans`, `i/a0000000y` will match `A0000000Y`
 - The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-- Only the name is searched.
-- Only full words will be matched e.g. `Han` will not match `Hans`
+- To search for student IDs, the keyword must start with the prefix `i/`. e.g. `i/0Y`, `i/A0000000Y`
+- Only full words will be matched for names. e.g. `Han` will not match `Hans`
+- Student ID matches can have partial matches. e.g. `i/0Y` will match `A0000000Y`
 - Persons matching at least one keyword will be returned.
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+- Keywords can appear in any order. e.g. `Alex i/0Y Bob` and `i/0Y Alex Bob` are both valid.
 
 Examples:
 
 - `find John` returns `john` and `John Doe`
+- `find i/A0000000Y` returns the student with the student ID `A0000000Y`
+- `find i/A0000000Y John` returns the student with the student ID `A0000000Y`, `john` and `John Doe`
 - `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
