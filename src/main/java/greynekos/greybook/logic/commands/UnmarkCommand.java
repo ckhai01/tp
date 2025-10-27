@@ -4,7 +4,6 @@ import static greynekos.greybook.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Optional;
 
 import greynekos.greybook.logic.Messages;
 import greynekos.greybook.logic.commands.exceptions.CommandException;
@@ -12,11 +11,13 @@ import greynekos.greybook.logic.commands.util.CommandUtil;
 import greynekos.greybook.logic.parser.ArgumentParseResult;
 import greynekos.greybook.logic.parser.GreyBookParser;
 import greynekos.greybook.logic.parser.ParserUtil;
-import greynekos.greybook.logic.parser.commandoption.OptionalSinglePreambleOption;
+import greynekos.greybook.logic.parser.commandoption.SinglePreambleOption;
 import greynekos.greybook.model.Model;
+import greynekos.greybook.model.person.All;
 import greynekos.greybook.model.person.AttendanceStatus;
 import greynekos.greybook.model.person.Person;
 import greynekos.greybook.model.person.PersonIdentifier;
+import greynekos.greybook.model.person.PersonIdentifierOrAll;
 
 /**
  * The UnmarkCommand clears a club member's attendance status.
@@ -24,7 +25,6 @@ import greynekos.greybook.model.person.PersonIdentifier;
 public class UnmarkCommand extends Command {
 
     public static final String COMMAND_WORD = "unmark";
-    public static final String UNMARK_ALL_KEYWORD = "all";
 
     public static final String MESSAGE_UNMARK_PERSON_SUCCESS = "Cleared %1$s's attendance status";
     public static final String MESSAGE_UNMARK_ALL_SUCCESS = "All attendance status have been cleared.";
@@ -40,34 +40,24 @@ public class UnmarkCommand extends Command {
      * Unmark Command Preamble and Prefix Options
      */
 
-    // TODO: Make this a mutually exclusive preamble option
-    private final OptionalSinglePreambleOption<String> allOption =
-            OptionalSinglePreambleOption.of("UNMARK_ALL", s -> s.equals(UNMARK_ALL_KEYWORD) ? s : null);
-
-    private final OptionalSinglePreambleOption<PersonIdentifier> identifierOption =
-            OptionalSinglePreambleOption.of("INDEX or STUDENTID", ParserUtil::parsePersonIdentifier);
+    private final SinglePreambleOption<PersonIdentifierOrAll> identifierOrAllOption = SinglePreambleOption
+            .of("ALL or INDEX or STUDENTID", ParserUtil::parsePersonIdentifierOrAll);
 
     @Override
     public void addToParser(GreyBookParser parser) {
-        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(allOption, identifierOption);
+        parser.newCommand(COMMAND_WORD, MESSAGE_USAGE, this).addOptions(identifierOrAllOption);
     }
 
     @Override
     public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
 
-        // Check if this is a reset command using the resetOption
-        Optional<String> allOptional = arg.getOptionalValue(allOption);
-        if (allOptional.isPresent()) {
+        PersonIdentifierOrAll identifier = getParseResult(arg);
+        if (identifier instanceof All) {
             return executeUnmarkAll(model);
         }
 
-        Optional<PersonIdentifier> identifier = getParseResult(arg);
-        if (!identifier.isPresent()) {
-            // TODO: Throw proper error here
-            throw new CommandException("Invalid identifier");
-        }
-        Person personToUnmark = CommandUtil.resolvePerson(model, identifier.get());
+        Person personToUnmark = CommandUtil.resolvePerson(model, (PersonIdentifier) identifier);
 
         Person unmarkedPerson = createUnmarkedPerson(personToUnmark);
         model.setPerson(personToUnmark, unmarkedPerson);
@@ -96,7 +86,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public Optional<PersonIdentifier> getParseResult(ArgumentParseResult argResult) {
-        return argResult.getOptionalValue(identifierOption);
+    public PersonIdentifierOrAll getParseResult(ArgumentParseResult argResult) {
+        return argResult.getValue(identifierOrAllOption);
     }
 }

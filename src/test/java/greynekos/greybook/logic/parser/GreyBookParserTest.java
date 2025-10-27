@@ -2,6 +2,7 @@ package greynekos.greybook.logic.parser;
 
 import static greynekos.greybook.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static greynekos.greybook.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static greynekos.greybook.logic.parser.CliSyntax.PREFIX_PRESENT;
 import static greynekos.greybook.testutil.Assert.assertThrows;
 import static greynekos.greybook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,6 +24,8 @@ import greynekos.greybook.logic.commands.ExitCommand;
 import greynekos.greybook.logic.commands.FindCommand;
 import greynekos.greybook.logic.commands.HelpCommand;
 import greynekos.greybook.logic.commands.ListCommand;
+import greynekos.greybook.logic.commands.MarkCommand;
+import greynekos.greybook.logic.commands.UnmarkCommand;
 import greynekos.greybook.logic.parser.exceptions.ParseException;
 import greynekos.greybook.model.person.NameContainsKeywordsPredicate;
 import greynekos.greybook.model.person.Person;
@@ -95,6 +98,19 @@ public class GreyBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(PARSER.parse(ListCommand.COMMAND_WORD).getCommand() instanceof ListCommand);
         assertTrue(PARSER.parse(ListCommand.COMMAND_WORD + " 3").getCommand() instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_mark() throws Exception {
+        assertTrue(
+                PARSER.parse(MarkCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_PRESENT)
+                        .getCommand() instanceof MarkCommand);
+    }
+
+    @Test
+    public void parseCommand_unmark() throws Exception {
+        assertTrue(PARSER.parse(UnmarkCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased())
+                .getCommand() instanceof UnmarkCommand);
     }
 
     @Test

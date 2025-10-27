@@ -13,7 +13,6 @@ import greynekos.greybook.logic.parser.commandoption.MutuallyExclusiveOption;
 import greynekos.greybook.logic.parser.commandoption.NoDuplicateOption;
 import greynekos.greybook.logic.parser.commandoption.OneOrMorePreambleOption;
 import greynekos.greybook.logic.parser.commandoption.Option;
-import greynekos.greybook.logic.parser.commandoption.OptionalSinglePreambleOption;
 import greynekos.greybook.logic.parser.commandoption.PrefixOption;
 import greynekos.greybook.logic.parser.commandoption.RequiredOption;
 import greynekos.greybook.logic.parser.commandoption.SinglePreambleOption;
@@ -81,7 +80,7 @@ public class CommandParser {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(getNoDuplicateOptions());
-        argMultimap.verifyNoMutuallyExclusivePrefixesFor(getMutuallyExclusiveOptions());
+        argMultimap.verifyNoMutuallyExclusiveOptionsFor(getMutuallyExclusiveOptions());
 
         Map<Option<?>, List<?>> optionArgumentToResult = new HashMap<>();
         for (Option<?> option : options) {
@@ -92,15 +91,6 @@ public class CommandParser {
                 }
             } else if (option instanceof SinglePreambleOption) {
                 result.add(option.parseOptionArgument(argMultimap.getPreamble()));
-            } else if (option instanceof OptionalSinglePreambleOption) {
-                String preamble = argMultimap.getPreamble();
-                if (!preamble.isEmpty()) {
-                    try {
-                        result.add(option.parseOptionArgument(preamble));
-                    } catch (ParseException e) {
-                        // Ignore empty preamble options
-                    }
-                }
             } else {
                 for (String arg : argMultimap.getAllValues(option.getPrefix())) {
                     result.add(option.parseOptionArgument(arg));

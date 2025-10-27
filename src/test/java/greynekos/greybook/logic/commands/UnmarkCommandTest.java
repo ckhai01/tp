@@ -5,6 +5,7 @@ import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandSuc
 import static greynekos.greybook.logic.commands.util.CommandUtil.MESSAGE_PERSON_NOT_FOUND;
 import static greynekos.greybook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static greynekos.greybook.testutil.TypicalPersons.getTypicalGreyBook;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,7 @@ public class UnmarkCommandTest {
     private Model model = new ModelManager(getTypicalGreyBook(), new UserPrefs());
 
     @Test
-    public void execute_unmarkByIndex_success() throws Exception {
+    public void execute_unmarkByIndex_success() {
         Person targetPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         UnmarkCommand unmarkCommand = new UnmarkCommand();
 
@@ -36,7 +37,7 @@ public class UnmarkCommandTest {
         unmarkCommand.addToParser(parser);
 
         String userInput = "unmark " + INDEX_FIRST_PERSON.getOneBased();
-        ArgumentParseResult arg = parser.parse(userInput);
+        ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
         Person unmarkedPerson =
                 new PersonBuilder(targetPerson).withAttendanceStatus(AttendanceStatus.Status.NONE).build();
@@ -50,7 +51,7 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void execute_unmarkByStudentId_success() throws Exception {
+    public void execute_unmarkByStudentId_success() {
         Person targetPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         StudentID sid = targetPerson.getStudentID();
         UnmarkCommand unmarkCommand = new UnmarkCommand();
@@ -59,7 +60,7 @@ public class UnmarkCommandTest {
         unmarkCommand.addToParser(parser);
 
         String userInput = "unmark " + sid.value;
-        ArgumentParseResult arg = parser.parse(userInput);
+        ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
         Person unmarkedPerson =
                 new PersonBuilder(targetPerson).withAttendanceStatus(AttendanceStatus.Status.NONE).build();
@@ -73,13 +74,13 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void execute_unmarkAll_success() throws Exception {
+    public void execute_unmarkAll_success() {
         UnmarkCommand unmarkCommand = new UnmarkCommand();
         GreyBookParser parser = new GreyBookParser();
         unmarkCommand.addToParser(parser);
 
         String userInput = "unmark all";
-        ArgumentParseResult arg = parser.parse(userInput);
+        ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
         Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
         for (Person person : expectedModel.getFilteredPersonList()) {
@@ -117,13 +118,13 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void execute_invalidStudentId_throwsCommandException() throws Exception {
+    public void execute_invalidStudentId_throwsCommandException() {
         UnmarkCommand unmarkCommand = new UnmarkCommand();
         GreyBookParser parser = new GreyBookParser();
         unmarkCommand.addToParser(parser);
 
         String userInput = "unmark A0000000Y";
-        ArgumentParseResult arg = parser.parse(userInput);
+        ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
         assertCommandFailure(unmarkCommand, model, arg, MESSAGE_PERSON_NOT_FOUND);
     }

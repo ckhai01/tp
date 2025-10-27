@@ -66,7 +66,7 @@ public class ArgumentMultimap {
      * leading/trailing spaces.
      */
     public String getPreamble() {
-        return getValue(new Prefix("")).orElse("");
+        return getValue(new Prefix("")).orElse("").trim();
     }
 
     /**
@@ -84,18 +84,18 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Checks that at most one of the specified prefixes is present in the
+     * Checks that at most one of the specified options is present in the
      * arguments.
      * <p>
      * This method is useful for validating mutually exclusive flags, where only one
-     * prefix in a given group should appear in the input.
+     * option in a given group should appear in the input.
      *
      * @param options
      *            the options that are mutually exclusive
      * @throws ParseException
      *             if more than one of the specified options has been provided
      */
-    public void verifyNoMutuallyExclusivePrefixesFor(MutuallyExclusiveOption<?>... options) throws ParseException {
+    public void verifyNoMutuallyExclusiveOptionsFor(MutuallyExclusiveOption<?>... options) throws ParseException {
         Map<String, List<MutuallyExclusiveOption<?>>> mutuallyExclusiveOptions =
                 Stream.of(options).filter(option -> argMultimap.containsKey(option.getPrefix()))
                         .collect(Collectors.groupingBy(prefix -> prefix.getPrefixGroup()));
