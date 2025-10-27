@@ -139,7 +139,6 @@ public class MarkCommandTest {
     }
 
     @Test
-    // TODO : Now giving a different error message, fix
     public void parse_invalidPrefix_throwsParseException() {
         MarkCommand markCommand = new MarkCommand();
         GreyBookParser parser = new GreyBookParser();

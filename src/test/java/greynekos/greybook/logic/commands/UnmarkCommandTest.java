@@ -3,6 +3,7 @@ package greynekos.greybook.logic.commands;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static greynekos.greybook.logic.commands.util.CommandUtil.MESSAGE_PERSON_NOT_FOUND;
+import static greynekos.greybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static greynekos.greybook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static greynekos.greybook.testutil.TypicalPersons.getTypicalGreyBook;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import greynekos.greybook.logic.parser.ArgumentParseResult;
 import greynekos.greybook.logic.parser.GreyBookParser;
+import greynekos.greybook.logic.parser.ParserUtil;
 import greynekos.greybook.model.GreyBook;
 import greynekos.greybook.model.Model;
 import greynekos.greybook.model.ModelManager;
@@ -129,30 +131,27 @@ public class UnmarkCommandTest {
         assertCommandFailure(unmarkCommand, model, arg, MESSAGE_PERSON_NOT_FOUND);
     }
 
-    // TODO: Currently no error message is thrown for these cases. Fix later.
-    // @Test
-    // public void parse_noIdentifier_throwsParseException() {
-    // UnmarkCommand unmarkCommand = new UnmarkCommand();
-    // GreyBookParser parser = new GreyBookParser();
-    // unmarkCommand.addToParser(parser);
+    @Test
+    public void parse_noIdentifier_throwsParseException() {
+        UnmarkCommand unmarkCommand = new UnmarkCommand();
+        GreyBookParser parser = new GreyBookParser();
+        unmarkCommand.addToParser(parser);
 
-    // String userInput = "unmark";
+        String userInput = "unmark";
 
-    // assertParseFailure(parser, userInput, MESSAGE_INVALID_PERSON_IDENTIFIER);
-    // }
+        assertParseFailure(parser, userInput, ParserUtil.MESSAGE_INVALID_PERSON_IDENTIFIER);
+    }
 
-    // @Test
-    // public void parse_multipleIdentifiers_throwsParseException() {
-    // UnmarkCommand unmarkCommand = new UnmarkCommand();
-    // GreyBookParser parser = new GreyBookParser();
-    // unmarkCommand.addToParser(parser);
+    @Test
+    public void parse_multipleIdentifiers_throwsParseException() {
+        UnmarkCommand unmarkCommand = new UnmarkCommand();
+        GreyBookParser parser = new GreyBookParser();
+        unmarkCommand.addToParser(parser);
 
-    // Person targetPerson =
-    // model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-    // String userInput =
-    // String.format("unmark %d %s", INDEX_FIRST_PERSON.getOneBased(),
-    // targetPerson.getStudentID().value);
+        Person targetPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        String userInput =
+                String.format("unmark %d %s", INDEX_FIRST_PERSON.getOneBased(), targetPerson.getStudentID().value);
 
-    // assertParseFailure(parser, userInput, MESSAGE_INVALID_PERSON_IDENTIFIER);
-    // }
+        assertParseFailure(parser, userInput, ParserUtil.MESSAGE_INVALID_PERSON_IDENTIFIER);
+    }
 }
