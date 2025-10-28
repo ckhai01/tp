@@ -36,18 +36,20 @@ This application is targeted at university students in Singapore who are managin
 
 4. **What you’ll see.**
    - A window opens with sample contacts so you can try commands.
+![Initial Window](images/initialWindow.png)
 
 5. **Try a few commands:**
     - `help` — open the help window
-    - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` — add a person
+    - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` — add a student
+    - `find John` — Finds and displays only John
     - `mark 1 p/` — marks the attendance of the 1st student in the list as `Present`
     - `mark A0000000Y a/` — marks John Doe as `Absent`
     - `unmark 1` — remove the attendance status of the 1st student in the list
     - `unmark A0000000Y` — removes the attendance status of John Doe
-    - `unmark all` — removes the attendance status of all people
-    - `list` — show all people
+    - `unmark all` — removes the attendance status of all students
+    - `list` — show all students
     - `delete 3` — delete the 3rd student in the list
-    - `clear` — delete all people
+    - `clear` — delete all students
     - `exit` — quit the app
 
 > If you see a security prompt on macOS the first time you open the app, right-click the `.jar` and choose **Open**, then confirm.
@@ -116,6 +118,8 @@ Examples:
 - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y`
 - `add n/Betsy Crowe t/friend e/betsycrowe@example.com i/A1111111M p/1234567 t/criminal`
 
+Expected output for `add n/Betsy Crowe t/friend e/betsycrowe@example.com i/A1111111M p/1234567 t/criminal`: 
+![result for adding Betsy Crowe](images/addBetsyResult.png)
 ### Listing all students : `list`
 
 Shows a list of all students in the GreyBook.
@@ -139,6 +143,9 @@ Examples:
 
 - `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
 - `edit 2 n/Betsy Crower t/` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
+
+Expected output for `edit 2 n/Betsy Crower t/`:
+![result for adding Betsy Crowe](images/editResult.png)
 
 ### Marking a student : `mark`
 
@@ -201,7 +208,7 @@ Examples:
 - `find i/12345 alex` returns students named like `Alex Yeoh` or with IDs containing `12345`
 - `find alex i/12345` returns same as above (order does not matter)
 - `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+  ![result for 'find alex i/8L david'](images/findAlexDavidResult.png)
 
 ### Deleting a student : `delete`
 
