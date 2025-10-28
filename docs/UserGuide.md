@@ -35,7 +35,7 @@ This application is targeted at university students in Singapore who are managin
      ```
 
 4. **What you’ll see.**
-   - A window opens with sample contacts so you can try commands.
+   - A window opens with sample students so you can try commands.
 ![Initial Window](images/initialWindow.png)
 
 5. **Try a few commands:**
@@ -177,12 +177,12 @@ Format: `unmark INDEX` or `unmark STUDENTID` or `unmark all`
 
 * `unmark INDEX` removes the attendance of the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * `unmark STUDENTID` removes the attendance of the student with the specified `STUDENTID`. The student with the student ID must be in the displayed student list.
-* `unmark all` removes the attendance of **all students** in the contact list.
+* `unmark all` removes the attendance of **all students** in the list.
 
 Examples:
 *  `unmark A0000000Y` Unmarks the student with the student ID `A0000000Y`.
 *  `unmark 2` Unmarks the 2nd student.
-*  `unmark all` Unmarks everyone in the current contact list.
+*  `unmark all` Unmarks everyone in the current list.
 
 
 ### Locating students by name: `find`
@@ -306,7 +306,7 @@ _Details coming soon ..._
 **Q: Is there an undo command?**
 **A:** Not currently. Actions like `delete` and `clear` are immediate and irreversible. Consider regular backups of `data/greybook.json`.
 
-**Q: How do I back up my contacts?**
+**Q: How do I back up my data?**
 **A:** Close GreyBook and copy `data/greybook.json` to a safe place (cloud/storage drive).
 
 **Q: I edited the JSON and something broke. What now?**
@@ -327,7 +327,7 @@ _Details coming soon ..._
 **Q: Does GreyBook save automatically?**
 **A:** Yes. Changes are saved to `greybook.json` right after each command.
 
-**Q: How many contacts can I store?**
+**Q: How many students can I store?**
 **A:** There’s no hard limit in the app; performance depends on your computer.
 
 **Q: How do I reset GreyBook to factory data?**
@@ -361,14 +361,14 @@ Similarly, if your name contains special characters such as accents or diacritic
 
 Action | What it does                                               | Format (examples)
 ---|------------------------------------------------------------|---
-**Add** | Create a new contact                                       | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]...`<br>e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000Y t/friend t/colleague`
-**List** | Show all contacts                                          | `list`
+**Add** | Create a new student                                       | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]...`<br>e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000Y t/friend t/colleague`
+**List** | Show all students                                          | `list`
 **Find** | Search by name (full words) or student ID (partial string) | `find KEYWORD [MORE_KEYWORDS]…​ [i/ID_FRAGMENT]…​`<br>e.g., `find James i/A0123456J jake`
 **Edit** | Update details                                             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]...`<br>e.g., `edit 2 n/James Lee e/jameslee@example.com`
 **Mark** | Mark attendance                                            | `mark (INDEX \|\| STUDENTID) (p/ \|\| a/ \|\| l/ \|\| e/)`<br> e.g.,`mark 2 p/`, `mark A0123456J a/`
 **Unmark** | Unmark attendance                                          | `unmark INDEX` or `unmark STUDENTID` or `unmark all`<br> e.g.,`unmark 2`, `unmark A0123456J`, `unmark all`
-**Delete** | Remove a contact                                           | `delete INDEX` or `delete STUDENTID`<br>e.g., `delete 3`, `delete A0123456J`
-**Clear** | Delete **all** contacts                                    | `clear`
+**Delete** | Remove a student                                           | `delete INDEX` or `delete STUDENTID`<br>e.g., `delete 3`, `delete A0123456J`
+**Clear** | Delete **all** students                                    | `clear`
 **Help** | Open the help window                                       | `help`
 **Exit** | Quit the app                                               | `exit`
 
