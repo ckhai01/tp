@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import greynekos.greybook.model.person.AttendanceStatus.Status;
 import greynekos.greybook.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -34,7 +35,7 @@ public class PersonTest {
 
         // same name and studentId, all other attributes different -> returns true
         Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_HUSBAND).withAttendanceStatus(Status.LATE).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // different studentId, all other attributes same -> returns false
@@ -78,6 +79,10 @@ public class PersonTest {
 
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different attendanceStatus -> returns false
+        editedAlice = new PersonBuilder(ALICE).withAttendanceStatus(Status.LATE).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 
