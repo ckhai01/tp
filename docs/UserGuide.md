@@ -231,7 +231,7 @@ GreyBook data is saved in the hard disk automatically after any command that cha
 ### Editing the data file
 
 GreyBook data is saved automatically as a JSON file at: <br>
-`[JAR file location]/data/GreyBook.json`
+`[JAR file location]/data/greybook.json`
 
 <box type="warning" seamless>
 **Caution!**
@@ -254,25 +254,25 @@ _Details coming soon ..._
 **A:** Yes, **Java 17 or newer**. Check with `java -version`. If it’s older, install a current Long Term Support Java version.
 
 **Q: How do I update GreyBook to a new version?**
-**A:** Download the new `.jar` and run it. Your existing data in `data/GreyBook.json` will be picked up automatically if you keep it in the same folder.
+**A:** Download the new `.jar` and run it. Your existing data in `data/greybook.json` will be picked up automatically if you keep it in the same folder.
 
 **Q: Will I lose my data when I update?**
-**A:** No. The data file is separate from the app. Keep `data/GreyBook.json` with the `.jar` and you’re good.
+**A:** No. The data file is separate from the app. Keep `data/greybook.json` with the `.jar` and you’re good.
 
 **Q: Where exactly is my data?**
-**A:** In `[JAR file location]/data/GreyBook.json`.
+**A:** In `[JAR file location]/data/greybook.json`.
 
 **Q: Can I move GreyBook to another computer (or a USB drive)?**
 **A:** Yes. Copy the `.jar` **and** the `data` folder together. On the new computer, double-click the `.jar`.
 
 **Q: Is there an undo command?**
-**A:** Not currently. Actions like `delete` and `clear` are immediate and irreversible. Consider regular backups of `data/GreyBook.json`.
+**A:** Not currently. Actions like `delete` and `clear` are immediate and irreversible. Consider regular backups of `data/greybook.json`.
 
 **Q: How do I back up my contacts?**
-**A:** Close GreyBook and copy `data/GreyBook.json` to a safe place (cloud/storage drive).
+**A:** Close GreyBook and copy `data/greybook.json` to a safe place (cloud/storage drive).
 
 **Q: I edited the JSON and something broke. What now?**
-**A:** Close GreyBook, restore your backup `GreyBook.json`, then reopen GreyBook. Avoid manual edits unless you’re confident.
+**A:** Close GreyBook, restore your backup `greybook.json`, then reopen GreyBook. Avoid manual edits unless you’re confident.
 
 **Q: Are name searches case-sensitive?**
 **A:** No. `hans` matches `Hans`.
@@ -287,13 +287,13 @@ _Details coming soon ..._
 **A:** Only the fields shown in the command formats are supported (e.g., `n/`, `p/`, `e/`, `i/`, and tags).
 
 **Q: Does GreyBook save automatically?**
-**A:** Yes. Changes are saved to `GreyBook.json` right after each command.
+**A:** Yes. Changes are saved to `greybook.json` right after each command.
 
 **Q: How many contacts can I store?**
 **A:** There’s no hard limit in the app; performance depends on your computer.
 
 **Q: How do I reset GreyBook to factory data?**
-**A:** Close the app, delete `data/GreyBook.json`, and reopen GreyBook (you’ll start fresh with sample data).
+**A:** Close the app, delete `data/greybook.json`, and reopen GreyBook (you’ll start fresh with sample data).
 
 ---
 
