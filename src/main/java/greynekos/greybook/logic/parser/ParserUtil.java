@@ -1,13 +1,20 @@
 package greynekos.greybook.logic.parser;
 
+import static greynekos.greybook.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import greynekos.greybook.commons.core.index.Index;
 import greynekos.greybook.commons.util.StringUtil;
+import greynekos.greybook.logic.parser.commandoption.OptionalSinglePreambleOption;
+import greynekos.greybook.logic.parser.commandoption.ZeroOrMorePrefixOption;
 import greynekos.greybook.logic.parser.exceptions.ParseException;
 import greynekos.greybook.model.person.All;
 import greynekos.greybook.model.person.Email;
@@ -29,6 +36,12 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_PERSON_IDENTIFIER =
             "Person identifier is invalid. It should be either a positive integer index or a valid Student ID "
                     + "(format: A0000000Y).";
+
+    /**
+     * Record class used by Find command.
+     */
+    public record KeywordsAndIdFrags(List<String> keywords, List<String> idFrags) {
+    }
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
@@ -199,5 +212,44 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses keywords (from preamble) and student ID fragments (from i/ values)
+     * from {@code arg}. Returns an immutable container (record) holding both lists.
+     */
+    public static KeywordsAndIdFrags parseKeywordsAndIdFrags(ArgumentParseResult arg,
+            OptionalSinglePreambleOption<String> preambleOption,
+            ZeroOrMorePrefixOption<String> studentIdFragmentsOption) {
+
+        requireAllNonNull(arg, preambleOption, studentIdFragmentsOption);
+
+        List<String> keywords = new ArrayList<>();
+        List<String> idFrags = new ArrayList<>();
+
+        arg.getOptionalValue(preambleOption).map(
+                s -> Arrays.stream(s.trim().split("\\s+")).filter(tok -> !tok.isBlank()).collect(Collectors.toList()))
+                .ifPresent(keywords::addAll);
+
+        for (String raw : arg.getAllValues(studentIdFragmentsOption)) {
+            if (raw == null) {
+                continue;
+            }
+            String trimmed = raw.trim();
+            if (trimmed.isEmpty()) {
+                continue;
+            }
+
+            String[] parts = trimmed.split("\\s+");
+            idFrags.add(parts[0]);
+            for (int i = 1; i < parts.length; i++) {
+                String tok = parts[i];
+                if (!tok.isBlank()) {
+                    keywords.add(tok);
+                }
+            }
+        }
+
+        return new KeywordsAndIdFrags(List.copyOf(keywords), List.copyOf(idFrags));
     }
 }

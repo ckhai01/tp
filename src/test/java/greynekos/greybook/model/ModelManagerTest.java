@@ -11,12 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import greynekos.greybook.commons.core.GuiSettings;
 import greynekos.greybook.commons.core.history.CommandHistory;
-import greynekos.greybook.model.person.NameContainsKeywordsPredicate;
+import greynekos.greybook.model.person.NameOrStudentIdPredicate;
 import greynekos.greybook.testutil.GreyBookBuilder;
 
 public class ModelManagerTest {
@@ -144,7 +145,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredPersonList(new NameOrStudentIdPredicate(Arrays.asList(keywords), List.of()));
         assertFalse(modelManager.equals(new ModelManager(greyBook, userPrefs, history)));
 
         // resets modelManager to initial state for upcoming tests

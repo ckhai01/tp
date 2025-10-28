@@ -18,7 +18,7 @@ import greynekos.greybook.logic.commands.exceptions.CommandException;
 import greynekos.greybook.logic.parser.ArgumentParseResult;
 import greynekos.greybook.model.GreyBook;
 import greynekos.greybook.model.Model;
-import greynekos.greybook.model.person.NameContainsKeywordsPredicate;
+import greynekos.greybook.model.person.NameOrStudentIdPredicate;
 import greynekos.greybook.model.person.Person;
 import greynekos.greybook.testutil.EditPersonDescriptorBuilder;
 
@@ -124,7 +124,7 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPersonList(new NameOrStudentIdPredicate(Arrays.asList(splitName[0]), List.of()));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
