@@ -1,7 +1,9 @@
 package greynekos.greybook.logic.commands;
 
+import static greynekos.greybook.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static greynekos.greybook.logic.commands.UnmarkCommand.MESSAGE_USAGE;
 import static greynekos.greybook.logic.commands.util.CommandUtil.MESSAGE_PERSON_NOT_FOUND;
 import static greynekos.greybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static greynekos.greybook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -85,7 +87,7 @@ public class UnmarkCommandTest {
         String userInput = "unmark all";
         ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
-        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GreyBook(model.getGreyBook()), new UserPrefs(), new History());
         for (Person person : expectedModel.getFilteredPersonList()) {
             Person resetPerson = new PersonBuilder(person).withAttendanceStatus(AttendanceStatus.Status.NONE).build();
             expectedModel.setPerson(person, resetPerson);
@@ -96,7 +98,7 @@ public class UnmarkCommandTest {
 
     @Test
     public void execute_unmarkAllEmptyList_success() throws Exception {
-        Model emptyModel = new ModelManager(new GreyBook(), new UserPrefs());
+        Model emptyModel = new ModelManager(new GreyBook(), new UserPrefs(), new History());
         UnmarkCommand unmarkCommand = new UnmarkCommand();
         GreyBookParser parser = new GreyBookParser();
         unmarkCommand.addToParser(parser);
@@ -140,7 +142,7 @@ public class UnmarkCommandTest {
 
         String userInput = "unmark";
 
-        assertParseFailure(parser, userInput, ParserUtil.MESSAGE_INVALID_PERSON_IDENTIFIER);
+        assertParseFailure(parser, userInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
 
     @Test
