@@ -224,6 +224,23 @@ Closes GreyBook.
 
 Format: `exit`
 
+### Terminal-like behaviour
+
+Similar to a typical CLI application, use the up or down arrows to navigate your command history. You can also use Ctrl+C to clear the current command!
+
+<box type="tip" seamless>
+
+**Tip:** If you have selected some text in the command, Ctrl+C will not clear your command. This way, you can still use Ctrl+C to copy the text!
+</box>
+
+The command history is saved in the hard disk automatically after every successful command, saved automatically as a JSON file at: `[JAR file location]/history.json`
+
+<box type="warning" seamless>
+
+**Caution!**
+It is not recommended to modify this file to alter your command history. If your changes to the history file makes it invalid, GreyBook will discard all history and start fresh on the next run. Before you edit, make a backup copy of the file.
+</box>
+
 ### Saving the data
 
 GreyBook data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -234,6 +251,7 @@ GreyBook data is saved automatically as a JSON file at: <br>
 `[JAR file location]/data/greybook.json`
 
 <box type="warning" seamless>
+
 **Caution!**
 Editing this file is recommended for advanced users only. If your changes to the data file makes it invalid, GreyBook will discard all data and start fresh on the next run. Before you edit, make a backup copy of the file.
 Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
@@ -263,7 +281,7 @@ _Details coming soon ..._
 **A:** In `[JAR file location]/data/greybook.json`.
 
 **Q: Can I move GreyBook to another computer (or a USB drive)?**
-**A:** Yes. Copy the `.jar` **and** the `data` folder together. On the new computer, double-click the `.jar`.
+**A:** Yes. Copy the `.jar` **and** the `data` folder together, as well the config and preferences files, `config.json` and `preferences.json` respectively. If you would to copy the command history as well, copy over the file `history.json`. On the new computer, double-click the `.jar`.
 
 **Q: Is there an undo command?**
 **A:** Not currently. Actions like `delete` and `clear` are immediate and irreversible. Consider regular backups of `data/greybook.json`.
