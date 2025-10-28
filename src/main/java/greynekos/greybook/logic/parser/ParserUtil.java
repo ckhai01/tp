@@ -9,9 +9,11 @@ import java.util.Set;
 import greynekos.greybook.commons.core.index.Index;
 import greynekos.greybook.commons.util.StringUtil;
 import greynekos.greybook.logic.parser.exceptions.ParseException;
+import greynekos.greybook.model.person.All;
 import greynekos.greybook.model.person.Email;
 import greynekos.greybook.model.person.Name;
 import greynekos.greybook.model.person.PersonIdentifier;
+import greynekos.greybook.model.person.PersonIdentifierOrAll;
 import greynekos.greybook.model.person.Phone;
 import greynekos.greybook.model.person.StudentID;
 import greynekos.greybook.model.tag.Tag;
@@ -65,6 +67,25 @@ public class ParserUtil {
         }
 
         throw new ParseException(MESSAGE_INVALID_PERSON_IDENTIFIER);
+    }
+
+    /**
+     * Parses {@code input} as an unmark identifier - tries to parse as {@code All}
+     * first, then {@code Index}, then as {@code StudentID}. Returns a
+     * {@link PersonIdentifierOrAll} if it's valid as either format. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     *             if the input is neither {@code All.ALL_KEYWORD}, a valid index
+     *             nor a valid student ID.
+     */
+    public static PersonIdentifierOrAll parsePersonIdentifierOrAll(String input) throws ParseException {
+        requireNonNull(input);
+        String trimmed = input.trim();
+        if (trimmed.equals(All.ALL_KEYWORD)) {
+            return new All();
+        }
+        return parsePersonIdentifier(input);
     }
 
     /**
