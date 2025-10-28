@@ -5,10 +5,13 @@ import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandFai
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static greynekos.greybook.logic.commands.MarkCommand.MESSAGE_USAGE;
 import static greynekos.greybook.logic.commands.util.CommandUtil.MESSAGE_PERSON_NOT_FOUND;
+import static greynekos.greybook.logic.parser.CliSyntax.PREFIX_ABSENT;
+import static greynekos.greybook.logic.parser.CliSyntax.PREFIX_PRESENT;
 import static greynekos.greybook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static greynekos.greybook.logic.parser.ParserUtil.MESSAGE_INVALID_PERSON_IDENTIFIER;
 import static greynekos.greybook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static greynekos.greybook.testutil.TypicalPersons.getTypicalGreyBook;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +37,7 @@ public class MarkCommandTest {
     private Model model = new ModelManager(getTypicalGreyBook(), new UserPrefs(), new History());
 
     @Test
-    public void execute_markByIndex_success() throws Exception {
+    public void execute_markByIndex_success() {
         Person targetPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         MarkCommand markCommand = new MarkCommand();
 
@@ -43,7 +46,7 @@ public class MarkCommandTest {
         markCommand.addToParser(parser);
 
         String userInput = "mark " + INDEX_FIRST_PERSON.getOneBased() + " p/";
-        ArgumentParseResult arg = parser.parse(userInput);
+        ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
         Person markedPerson =
                 new PersonBuilder(targetPerson).withAttendanceStatus(AttendanceStatus.Status.PRESENT).build();
@@ -58,14 +61,14 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_markByIndexWithExtraSpaces_success() throws Exception {
+    public void execute_markByIndexWithExtraSpaces_success() {
         Person targetPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         MarkCommand markCommand = new MarkCommand();
         GreyBookParser parser = new GreyBookParser();
         markCommand.addToParser(parser);
 
         String userInput = "   mark   " + INDEX_FIRST_PERSON.getOneBased() + "   e/   ";
-        ArgumentParseResult arg = parser.parse(userInput);
+        ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
         Person markedPerson =
                 new PersonBuilder(targetPerson).withAttendanceStatus(AttendanceStatus.Status.EXCUSED).build();
@@ -79,7 +82,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_markByStudentId_success() throws Exception {
+    public void execute_markByStudentId_success() {
         Person targetPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         StudentID sid = targetPerson.getStudentID();
         MarkCommand markCommand = new MarkCommand();
@@ -88,7 +91,7 @@ public class MarkCommandTest {
         markCommand.addToParser(parser);
 
         String userInput = "mark " + sid.value + " l/";
-        ArgumentParseResult arg = parser.parse(userInput);
+        ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
         Person markedPerson =
                 new PersonBuilder(targetPerson).withAttendanceStatus(AttendanceStatus.Status.LATE).build();
@@ -103,43 +106,42 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_invalidIndex_throwsCommandException() throws Exception {
+    public void execute_invalidIndex_throwsCommandException() {
         MarkCommand markCommand = new MarkCommand();
         GreyBookParser parser = new GreyBookParser();
         markCommand.addToParser(parser);
 
         String userInput = "mark 999 p/";
-        ArgumentParseResult arg = parser.parse(userInput);
+        ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
         assertCommandFailure(markCommand, model, arg, MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
-    public void execute_invalidStudentId_throwsCommandException() throws Exception {
+    public void execute_invalidStudentId_throwsCommandException() {
         MarkCommand markCommand = new MarkCommand();
         GreyBookParser parser = new GreyBookParser();
         markCommand.addToParser(parser);
 
         String userInput = "mark A0000000Y a/";
-        ArgumentParseResult arg = parser.parse(userInput);
+        ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
         assertCommandFailure(markCommand, model, arg, MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
-    public void execute_missingAttendanceFlag_throwsCommandException() throws Exception {
+    public void execute_missingAttendanceFlag_throwsCommandException() {
         MarkCommand markCommand = new MarkCommand();
         GreyBookParser parser = new GreyBookParser();
         markCommand.addToParser(parser);
 
         String userInput = "mark " + INDEX_FIRST_PERSON.getOneBased();
-        ArgumentParseResult arg = parser.parse(userInput);
+        ArgumentParseResult arg = assertDoesNotThrow(() -> parser.parse(userInput));
 
         assertCommandFailure(markCommand, model, arg, MarkCommand.MESSAGE_MISSING_ATTENDANCE_FLAG);
     }
 
     @Test
-    // TODO : Now giving a different error message, fix
     public void parse_invalidPrefix_throwsParseException() {
         MarkCommand markCommand = new MarkCommand();
         GreyBookParser parser = new GreyBookParser();
@@ -174,16 +176,13 @@ public class MarkCommandTest {
         assertParseFailure(parser, userInput, MESSAGE_INVALID_PERSON_IDENTIFIER);
     }
 
-    // TODO : Currently ignores extra attendance flags
-    // @Test
-    // public void parse_multipleAttendanceFlags_throwsParseException() {
-    // MarkCommand markCommand = new MarkCommand();
-    // GreyBookParser parser = new GreyBookParser();
-    // markCommand.addToParser(parser);
+    @Test
+    public void parse_multipleAttendanceFlags_throwsParseException() {
+        MarkCommand markCommand = new MarkCommand();
+        GreyBookParser parser = new GreyBookParser();
+        markCommand.addToParser(parser);
 
-    // String userInput = "mark 1 p/ a/";
-
-    // assertParseFailure(parser, userInput,
-    // String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
-    // }
+        assertParseFailure(parser, "mark 1 p/ a/",
+                Messages.getErrorMessageForMutuallyExclusivePrefixes(PREFIX_PRESENT, PREFIX_ABSENT));
+    }
 }
