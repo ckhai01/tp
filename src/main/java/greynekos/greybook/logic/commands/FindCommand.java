@@ -27,7 +27,7 @@ public class FindCommand extends Command {
             + "  " + COMMAND_WORD + " alice bob\n" + "  " + COMMAND_WORD + " i/12345 i/A0123456X\n" + "  "
             + COMMAND_WORD + " i/12345 alex\n" + "  " + COMMAND_WORD + " alex i/12345";
 
-    public static final String MESSAGE_EMPTY_COMMAND = "Please provide at least one name keyword or an i/ID fragment.";
+    public static final String MESSAGE_EMPTY_COMMAND = "Invalid command format!\n" + MESSAGE_USAGE;
 
     private final OptionalSinglePreambleOption<String> preambleOption = OptionalSinglePreambleOption.of("KEYWORDS");
 
