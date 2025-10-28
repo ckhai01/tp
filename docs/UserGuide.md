@@ -10,6 +10,8 @@ GreyBook is a **desktop app for managing contacts, optimised for use via a Comma
 
 > New to a CLI? It just means that you type short commands (like 'add' or 'list') instead of clicking through menus on a GUI.
 
+This application is targeted at university students in Singapore who are managing attendance in clubs and societies.
+
 <!-- * Table of Contents -->
 <page-nav-print />
 
@@ -102,6 +104,11 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]…​`
 <box type="tip" seamless>
 
 **Tip:** A person can have any number of tags (including 0)
+</box>
+
+<box type="tip" seamless>
+
+**Tip:** A name should only contain alphabets, spaces, and a few special characters. Refer to the FAQs for more details!
 </box>
 
 Examples:
@@ -312,6 +319,17 @@ _Details coming soon ..._
 
 **Q: How do I reset GreyBook to factory data?**
 **A:** Close the app, delete `data/greybook.json`, and reopen GreyBook (you’ll start fresh with sample data).
+
+**Q: What characters are allowed in the name field?**
+**A:** Only alphabets and the following special characters are allowed: `(Empty space)`, `,`, `(`, `)`, `/`, `.`, `@`, `-`, `'`.
+
+**Q: My name contains a character that is not allowed in the name. How should I enter my name?**
+**A:** Please use standard English (Latin) letters only.
+For example, if your name is "محمد", you can enter it as "Mohamed". If your name is "李华", you can enter it as "Li Hua".
+Similarly, if your name contains special characters such as accents or diacritics (e.g. "José", "Strauß"), please remove them — e.g. "Jose", "Straus".
+
+**Q: Why are some special characters allowed but not others?**
+**A:** This is due to the limitation of the program, as we are unable to support every single possible unicode character. We defer this decision to [Singapore's Myinfo](https://partnersupport.singpass.gov.sg/hc/en-sg/articles/32733563138585-What-are-the-special-characters-allowed-in-Myinfo-Name-data-item) for supported special characters.
 
 ---
 
