@@ -91,8 +91,7 @@ public class MainWindow extends UiPart<Stage> {
         });
 
         // Hide result display initially, show spacer
-        resultDisplayPlaceholder.setVisible(false);
-        resultDisplaySpacer.setVisible(true);
+        toggleResultDisplay(false);
     }
 
     public Stage getPrimaryStage() {
@@ -148,7 +147,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getGreyBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory().getCommandHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -197,6 +196,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Toggles the visibility of the result display and spacer.
+     *
+     * @param shouldDisplayResult
+     *            true to show the result display and hide the spacer, false to hide
+     *            the result display and show the spacer.
+     */
+    private void toggleResultDisplay(boolean shouldDisplayResult) {
+        resultDisplayPlaceholder.setVisible(shouldDisplayResult);
+        resultDisplaySpacer.setVisible(!shouldDisplayResult);
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see greynekos.greybook.logic.Logic#execute(String)
@@ -206,11 +217,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
-            // Show result display after first command
-            if (!resultDisplayPlaceholder.isVisible()) {
-                resultDisplayPlaceholder.setVisible(true);
-                resultDisplaySpacer.setVisible(false);
-            }
+            toggleResultDisplay(true);
 
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -226,11 +233,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
 
-            // Show result display even for errors
-            if (!resultDisplayPlaceholder.isVisible()) {
-                resultDisplayPlaceholder.setVisible(true);
-                resultDisplaySpacer.setVisible(false);
-            }
+            toggleResultDisplay(true);
 
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

@@ -56,15 +56,15 @@ public class ParserUtil {
         requireNonNull(input);
         String trimmed = input.trim();
 
-        // Check if it's a valid index or a valid student ID
-        boolean isValidIndex = StringUtil.isNonZeroUnsignedInteger(trimmed);
-        boolean isValidStudentID = StudentID.isValidStudentID(trimmed);
-
-        if (!isValidIndex && !isValidStudentID) {
-            throw new ParseException(MESSAGE_INVALID_PERSON_IDENTIFIER);
+        if (StringUtil.isNonZeroUnsignedInteger(trimmed)) {
+            return parseIndex(trimmed);
         }
 
-        return isValidIndex ? parseIndex(trimmed) : new StudentID(trimmed);
+        if (StudentID.isValidStudentID(trimmed.toUpperCase())) {
+            return parseStudentID(trimmed);
+        }
+
+        throw new ParseException(MESSAGE_INVALID_PERSON_IDENTIFIER);
     }
 
     /**
