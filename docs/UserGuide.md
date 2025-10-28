@@ -106,6 +106,12 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]…​`
 **Tip:** A person can have any number of tags (including 0)
 </box>
 
+<box type="tip" seamless>
+
+**Tip:** A name should only contain alphabets, spaces, and a few special characters.
+Refer to https://partnersupport.singpass.gov.sg/hc/en-sg/articles/32733563138585-What-are-the-special-characters-allowed-in-Myinfo-Name-data-item for more details!
+</box>
+
 Examples:
 
 - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y`
