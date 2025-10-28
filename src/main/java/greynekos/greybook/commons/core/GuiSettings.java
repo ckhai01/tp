@@ -1,6 +1,5 @@
 package greynekos.greybook.commons.core;
 
-import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,10 +12,15 @@ public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;
     private static final double DEFAULT_WIDTH = 800;
+    private static final double DEFAULT_X = 50;
+    private static final double DEFAULT_Y = 50;
+    private static final boolean DEFAULT_MAXIMIZED = false;
 
     private final double windowWidth;
     private final double windowHeight;
-    private final Point windowCoordinates;
+    private final double windowX;
+    private final double windowY;
+    private final boolean isMaximized;
 
     /**
      * Constructs a {@code GuiSettings} with the default height, width and position.
@@ -24,17 +28,21 @@ public class GuiSettings implements Serializable {
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
-        windowCoordinates = null; // null represent no coordinates
+        windowX = DEFAULT_X;
+        windowY = DEFAULT_Y;
+        isMaximized = DEFAULT_MAXIMIZED;
     }
 
     /**
      * Constructs a {@code GuiSettings} with the specified height, width and
      * position.
      */
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
+    public GuiSettings(double windowWidth, double windowHeight, double xPosition, double yPosition, boolean isMaximized) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
-        windowCoordinates = new Point(xPosition, yPosition);
+        this.windowX = xPosition;
+        this.windowY = yPosition;
+        this.isMaximized = isMaximized;
     }
 
     public double getWindowWidth() {
@@ -45,8 +53,16 @@ public class GuiSettings implements Serializable {
         return windowHeight;
     }
 
-    public Point getWindowCoordinates() {
-        return windowCoordinates != null ? new Point(windowCoordinates) : null;
+    public double getWindowX() {
+        return windowX;
+    }
+
+    public double getWindowY() {
+        return windowY;
+    }
+
+    public boolean getIsMaximized() {
+        return isMaximized;
     }
 
     @Override
@@ -62,17 +78,17 @@ public class GuiSettings implements Serializable {
 
         GuiSettings otherGuiSettings = (GuiSettings) other;
         return windowWidth == otherGuiSettings.windowWidth && windowHeight == otherGuiSettings.windowHeight
-                && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates);
+                && windowX == otherGuiSettings.windowX && windowY == otherGuiSettings.windowY && isMaximized == otherGuiSettings.isMaximized;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates);
+        return Objects.hash(windowWidth, windowHeight, windowX, windowY);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("windowWidth", windowWidth).add("windowHeight", windowHeight)
-                .add("windowCoordinates", windowCoordinates).toString();
+                .add("windowX", windowX).add("windowY", windowY).add("isMaximized", isMaximized).toString();
     }
 }
