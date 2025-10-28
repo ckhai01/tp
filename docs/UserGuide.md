@@ -63,7 +63,7 @@ This application is targeted at university students in Singapore who are managin
 **Notes about the command format:**<br>
 
 - Words in `UPPER_CASE` are called **parameters**, things you replace.<br>
-  e.g. in `add n/NAME`, replace `NAME` with a person's name, like `add n/John Doe`.
+  e.g. in `add n/NAME`, replace `NAME` with a student's name, like `add n/John Doe`.
 
 - Items in square brackets are optional.<br>
   e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -97,7 +97,7 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-### Adding a person: `add`
+### Adding a student: `add`
 
 Adds a student to the GreyBook.
 
@@ -136,7 +136,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]…
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the new values.
 - When editing tags, the existing tags of the student will be removed i.e. adding of tags is not cumulative.
-- You can remove all the person’s tags by typing `t/` without
+- You can remove all the student’s tags by typing `t/` without
   specifying any tags after it.
 
 Examples:
@@ -181,7 +181,7 @@ Format: `unmark INDEX` or `unmark STUDENTID` or `unmark all`
 
 Examples:
 *  `unmark A0000000Y` Unmarks the student with the student ID `A0000000Y`.
-*  `unmark 2` Unmarks the 2nd person.
+*  `unmark 2` Unmarks the 2nd student.
 *  `unmark all` Unmarks everyone in the current contact list.
 
 
