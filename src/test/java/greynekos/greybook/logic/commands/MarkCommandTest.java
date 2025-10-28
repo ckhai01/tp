@@ -1,7 +1,9 @@
 package greynekos.greybook.logic.commands;
 
+import static greynekos.greybook.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static greynekos.greybook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static greynekos.greybook.logic.commands.MarkCommand.MESSAGE_USAGE;
 import static greynekos.greybook.logic.commands.util.CommandUtil.MESSAGE_PERSON_NOT_FOUND;
 import static greynekos.greybook.logic.parser.CliSyntax.PREFIX_ABSENT;
 import static greynekos.greybook.logic.parser.CliSyntax.PREFIX_PRESENT;
@@ -158,7 +160,7 @@ public class MarkCommandTest {
 
         String userInput = "mark p/";
 
-        assertParseFailure(parser, userInput, MESSAGE_INVALID_PERSON_IDENTIFIER);
+        assertParseFailure(parser, userInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
 
     @Test

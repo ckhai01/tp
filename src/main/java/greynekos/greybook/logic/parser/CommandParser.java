@@ -129,6 +129,13 @@ public class CommandParser {
      * in the given {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        return Stream.of(prefixes).allMatch(prefix -> {
+            if (prefix.getPrefix().equals("")) {
+                if (argumentMultimap.getPreamble().trim().equals("")) {
+                    return false;
+                }
+            }
+            return argumentMultimap.getValue(prefix).isPresent();
+        });
     }
 }
