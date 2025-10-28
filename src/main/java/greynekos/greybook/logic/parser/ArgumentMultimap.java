@@ -64,7 +64,7 @@ public class ArgumentMultimap {
      * leading/trailing spaces.
      */
     public String getPreamble() {
-        return getValue(new Prefix("")).orElse("");
+        return getValue(new Preamble()).orElse("");
     }
 
     /**
