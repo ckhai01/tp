@@ -14,8 +14,8 @@ public class Name {
 
     /*
      * The first character of the greybook must not be a whitespace, otherwise " "
-     * (a blank string) becomes a valid input. Follows
-     * "https://partnersupport.singpass.gov.sg/hc/en-sg/articles/32733563138585-What-are-the-special-characters-allowed-in-Myinfo-Name-data-item"
+     * (a blank string) becomes a valid input. Refer to user guide for allowed
+     * characters.
      */
     public static final String VALIDATION_REGEX = "[a-zA-Z,()/.@\\-'][a-zA-Z,()/.@\\-' ]*";
 
