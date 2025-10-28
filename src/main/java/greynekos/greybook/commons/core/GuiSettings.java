@@ -10,11 +10,11 @@ import greynekos.greybook.commons.util.ToStringBuilder;
  */
 public class GuiSettings implements Serializable {
 
-    private static final double DEFAULT_HEIGHT = 600;
-    private static final double DEFAULT_WIDTH = 800;
-    private static final double DEFAULT_X = 50;
-    private static final double DEFAULT_Y = 50;
-    private static final boolean DEFAULT_MAXIMIZED = false;
+    public static final double DEFAULT_HEIGHT = 600;
+    public static final double DEFAULT_WIDTH = 800;
+    public static final double DEFAULT_X = 50;
+    public static final double DEFAULT_Y = 50;
+    public static final boolean DEFAULT_MAXIMIZED = false;
 
     private final double windowWidth;
     private final double windowHeight;
@@ -37,7 +37,8 @@ public class GuiSettings implements Serializable {
      * Constructs a {@code GuiSettings} with the specified height, width and
      * position.
      */
-    public GuiSettings(double windowWidth, double windowHeight, double xPosition, double yPosition, boolean isMaximized) {
+    public GuiSettings(double windowWidth, double windowHeight, double xPosition, double yPosition,
+            boolean isMaximized) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         this.windowX = xPosition;
@@ -78,7 +79,8 @@ public class GuiSettings implements Serializable {
 
         GuiSettings otherGuiSettings = (GuiSettings) other;
         return windowWidth == otherGuiSettings.windowWidth && windowHeight == otherGuiSettings.windowHeight
-                && windowX == otherGuiSettings.windowX && windowY == otherGuiSettings.windowY && isMaximized == otherGuiSettings.isMaximized;
+                && windowX == otherGuiSettings.windowX && windowY == otherGuiSettings.windowY
+                && isMaximized == otherGuiSettings.isMaximized;
     }
 
     @Override
