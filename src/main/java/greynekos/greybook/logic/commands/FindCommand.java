@@ -3,8 +3,6 @@ package greynekos.greybook.logic.commands;
 import static greynekos.greybook.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static java.util.Objects.requireNonNull;
 
-import java.util.function.Predicate;
-
 import greynekos.greybook.logic.Messages;
 import greynekos.greybook.logic.commands.exceptions.CommandException;
 import greynekos.greybook.logic.parser.ArgumentParseResult;
@@ -14,7 +12,6 @@ import greynekos.greybook.logic.parser.commandoption.OptionalSinglePreambleOptio
 import greynekos.greybook.logic.parser.commandoption.ZeroOrMorePrefixOption;
 import greynekos.greybook.model.Model;
 import greynekos.greybook.model.person.NameOrStudentIdPredicate;
-import greynekos.greybook.model.person.Person;
 
 /**
  * Finds and lists all persons in GreyBook whose name contains any of the
@@ -45,26 +42,14 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model, ArgumentParseResult arg) throws CommandException {
         requireNonNull(model);
-
         ParserUtil.KeywordsAndIdFrags parsed =
                 ParserUtil.parseKeywordsAndIdFrags(arg, preambleOption, studentIdFragmentsOption);
-
         if (parsed.keywords().isEmpty() && parsed.idFrags().isEmpty()) {
             throw new CommandException(MESSAGE_EMPTY_COMMAND);
         }
-
-        Predicate<Person> predicate = getParseResult(arg);
-        model.updateFilteredPersonList(predicate);
-
+        model.updateFilteredPersonList(new NameOrStudentIdPredicate(parsed.keywords(), parsed.idFrags()));
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
-    }
-
-    @Override
-    public Predicate<Person> getParseResult(ArgumentParseResult argResult) {
-        ParserUtil.KeywordsAndIdFrags parsed =
-                ParserUtil.parseKeywordsAndIdFrags(argResult, preambleOption, studentIdFragmentsOption);
-        return new NameOrStudentIdPredicate(parsed.keywords(), parsed.idFrags());
     }
 
 }
