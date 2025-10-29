@@ -35,19 +35,21 @@ This application is targeted at university students in Singapore who are managin
      ```
 
 4. **What you’ll see.**
-   - A window opens with sample contacts so you can try commands.
+   - A window opens with sample students so you can try commands.
+![Initial Window](images/initialWindow.png)
 
 5. **Try a few commands:**
     - `help` — open the help window
-    - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` — add a person
-    - `mark 1 p/` — marks the attendance of the 1st person in the list as `Present`
+    - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y` — add a student
+    - `find John` — Finds and displays only John
+    - `mark 1 p/` — marks the attendance of the 1st student in the list as `Present`
     - `mark A0000000Y a/` — marks John Doe as `Absent`
-    - `unmark 1` — remove the attendance status of the 1st person in the list
+    - `unmark 1` — remove the attendance status of the 1st student in the list
     - `unmark A0000000Y` — removes the attendance status of John Doe
-    - `unmark all` — removes the attendance status of all people
-    - `list` — show all people
-    - `delete 3` — delete the 3rd person in the list
-    - `clear` — delete all people
+    - `unmark all` — removes the attendance status of all students
+    - `list` — show all students
+    - `delete 3` — delete the 3rd student in the list
+    - `clear` — delete all students
     - `exit` — quit the app
 
 > If you see a security prompt on macOS the first time you open the app, right-click the `.jar` and choose **Open**, then confirm.
@@ -61,7 +63,7 @@ This application is targeted at university students in Singapore who are managin
 **Notes about the command format:**<br>
 
 - Words in `UPPER_CASE` are called **parameters**, things you replace.<br>
-  e.g. in `add n/NAME`, replace `NAME` with a person's name, like `add n/John Doe`.
+  e.g. in `add n/NAME`, replace `NAME` with a student's name, like `add n/John Doe`.
 
 - Items in square brackets are optional.<br>
   e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -95,15 +97,15 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-### Adding a person: `add`
+### Adding a student: `add`
 
-Adds a person to the GreyBook.
+Adds a student to the GreyBook.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]…​`
 
 <box type="tip" seamless>
 
-**Tip:** A person can have any number of tags (including 0)
+**Tip:** A student can have any number of tags (including 0)
 </box>
 
 <box type="tip" seamless>
@@ -116,39 +118,44 @@ Examples:
 - `add n/John Doe p/98765432 e/johnd@example.com i/A0000000Y`
 - `add n/Betsy Crowe t/friend e/betsycrowe@example.com i/A1111111M p/1234567 t/criminal`
 
-### Listing all persons : `list`
+Expected output for `add n/Betsy Crowe t/friend e/betsycrowe@example.com i/A1111111M p/1234567 t/criminal`: 
+![result for adding Betsy Crowe](images/addBetsyResult.png)
+### Listing all students : `list`
 
-Shows a list of all persons in the GreyBook.
+Shows a list of all students in the GreyBook.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a student : `edit`
 
-Edits an existing person in the GreyBook.
+Edits an existing student in the GreyBook.
 
 Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]…​`
 
-- Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+- Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the new values.
-- When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
-- You can remove all the person’s tags by typing `t/` without
+- When editing tags, the existing tags of the student will be removed i.e. adding of tags is not cumulative.
+- You can remove all the student’s tags by typing `t/` without
   specifying any tags after it.
 
 Examples:
 
-- `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-- `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+- `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
+- `edit 2 n/Betsy Crower t/` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
 
-### Marking a person : `mark`
+Expected output for `edit 2 n/Betsy Crower t/`:
+![result for adding Betsy Crowe](images/editResult.png)
 
-Marks the attendance of an existing person in the GreyBook.
+### Marking a student : `mark`
+
+Marks the attendance of an existing student in the GreyBook.
 
 Format: `mark (INDEX || STUDENTID) (p/ || a/ || l/ || e/)`
 
 * `||` indicates "or", meaning that within the parentheses, the user can provide either one option or the other, but **not both simultaneously**.
-* `mark INDEX` marks the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* `mark STUDENTID` marks the person with the specified `STUDENTID`. The person with the student ID must be in the displayed person list.
+* `mark INDEX` marks the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
+* `mark STUDENTID` marks the student with the specified `STUDENTID`. The student with the student ID must be in the displayed student list.
 * One attendance flag must be provided.
   * `p/`: Present
   * `a/`: Absent
@@ -159,52 +166,58 @@ Format: `mark (INDEX || STUDENTID) (p/ || a/ || l/ || e/)`
 
 
 Examples:
-*  `mark A0000000Y p/` Marks the person with the student ID `A0000000Y` as `Present`.
-*  `mark 2 e/` Marks the 2nd person as `Excused`.
+*  `mark A0000000Y p/` Marks the student with the student ID `A0000000Y` as `Present`.
+*  `mark 2 e/` Marks the 2nd student as `Excused`.
 
-### Unmarking a person : `unmark`
+### Unmarking a student : `unmark`
 
-Removes the attendance status of an existing person in the GreyBook.
+Removes the attendance status of an existing student in the GreyBook.
 
 Format: `unmark INDEX` or `unmark STUDENTID` or `unmark all`
 
-* `unmark INDEX` removes the attendance of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* `unmark STUDENTID` removes the attendance of the person with the specified `STUDENTID`. The person with the student ID must be in the displayed person list.
-* `unmark all` removes the attendance of **all persons** in the contact list.
+* `unmark INDEX` removes the attendance of the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
+* `unmark STUDENTID` removes the attendance of the student with the specified `STUDENTID`. The student with the student ID must be in the displayed student list.
+* `unmark all` removes the attendance of **all students** in the list.
 
 Examples:
-*  `unmark A0000000Y` Unmarks the person with the student ID `A0000000Y`.
-*  `unmark 2` Unmarks the 2nd person.
-*  `unmark all` Unmarks everyone in the current contact list.
+*  `unmark A0000000Y` Unmarks the student with the student ID `A0000000Y`.
+*  `unmark 2` Unmarks the 2nd student.
+*  `unmark all` Unmarks everyone in the current list.
 
 
-### Locating persons by name: `find`
+### Locating students by name: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds students whose name contains any of the given keywords and/or whose student ID contains any of the given ID fragments.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]…​ [i/ID_FRAGMENT]…​`
 
+- An ID fragment is a substring of a student ID (e.g. `0Y` from `A0000000Y`)
+- You can provide any number of keywords and ID fragments
 - The search is case-insensitive. e.g. `hans` will match `Hans`
 - The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-- Only the name is searched.
-- Only full words will be matched e.g. `Han` will not match `Hans`
-- Persons matching at least one keyword will be returned.
+- Only full words will be matched **for names** e.g. `Han` will not match `Hans`
+- Student ID matching is done by **partial** match. e.g. `i/A00` matches `A0000000Y`.
+- Students matching at least one keyword or one student ID fragment will be returned.
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
 
 - `find John` returns `john` and `John Doe`
+- `find i/12345` returns anyone with student IDs containing `12345` (e.g. `A0123456J`)
+- `find i/12345 i/A0123456J` returns IDs containing `12345` or exactly `A0123456J`
+- `find i/12345 alex` returns students named like `Alex Yeoh` or with IDs containing `12345`
+- `find alex i/12345` returns same as above (order does not matter)
 - `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+  ![result for 'find alex i/8L david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting a student : `delete`
 
-Deletes the specified person from the GreyBook.
+Deletes the specified student from the GreyBook.
 
 Format: `delete INDEX` or `delete STUDENTID`
 
-- Deletes the person at the specified `INDEX` or with the specified `STUDENTID`.
-- The index refers to the index number shown in the displayed person list.
+- Deletes the student at the specified `INDEX` or with the specified `STUDENTID`.
+- The index refers to the index number shown in the displayed student list.
 - The index **must be a positive integer** 1, 2, 3, …​
 - The student ID must follow the format `A0000000Y` where:
   - First character must be 'A'
@@ -213,9 +226,9 @@ Format: `delete INDEX` or `delete STUDENTID`
 
 Examples:
 
-- `list` followed by `delete 2` deletes the 2nd person in the GreyBook.
-- `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-- `delete A0123456J` deletes the person with student ID A0123456J from the GreyBook.
+- `list` followed by `delete 2` deletes the 2nd student in the GreyBook.
+- `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
+- `delete A0123456J` deletes the student with student ID A0123456J from the GreyBook.
 
 ### Clearing all entries : `clear`
 
@@ -293,7 +306,7 @@ _Details coming soon ..._
 **Q: Is there an undo command?**
 **A:** Not currently. Actions like `delete` and `clear` are immediate and irreversible. Consider regular backups of `data/greybook.json`.
 
-**Q: How do I back up my contacts?**
+**Q: How do I back up my data?**
 **A:** Close GreyBook and copy `data/greybook.json` to a safe place (cloud/storage drive).
 
 **Q: I edited the JSON and something broke. What now?**
@@ -314,7 +327,7 @@ _Details coming soon ..._
 **Q: Does GreyBook save automatically?**
 **A:** Yes. Changes are saved to `greybook.json` right after each command.
 
-**Q: How many contacts can I store?**
+**Q: How many students can I store?**
 **A:** There’s no hard limit in the app; performance depends on your computer.
 
 **Q: How do I reset GreyBook to factory data?**
@@ -346,16 +359,16 @@ Similarly, if your name contains special characters such as accents or diacritic
 
 ## Command summary
 
-Action | What it does | Format (examples)
----|---|---
-**Add** | Create a new contact | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]...`<br>e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000Y t/friend t/colleague`
-**List** | Show all contacts | `list`
-**Find** | Search by name (full words) | `find KEYWORD [MORE_KEYWORDS]`<br>e.g., `find James Jake`
-**Edit** | Update details | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]...`<br>e.g., `edit 2 n/James Lee e/jameslee@example.com`
-**Mark** | Mark attendance | `mark (INDEX \|\| STUDENTID) (p/ \|\| a/ \|\| l/ \|\| e/)`<br> e.g.,`mark 2 p/`, `mark A0123456J a/`
-**Unmark** | Unmark attendance | `unmark INDEX` or `unmark STUDENTID` or `unmark all`<br> e.g.,`unmark 2`, `unmark A0123456J`, `unmark all`
-**Delete** | Remove a contact | `delete INDEX` or `delete STUDENTID`<br>e.g., `delete 3`, `delete A0123456J`
-**Clear** | Delete **all** contacts | `clear`
-**Help** | Open the help window | `help`
-**Exit** | Quit the app | `exit`
+Action | What it does                                               | Format (examples)
+---|------------------------------------------------------------|---
+**Add** | Create a new student                                       | `add n/NAME p/PHONE_NUMBER e/EMAIL i/STUDENTID [t/TAG]...`<br>e.g., `add n/James Ho p/22224444 e/jamesho@example.com i/A0000000Y t/friend t/colleague`
+**List** | Show all students                                          | `list`
+**Find** | Search by name (full words) or student ID (partial string) | `find KEYWORD [MORE_KEYWORDS]…​ [i/ID_FRAGMENT]…​`<br>e.g., `find James i/A0123456J jake`
+**Edit** | Update details                                             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [i/STUDENTID] [t/TAG]...`<br>e.g., `edit 2 n/James Lee e/jameslee@example.com`
+**Mark** | Mark attendance                                            | `mark (INDEX \|\| STUDENTID) (p/ \|\| a/ \|\| l/ \|\| e/)`<br> e.g.,`mark 2 p/`, `mark A0123456J a/`
+**Unmark** | Unmark attendance                                          | `unmark INDEX` or `unmark STUDENTID` or `unmark all`<br> e.g.,`unmark 2`, `unmark A0123456J`, `unmark all`
+**Delete** | Remove a student                                           | `delete INDEX` or `delete STUDENTID`<br>e.g., `delete 3`, `delete A0123456J`
+**Clear** | Delete **all** students                                    | `clear`
+**Help** | Open the help window                                       | `help`
+**Exit** | Quit the app                                               | `exit`
 
