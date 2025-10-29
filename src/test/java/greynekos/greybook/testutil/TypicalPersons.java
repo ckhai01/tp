@@ -38,21 +38,21 @@ public class TypicalPersons {
             .withEmail("cornelia@example.com").withStudentID("A4567890H").withTags("member")
             .withAttendanceStatus(AttendanceStatus.Status.ABSENT).build();
     public static final Person ELLE =
-            new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@example.com")
+            new PersonBuilder().withName("Elle Meyer").withPhone("94822249").withEmail("werner@example.com")
                     .withStudentID("A5678901N").withAttendanceStatus(AttendanceStatus.Status.LATE).build();
     public static final Person FIONA =
-            new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@example.com")
+            new PersonBuilder().withName("Fiona Kunz").withPhone("94824277").withEmail("lydia@example.com")
                     .withStudentID("A6789012X").withAttendanceStatus(AttendanceStatus.Status.NONE).build();
     public static final Person GEORGE =
-            new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@example.com")
+            new PersonBuilder().withName("George Best").withPhone("94824428").withEmail("anna@example.com")
                     .withStudentID("A7890123E").withAttendanceStatus(AttendanceStatus.Status.EXCUSED).build();
 
     // Manually added
     public static final Person HOON =
-            new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@example.com")
+            new PersonBuilder().withName("Hoon Meier").withPhone("84824248").withEmail("stefan@example.com")
                     .withStudentID("A8901234M").withAttendanceStatus(AttendanceStatus.Status.LATE).build();
     public static final Person IDA =
-            new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@example.com")
+            new PersonBuilder().withName("Ida Mueller").withPhone("84821318").withEmail("hans@example.com")
                     .withStudentID("A9012345W").withAttendanceStatus(AttendanceStatus.Status.ABSENT).build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
