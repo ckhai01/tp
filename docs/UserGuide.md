@@ -346,17 +346,6 @@ Similarly, if your name contains special characters such as accents or diacritic
 
 ---
 
-## Known issues
-
-1. **App opens off-screen after moving between multiple monitors.**
-   **Fix:**
-   - Close GreyBook.
-   - Delete the `preferences.json` file created by GreyBook.
-   - Start GreyBook again.
-     _(`preferences.json` is in the same folder as your `.jar`, or in your app data folder depending on OS.)_
-
----
-
 ## Command summary
 
 Action | What it does                                               | Format (examples)
