@@ -151,7 +151,7 @@ GreyBook helps you store, edit, and track students' details with precision.
 **Parameters:**
 
 - `n/NAME`: Student's full name (letters, spaces, and certain special characters allowed)
-- `p/PHONE`: 8-digit Singapore phone number
+- `p/PHONE`: 8-digit Singapore phone number or International phone numbers (following E.164 Standards)
 - `e/EMAIL`: Valid email address
 - `i/STUDENTID`: Student's NUS ID (e.g., A0000000Y)
 - `t/TAG`: Optional categories (e.g., `t/committee` or `t/freshman`)
