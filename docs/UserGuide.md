@@ -143,7 +143,7 @@ Refer to the [Command Reference](#command-reference) for the full list of suppor
 
 GreyBook helps you store, edit, and track students' details with precision.
 
-#### Adding Students
+#### Adding Students : `add`
 
 **Command:**
 `add n/NAME p/PHONE e/EMAIL i/STUDENTID [t/TAG]…​`
@@ -185,7 +185,7 @@ add n/Betsy Crowe p/87654321 e/betsycrowe@example.com i/A1111111M t/operations-t
 
 ---
 
-#### Editing Students
+#### Editing Students; `edit`
 
 **Command:**
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/STUDENTID] [t/TAG]…​`
@@ -214,13 +214,18 @@ edit 2 n/Betsy Crower t/
 
 ---
 
-#### Listing All Students
+#### Listing All Students: `list`
 
 **Command:** `list`
 
+<box type="tip" seamless>
+
+**Tip:** Use this command after a `find` command to see all students again!
+</box>
+
 ---
 
-#### Finding Students
+#### Finding Students: `find`
 
 **Command:** `find KEYWORD [MORE_KEYWORDS]…​ [i/ID_FRAGMENT]…​`
 
@@ -246,7 +251,7 @@ Examples:
 
 ---
 
-#### Deleting Students
+#### Deleting Students: `delete`
 
 **Command:**
 `delete (INDEX | STUDENTID)`
@@ -268,7 +273,7 @@ Examples:
 
 ---
 
-#### Clearing all Students
+#### Clearing all Students: `clear`
 
 **Command:** `clear`
 
@@ -286,7 +291,7 @@ This action cannot be undone!
 
 GreyBook helps you keep track of students' attendance efficiently.
 
-#### Marking Attendance
+#### Marking Attendance: `mark`
 
 **Command:**
 `mark (INDEX | STUDENTID) (p/ | a/ | l/ | e/)`
@@ -321,7 +326,7 @@ Marked student A0000000Y as Present.
 
 ---
 
-#### Unmarking Attendance
+#### Unmarking Attendance: `unmark`
 
 **Command:**
 `unmark (INDEX | STUDENTID | 'ALL')`
@@ -346,7 +351,7 @@ Unmarked attendance for A0000000Y.
 
 Greybook also offers some core commands that are essential in every application.
 
-#### Getting Help
+#### Getting Help: `help`
 
 **Command:** `help`
 
@@ -356,7 +361,7 @@ Shows a message explaining how to access the help page.
 
 ---
 
-#### Exiting the Application
+#### Exiting the Application: `exit`
 
 **Command:** `exit`
 
@@ -372,7 +377,7 @@ Similar to a typical CLI application, use the up or down arrows to navigate your
 
 <box type="tip" seamless>
 
-**Tip:** If you have selected some text in the command, Ctrl+C will not clear your command. This way, you can still use Ctrl+C to copy the text!
+**Tip:** If you have selected some text in the command, `Ctrl+C` will not clear your command. This way, you can still use `Ctrl+C` to copy the text!
 </box>
 
 The command history is saved in the hard disk automatically after every successful command, saved automatically as a JSON file at: `[JAR file location]/history.json`
