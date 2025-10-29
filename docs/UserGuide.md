@@ -159,6 +159,12 @@ GreyBook helps you store, edit, and track students' details with precision.
 <box type="tip" seamless>
 
 **Tip:** A name can only contain letters, spaces, and certain special characters. Refer to the [Parameter Details](#parameter-details) for more details!
+
+</box>
+
+<box type="tip" seamless>
+
+**Tip:** We use a special checksum to validate `STUDENTID` field so only **valid** NUS Student IDs will be accepted!
 </box>
 
 **Examples:**
