@@ -1,7 +1,8 @@
 package greynekos.greybook.model.person;
 
-import static greynekos.greybook.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
+
+import static greynekos.greybook.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's phone number in the GreyBook. Guarantees: immutable; is
@@ -10,8 +11,9 @@ import static java.util.Objects.requireNonNull;
 public class Phone {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Phone numbers should be either an 8-digit Singapore number or an international number "
+            + "starting with '+' followed by 3-15 digits";
+    public static final String VALIDATION_REGEX = "\\d{8}|\\+\\d{3,15}";
     public final String value;
 
     /**
