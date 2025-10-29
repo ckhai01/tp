@@ -61,6 +61,14 @@ This guide is designed for **leaders and committee members of NUS clubs or socie
    ```
    java -version
    ```
+   <details>
+   <summary>How to Use Terminal?</summary>
+   <ul>
+   <li><b>Mac Users:</b> Press <code>Cmd + Space</code>, type <code>Terminal</code> in search bar to open.</li>
+   <li><b>Windows Users:</b> In the Windows Start menu search bar, type Terminal to open.</li>
+   <li><b>Linux Users:</b> Press <code>Ctrl + Alt + T</code> to instantly open a terminal window</li>
+   </ul>
+   </details>
 
    **Mac users:** Follow [this guide](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
    **Windows users:** Follow [this guide](https://se-education.org/guides/tutorials/javaInstallationWindows.html).<br>
