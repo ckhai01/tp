@@ -395,13 +395,13 @@ Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a val
   e.g. in `add n/NAME`, replace `NAME` with a student's name, like `add n/John Doe`.
 
 - Items in square brackets are optional.<br>
-  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/member` or as `n/John Doe`.
 
 - Items in round brackets are mutually exclusive.<br>
   e.g. `(INDEX | STUDENTID)` can be used as `1` or as `A0000000Y`.
 
 - Items with `…`​ after them can be used multiple times, including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (0 times), `t/friend` (1 time), `t/friend t/family` (2 times) etc.
+  e.g. `[t/TAG]…​` can be used as ` ` (0 times), `t/member` (1 time), `t/member t/exco` (2 times) etc.
 
 - Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -491,7 +491,7 @@ Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a val
 **A:** `find` matches **full words**. Use the full word or multiple keywords.
 
 **Q: How do tags work?**<br>
-**A:** Add any number: `t/friend t/colleague`. Editing tags **replaces** the old set. Use `t/` (empty) to clear all tags.
+**A:** Add any number: `t/member t/colleague`. Editing tags **replaces** the old set. Use `t/` (empty) to clear all tags.
 
 **Q: Can I store addresses or other fields?**<br>
 **A:** Only the fields shown in the command formats are supported (e.g., `n/`, `p/`, `e/`, `i/`, and tags).

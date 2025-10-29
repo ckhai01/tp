@@ -8,8 +8,8 @@ import static greynekos.greybook.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static greynekos.greybook.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static greynekos.greybook.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static greynekos.greybook.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
-import static greynekos.greybook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static greynekos.greybook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static greynekos.greybook.logic.commands.CommandTestUtil.VALID_TAG_CONTRIBUTOR;
+import static greynekos.greybook.logic.commands.CommandTestUtil.VALID_TAG_MEMBER;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,16 +26,16 @@ import greynekos.greybook.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline").withEmail("alice@example.com")
-            .withPhone("94351253").withStudentID("A1234567X").withTags("friends")
+            .withPhone("94351253").withStudentID("A1234567X").withTags("member")
             .withAttendanceStatus(AttendanceStatus.Status.PRESENT).build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier").withEmail("johnd@example.com")
-            .withPhone("98765432").withStudentID("A2345678L").withTags("owesMoney", "friends")
+            .withPhone("98765432").withStudentID("A2345678L").withTags("owesMoney", "member")
             .withAttendanceStatus(AttendanceStatus.Status.NONE).build();
     public static final Person CARL =
             new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@example.com")
                     .withStudentID("A3456789Y").withAttendanceStatus(AttendanceStatus.Status.NONE).build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withStudentID("A4567890H").withTags("friends")
+            .withEmail("cornelia@example.com").withStudentID("A4567890H").withTags("member")
             .withAttendanceStatus(AttendanceStatus.Status.ABSENT).build();
     public static final Person ELLE =
             new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@example.com")
@@ -57,11 +57,12 @@ public class TypicalPersons {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withStudentID(VALID_STUDENTID_AMY).withTags(VALID_TAG_FRIEND)
+            .withEmail(VALID_EMAIL_AMY).withStudentID(VALID_STUDENTID_AMY).withTags(VALID_TAG_MEMBER)
             .withAttendanceStatus(AttendanceStatus.Status.NONE).build();
-    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withStudentID(VALID_STUDENTID_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-            .withAttendanceStatus(AttendanceStatus.Status.NONE).build();
+    public static final Person BOB =
+            new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+                    .withStudentID(VALID_STUDENTID_BOB).withTags(VALID_TAG_CONTRIBUTOR, VALID_TAG_MEMBER)
+                    .withAttendanceStatus(AttendanceStatus.Status.NONE).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
