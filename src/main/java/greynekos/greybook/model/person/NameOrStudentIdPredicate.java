@@ -5,6 +5,8 @@ import static greynekos.greybook.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.function.Predicate;
 
+import greynekos.greybook.commons.util.StringUtil;
+
 /**
  * Tests that a {@code Person}'s {@code Name} or {@code StudentID} matches any
  * of the keywords given.
@@ -27,8 +29,8 @@ public class NameOrStudentIdPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         String fullName = person.getName().fullName;
 
-        boolean matchesName = !keywords.isEmpty() && keywords.stream().filter(kw -> kw != null && !kw.isBlank())
-                .map(String::toLowerCase).anyMatch(fullName.toLowerCase()::contains);
+        boolean matchesName = !keywords.isEmpty() && keywords.stream().filter(kw -> !kw.isBlank())
+                .anyMatch(kw -> StringUtil.containsSubstringIgnoreCase(fullName, kw));
 
         String idUp = person.getStudentID().toString().toUpperCase();
 
