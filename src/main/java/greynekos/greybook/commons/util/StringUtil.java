@@ -13,16 +13,14 @@ public class StringUtil {
 
     /**
      * Returns true if {@code sentence} contains {@code term} as a substring,
-     * ignoring case. Unlike {@link #containsSubstringIgnoreCase(String, String)},
-     * this does NOT require a full word match.
+     * ignoring case. This does NOT require a full word match.
      * <p>
      * Examples:
      *
      * <pre>
      *   containsSubstringIgnoreCase("ABc def", "abc") == true
      *   containsSubstringIgnoreCase("ABc def", "DEF") == true
-     *   containsSubstringIgnoreCase("ABc def", "AB")  == true  // substring is enough
-     *   containsSubstringIgnoreCase("hello-world", "LOWO") == true
+     *   containsSubstringIgnoreCase("ABc def", "AB")  == true
      * </pre>
      *
      * @param sentence
