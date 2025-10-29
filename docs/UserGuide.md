@@ -46,7 +46,7 @@ This guide is designed for **leaders and committee members of NUS clubs or socie
 ### How to Use This Guide
 
 - **New users**: Start with [Quick Start](#quick-start) for setup and basic usage
-- **Existing users**: Jump to [Command Reference](#command-reference) for command syntax
+- **Existing users**: Jump to [Command Format Summary](#command-format-summary) for command syntax
 
 ---
 
@@ -64,11 +64,13 @@ This guide is designed for **leaders and committee members of NUS clubs or socie
    <details>
    <summary>How to Use Terminal?</summary>
    <ul>
-   <li><b>Mac Users:</b> Press <code>Cmd + Space</code>, type <code>Terminal</code> in search bar to open.</li>
+   <li><b>Mac Users:</b> Press <code>Cmd + Space</code>, type Terminal in search bar to open.</li>
    <li><b>Windows Users:</b> In the Windows Start menu search bar, type Terminal to open.</li>
    <li><b>Linux Users:</b> Press <code>Ctrl + Alt + T</code> to instantly open a terminal window</li>
    </ul>
    </details>
+
+   <br>
 
    **Mac users:** Follow [this guide](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
    **Windows users:** Follow [this guide](https://se-education.org/guides/tutorials/javaInstallationWindows.html).<br>
@@ -133,7 +135,59 @@ Let's try a few essential commands:
    find i/A0000000Y
    ```
 
-Refer to the [Command Reference](#command-reference) for the full list of supported commands.
+Refer to the [Command Format Summary](#command-format-summary) for the full list of supported commands.
+
+---
+
+---
+
+## Command Format Summary
+
+**Notes about the command format:**
+
+- Words in `UPPER_CASE` are called **parameters**, things you replace.<br>
+  e.g. in `add n/NAME`, replace `NAME` with a student's name, like `add n/John Doe`.
+
+- Items in square brackets are optional.<br>
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/member` or as `n/John Doe`.
+
+- Items in round brackets are mutually exclusive.<br>
+  e.g. `(INDEX | STUDENTID)` can be used as `1` or as `A0000000Y`.
+
+- Items with `…`​ after them can be used multiple times, including zero times.<br>
+  e.g. `[t/TAG]…​` can be used as ` ` (0 times), `t/member` (1 time), `t/member t/exco` (2 times) etc.
+
+- Parameters can be in any order.<br>
+  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+
+- Extra parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+- If a prefix for the command occurs in the argument, you may use quotation marks `"` to escape it.
+  e.g. `SomeCommandName p/"p-Slash t/ contains t-Slash" t/tag`
+
+- If you want to use quotation marks `"` in your argument, you have to escape it with a backslash `\`
+  e.g. `SomeCommandName t/Quote: \"`
+
+- Likewise if you wanted to use backslashes `\` in your argument, you have to escape it with a backslash.
+  e.g. `SomeCommandName t/Backslash: \\`
+
+- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application. Type them out manually instead!
+
+### Command Summary
+
+| Command  | Description                  | Syntax                                                           |
+| -------- | ---------------------------- | ---------------------------------------------------------------- |
+| `add`    | Create a new student         | `add n/NAME p/PHONE e/EMAIL i/STUDENTID [t/TAG]…`                |
+| `edit`   | Update details               | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/STUDENTID] [t/TAG]…` |
+| `delete` | Remove a student             | `delete (INDEX \| STUDENTID)`                                    |
+| `list`   | Show all students            | `list`                                                           |
+| `find`   | Search by name or student ID | `find KEYWORD [MORE_KEYWORDS]…​ [i/ID_FRAGMENT]…​`                 |
+| `mark`   | Mark attendance              | `mark (INDEX \| STUDENTID) (p/ \|\| a/ \|\| l/ \|\| e/)`         |
+| `unmark` | Unmark attendance            | `unmark (INDEX \| STUDENTID \| 'ALL')`                           |
+| `clear`  | Delete **all** students      | `clear`                                                          |
+| `help`   | Open the help window         | `help`                                                           |
+| `exit`   | Quit the app                 | `exit`                                                           |
 
 ---
 
@@ -403,56 +457,6 @@ The data is saved as a JSON file at: <br>
 Editing this file is recommended for advanced users only. If your changes to the data file makes it invalid, GreyBook will discard all data and start fresh on the next run. Before you edit, make a backup copy of the file.
 Some changes can cause the GreyBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
-
----
-
-## Command Reference
-
-**Notes about the command format:**
-
-- Words in `UPPER_CASE` are called **parameters**, things you replace.<br>
-  e.g. in `add n/NAME`, replace `NAME` with a student's name, like `add n/John Doe`.
-
-- Items in square brackets are optional.<br>
-  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/member` or as `n/John Doe`.
-
-- Items in round brackets are mutually exclusive.<br>
-  e.g. `(INDEX | STUDENTID)` can be used as `1` or as `A0000000Y`.
-
-- Items with `…`​ after them can be used multiple times, including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (0 times), `t/member` (1 time), `t/member t/exco` (2 times) etc.
-
-- Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-- Extra parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-- If a prefix for the command occurs in the argument, you may use quotation marks `"` to escape it.
-  e.g. `SomeCommandName p/"p-Slash t/ contains t-Slash" t/tag`
-
-- If you want to use quotation marks `"` in your argument, you have to escape it with a backslash `\`
-  e.g. `SomeCommandName t/Quote: \"`
-
-- Likewise if you wanted to use backslashes `\` in your argument, you have to escape it with a backslash.
-  e.g. `SomeCommandName t/Backslash: \\`
-
-- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application. Type them out manually instead!
-
-### Command Summary
-
-| Command  | Description                  | Syntax                                                           |
-| -------- | ---------------------------- | ---------------------------------------------------------------- |
-| `add`    | Create a new student         | `add n/NAME p/PHONE e/EMAIL i/STUDENTID [t/TAG]…`                |
-| `edit`   | Update details               | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/STUDENTID] [t/TAG]…` |
-| `delete` | Remove a student             | `delete (INDEX \| STUDENTID)`                                    |
-| `list`   | Show all students            | `list`                                                           |
-| `find`   | Search by name or student ID | `find KEYWORD [MORE_KEYWORDS]…​ [i/ID_FRAGMENT]…​`               |
-| `mark`   | Mark attendance              | `mark (INDEX \| STUDENTID) (p/ \|\| a/ \|\| l/ \|\| e/)`         |
-| `unmark` | Unmark attendance            | `unmark (INDEX \| STUDENTID \| 'ALL')`                           |
-| `clear`  | Delete **all** students      | `clear`                                                          |
-| `help`   | Open the help window         | `help`                                                           |
-| `exit`   | Quit the app                 | `exit`                                                           |
 
 ---
 
