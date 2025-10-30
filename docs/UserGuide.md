@@ -1,7 +1,7 @@
 ---
   layout: default.md
-    title: "User Guide"
-    pageNav: 3
+  title: "User Guide"
+  pageNav: 3
 ---
 
 # User Guide
@@ -17,6 +17,50 @@ Optimized for users who prefer typing commands, GreyBook enables fast, streamlin
 
 <!-- * Table of Contents -->
 <page-nav-print />
+
+# Table of Contents
+
+1. [User Guide](#user-guide)
+    - [About This Guide](#about-this-guide)
+        - [Target Users](#target-users)
+        - [What You'll Need](#what-youll-need)
+        - [How to Use This Guide](#how-to-use-this-guide)
+2. [Quick Start](#quick-start)
+    - [Installation](#installation)
+    - [Your First Commands](#your-first-commands)
+3. [Command Format Summary](#command-format-summary)
+4. [Core Features](#core-features)
+    - [Managing Students](#managing-students)
+        - [Adding Students: `add`](#adding-students-add)
+        - [Editing Students: `edit`](#editing-students-edit)
+        - [Finding Students: `find`](#finding-students-find)
+        - [Listing All Students: `list`](#listing-all-students-list)
+        - [Deleting Students: `delete`](#deleting-students-delete)
+        - [Clearing All Students: `clear`](#clearing-all-students-clear)
+    - [Managing Attendance](#managing-attendance)
+        - [Marking Attendance: `mark`](#marking-attendance-mark)
+        - [Unmarking Attendance: `unmark`](#unmarking-attendance-unmark)
+    - [Application Controls](#application-controls)
+        - [Getting Help: `help`](#getting-help-help)
+        - [Exiting the Application: `exit`](#exiting-the-application-exit)
+    - [Miscellaneous Features](#miscellaneous-features)
+        - [Terminal-like Behaviour](#terminal-like-behaviour)
+        - [Automatic Saving of Data](#automatic-saving-of-data)
+5. [Recommended Workflows (for experienced users)](#recommended-workflows-for-experienced-users)
+6. [Full Command Format Details](#full-command-format-details)
+7. [Command Summary](#command-summary)
+8. [Parameter Details](#parameter-details)
+9. [FAQs](#faqs)
+    - [Installation & Requirements](#installation--requirements)
+    - [Updating & Migration](#updating--migration)
+    - [Data Location, Saving & Backup](#data-location-saving--backup)
+    - [Search Behaviour](#search-behaviour)
+    - [Limits & Performance](#limits--performance)
+    - [Name Related Issues](#name-related-issues)
+10. [Appendix](#appendix)
+    - [Glossary](#glossary)
+    - [Technical Specifications](#technical-specifications)
+    - [Contact Information](#contact-information)
 
 ---
 
@@ -102,12 +146,12 @@ Linux users: Follow [this guide](https://se-education.org/guides/tutorials/javaI
 3. **Launch the Application**
 
    If you did not move `greybook.jar`, it will be in your **Downloads** folder. Navigate (`cd`) to it by running the following commands in your terminal:<br>
-**Note**: These are two separate commands! Press enter after each line to run them individually.
 
    ```
    cd Downloads
    java -jar greybook.jar
    ```
+   **Note**: These are two separate commands! Press enter after each line to run them individually.<br>
    If you had moved `greybook.jar` elsewhere, replace `Downloads` with `greybook.jar`'s new filepath.
 
    > **macOS users:** If you see a security prompt the first time, right-click the `.jar` → **Open** → confirm.
@@ -183,7 +227,7 @@ Here is some important information you need to understand the rest of the guide!
 
 GreyBook helps you store, edit, and track students' details with precision.
 
-#### Adding Students : `add`
+#### Adding Students: `add`
 
 **Command:**
 `add n/NAME p/PHONE e/EMAIL i/STUDENTID [t/TAG]…​`
@@ -225,7 +269,7 @@ add n/Betsy Crowe p/87654321 e/betsycrowe@example.com i/A1111111M t/operations-t
 
 ---
 
-#### Editing Students; `edit`
+#### Editing Students: `edit`
 
 **Command:**
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [i/STUDENTID] [t/TAG]…​`
@@ -392,7 +436,7 @@ GreyBook also offers some core commands that are essential in every application.
 
 **Command:** `help`
 
-Shows a message explaining how to access the help page.
+Shows a pop-up containing the GreyBook User Guide URL (this webpage). Copy the link into your browser to access the guide.
 
 ![help message](images/helpMessage.png)
 
